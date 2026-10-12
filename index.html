@@ -1,9 +1,102 @@
 <!DOCTYPE html>
 <html lang="id" class="dark">
 <head>
+  <!-- SOURCE CODE & DEVTOOLS PROTECTION GUARD (EARLY RUN) -->
+  <script>
+    (function() {
+      let lastSecurityAlert = 0;
+      function notifySecurity(reason) {
+        const now = Date.now();
+        if (now - lastSecurityAlert > 2000) {
+          lastSecurityAlert = now;
+          if (typeof window.showToast === 'function') {
+            window.showToast('<i class="fa-solid fa-shield-halved mr-1.5 text-amber-400"></i> <b>Proteksi Keamanan:</b> Pintasan ' + reason + ' dinonaktifkan demi integritas kode sistem.', 'warning');
+          }
+        }
+      }
+
+      function interceptSecurityShortcuts(e) {
+        const key = e.key ? e.key.toLowerCase() : '';
+        const keyCode = e.keyCode || e.which;
+        const isCtrl = e.ctrlKey || e.metaKey; // Windows/Linux Ctrl atau macOS Command
+        const isShift = e.shiftKey;
+        const isAlt = e.altKey;
+
+        // 1. Blokir Ctrl+U / Cmd+U (View Page Source)
+        if (isCtrl && (key === 'u' || keyCode === 85)) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation && e.stopImmediatePropagation();
+          notifySecurity('Source Code (Ctrl+U)');
+          return false;
+        }
+
+        // 2. Blokir F12 (Developer Tools)
+        if (key === 'f12' || keyCode === 123) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation && e.stopImmediatePropagation();
+          notifySecurity('DevTools (F12)');
+          return false;
+        }
+
+        // 3. Blokir Ctrl+Shift+I / Cmd+Option+I (Inspect Element)
+        if ((isCtrl && isShift && (key === 'i' || keyCode === 73)) || (isCtrl && isAlt && (key === 'i' || keyCode === 73))) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation && e.stopImmediatePropagation();
+          notifySecurity('Inspeksi Elemen (Ctrl+Shift+I)');
+          return false;
+        }
+
+        // 4. Blokir Ctrl+Shift+J / Cmd+Option+J (Console)
+        if ((isCtrl && isShift && (key === 'j' || keyCode === 74)) || (isCtrl && isAlt && (key === 'j' || keyCode === 74))) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation && e.stopImmediatePropagation();
+          notifySecurity('DevTools Console (Ctrl+Shift+J)');
+          return false;
+        }
+
+        // 5. Blokir Ctrl+Shift+C / Cmd+Option+C (Inspect Picker)
+        if ((isCtrl && isShift && (key === 'c' || keyCode === 67)) || (isCtrl && isAlt && (key === 'c' || keyCode === 67))) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation && e.stopImmediatePropagation();
+          notifySecurity('Inspect Picker (Ctrl+Shift+C)');
+          return false;
+        }
+
+        // 6. Blokir Ctrl+S / Cmd+S (Save Page HTML)
+        if (isCtrl && (key === 's' || keyCode === 83)) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation && e.stopImmediatePropagation();
+          notifySecurity('Simpan Halaman Source (Ctrl+S)');
+          return false;
+        }
+      }
+
+      // Pasang pada capture phase (true) di window dan document agar dieksekusi lebih dulu
+      window.addEventListener('keydown', interceptSecurityShortcuts, true);
+      document.addEventListener('keydown', interceptSecurityShortcuts, true);
+
+      // Blokir Klik Kanan (Context Menu) di luar area input agar tidak bisa 'View Page Source' / 'Inspect'
+      document.addEventListener('contextmenu', function(e) {
+        var tag = (e.target && e.target.tagName) ? e.target.tagName.toUpperCase() : '';
+        if (tag === 'INPUT' || tag === 'TEXTAREA') {
+          return; // Mengizinkan klik kanan hanya pada input teks untuk copy/paste nilai
+        }
+        e.preventDefault();
+        e.stopPropagation();
+        notifySecurity('Klik Kanan (Context Menu)');
+        return false;
+      }, true);
+    })();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>COMMAND CENTRE v7.2 PRO — KESELAMATAN BENDUNGAN TAILING &amp; PROSES PENAMBANGAN EMAS PT BUMI SUKSESINDO TUJUH BUKIT</title>
+  <title>COMMAND CENTRE v8.0 PRO EXECUTIVE — KESELAMATAN BENDUNGAN TAILING, OPERASI PENAMBANGAN EMAS &amp; MANAJEMEN SITE PT BUMI SUKSESINDO TUJUH BUKIT</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -418,14 +511,35 @@
           <div class="space-y-1">
             <div class="flex items-center justify-between">
               <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1">
-                <i class="fa-solid fa-lock"></i> SISTEM TERPROTEKSI
+                <i class="fa-solid fa-shield-halved text-amber-400"></i> DUA TINGKAT AKSES TEROTORISASI
               </span>
-              <span class="text-[10px] font-mono text-slate-400">VERIFIKASI PENGGUNA</span>
+              <span class="text-[10px] font-mono text-cyan-300 font-bold">RBAC v8.0 PRO</span>
             </div>
             <h2 class="text-lg sm:text-xl font-bold font-tech text-white flex items-center gap-2">
               <i class="fa-solid fa-id-badge text-amber-400"></i> LOGIN KE APLIKASI
             </h2>
-            <p class="text-xs text-slate-400 font-mono">Masukkan kredensial resmi pengawas geoteknik &amp; bendungan.</p>
+            <p class="text-xs text-slate-400 font-mono">Pilih tingkat otorisasi sesuai penugasan lapangan atau manajemen eksekutif.</p>
+          </div>
+
+          <!-- INFORMASI TINGKAT AKSES TEROTORISASI (KREDENSIAL TERLINDUNGI) -->
+          <div class="grid grid-cols-2 gap-2 text-[10px] font-mono">
+            <div class="p-2.5 rounded-xl bg-slate-950/90 border border-slate-700/80 space-y-1 shadow">
+              <div class="flex items-center gap-1.5">
+                <i class="fa-solid fa-hard-hat text-amber-400 text-xs"></i>
+                <b class="text-amber-300 font-tech">TINGKAT 1 (LAPANGAN)</b>
+              </div>
+              <p class="text-[9px] text-slate-400 leading-tight">Pengawas Geoteknik, Sipil &amp; Operasional</p>
+              <span class="text-[8px] text-emerald-400 font-bold block">&bull; Akses Modul Tab 01 s/d 18</span>
+            </div>
+
+            <div class="p-2.5 rounded-xl bg-slate-950/90 border border-slate-700/80 space-y-1 shadow">
+              <div class="flex items-center gap-1.5">
+                <i class="fa-solid fa-user-shield text-yellow-400 text-xs"></i>
+                <b class="text-yellow-300 font-tech">TINGKAT 2 (EKSEKUTIF)</b>
+              </div>
+              <p class="text-[9px] text-slate-400 leading-tight">Manajemen Tambang, KTT, Legal &amp; Bisnis</p>
+              <span class="text-[8px] text-cyan-300 font-bold block">&bull; Akses Penuh Seluruh Modul (Tab 01 s/d 27)</span>
+            </div>
           </div>
 
           <div id="authStatusAlert" class="hidden text-xs font-mono p-3 rounded-xl border transition-all duration-300"></div>
@@ -549,8 +663,8 @@
               <span class="text-[9px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-600 font-mono font-bold">
                 TUJUH BUKIT BANYUWANGI
               </span>
-              <span class="text-[9px] px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-600 font-mono font-bold">
-                v7.0 PRO
+              <span class="text-[9px] px-2 py-0.5 rounded bg-gradient-to-r from-amber-600 to-yellow-500 text-slate-950 border border-yellow-400 font-mono font-black shadow">
+                v8.0 PRO EXECUTIVE
               </span>
             </div>
             <p class="text-[10px] text-slate-400 font-mono flex items-center gap-1.5 mt-0.5">
@@ -582,6 +696,16 @@
       <div class="hidden sm:flex items-center gap-2 bg-slate-900 border border-amber-600/40 rounded-xl px-3 py-1 text-xs font-mono text-amber-300">
         <i class="fa-regular fa-clock text-amber-400"></i>
         <span id="supervisionLiveClock">Memuat waktu...</span>
+      </div>
+
+      <!-- TINGKAT AKSES PENGGUNA (ROLE-BASED BADGE) -->
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-900 border border-amber-500/60 text-xs font-mono shadow" id="headerUserRoleContainer">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping" id="headerRolePing"></span>
+        <span class="text-slate-400 hidden lg:inline">Akses:</span>
+        <span id="headerUserBadge" class="font-bold text-amber-300">Merdeka (Level 1: Lapangan)</span>
+        <button type="button" onclick="openExecutiveAuthModal()" id="btnHeaderUpgradeRole" class="ml-1 px-2 py-0.5 rounded bg-amber-600 hover:bg-amber-500 text-slate-950 text-[10px] font-black uppercase transition shadow cursor-pointer" title="Upgrade ke Akses Eksekutif / Ganti Pengguna">
+          <i class="fa-solid fa-key"></i> Buka Akses BSI
+        </button>
       </div>
 
       <div class="flex flex-wrap items-center gap-1.5 text-xs font-mono">
@@ -699,10 +823,42 @@
       <button onclick="switchTab('tabSoilCap')" id="btnTabSoilCap" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-amber-500/80 text-amber-300 hover:text-white hover:bg-amber-950/80 transition flex items-center gap-1.5 bg-gradient-to-r from-amber-950/80 via-slate-900 to-yellow-950/60 shadow-lg shadow-amber-500/10">
         <i class="fa-solid fa-layer-group text-amber-400"></i> 18. Daya Dukung Tanah &amp; USCS
       </button>
+      <!-- TAB 19 - 27: AKSES LEVEL 2 (USERNAME: BSI) -->
       <button onclick="switchTab('tabGoldMining')" id="btnTabGoldMining" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-yellow-500/80 text-yellow-300 hover:text-white hover:bg-yellow-950/80 transition flex items-center gap-1.5 bg-gradient-to-r from-yellow-950/80 via-slate-900 to-amber-950/60 shadow-lg shadow-yellow-500/10">
-        <i class="fa-solid fa-gem text-yellow-400"></i> 19. Penambangan &amp; Pengolahan Emas BSI
+        <i class="fa-solid fa-gem text-yellow-400"></i> 19. Penambangan &amp; Pengolahan Emas BSI <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
       </button>
 
+      <button onclick="switchTab('tabPermits')" id="btnTabPermits" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-emerald-500/80 text-emerald-300 hover:text-white hover:bg-emerald-950/80 transition flex items-center gap-1.5 bg-slate-900 shadow">
+        <i class="fa-solid fa-stamp text-emerald-400"></i> 20. Legalitas &amp; Perizinan <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
+      </button>
+
+      <button onclick="switchTab('tabRkab')" id="btnTabRkab" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-cyan-500/80 text-cyan-300 hover:text-white hover:bg-cyan-950/80 transition flex items-center gap-1.5 bg-slate-900 shadow">
+        <i class="fa-solid fa-file-invoice-dollar text-cyan-400"></i> 21. Penyusunan RKAB Minerba <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
+      </button>
+
+      <button onclick="switchTab('tabSmkp')" id="btnTabSmkp" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-rose-500/80 text-rose-300 hover:text-white hover:bg-rose-950/80 transition flex items-center gap-1.5 bg-slate-900 shadow">
+        <i class="fa-solid fa-shield-halved text-rose-400"></i> 22. K3, HSE &amp; Kepatuhan SMKP <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
+      </button>
+
+      <button onclick="switchTab('tabFleet')" id="btnTabFleet" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-orange-500/80 text-orange-300 hover:text-white hover:bg-orange-950/80 transition flex items-center gap-1.5 bg-slate-900 shadow">
+        <i class="fa-solid fa-truck-monster text-orange-400"></i> 23. Produktivitas Alat Berat <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
+      </button>
+
+      <button onclick="switchTab('tabLingkungan')" id="btnTabLingkungan" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-teal-500/80 text-teal-300 hover:text-white hover:bg-teal-950/80 transition flex items-center gap-1.5 bg-slate-900 shadow">
+        <i class="fa-solid fa-seedling text-teal-400"></i> 24. Pengelolaan Lingkungan Tambang <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
+      </button>
+
+      <button onclick="switchTab('tabRiskReport')" id="btnTabRiskReport" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-purple-500/80 text-purple-300 hover:text-white hover:bg-purple-950/80 transition flex items-center gap-1.5 bg-slate-900 shadow">
+        <i class="fa-solid fa-chart-line text-purple-400"></i> 25. Laporan Operasional &amp; Risiko <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
+      </button>
+
+      <button onclick="switchTab('tabBisnisTambang')" id="btnTabBisnisTambang" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-yellow-500/80 text-yellow-300 hover:text-white hover:bg-yellow-950/80 transition flex items-center gap-1.5 bg-slate-900 shadow">
+        <i class="fa-solid fa-coins text-yellow-400"></i> 26. Pemasaran &amp; Bisnis Tambang <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
+      </button>
+
+      <button onclick="switchTab('tabSiteAssistant')" id="btnTabSiteAssistant" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-indigo-500/80 text-indigo-300 hover:text-white hover:bg-indigo-950/80 transition flex items-center gap-1.5 bg-gradient-to-r from-indigo-950/80 via-slate-900 to-purple-950/60 shadow">
+        <i class="fa-solid fa-headset text-indigo-400"></i> 27. Asisten Harian Tim Site <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
+      </button>
 
     </div>
   </nav>
@@ -6768,7 +6924,1083 @@
 
 
 
-  </main>
+      <!-- ==================== TAB 20: MODUL LEGALITAS & PERIZINAN TAMBANG ==================== -->
+    <section id="tabPermits" class="tab-pane hidden space-y-4 font-mono">
+      <!-- HERO BANNER LEGALITAS & PERIZINAN -->
+      <div class="cmd-card p-5 sm:p-7 bg-gradient-to-br from-[#06181b] via-[#092329] to-[#040e13] border-2 border-emerald-500/70 shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-24 -top-24 w-80 h-80 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-24 -bottom-24 w-80 h-80 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+          <div>
+            <div class="flex items-center gap-2 flex-wrap mb-1.5">
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-950/90 border border-emerald-500/60 text-emerald-300 font-mono text-[10px] font-bold tracking-wider flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> PT BUMI SUKSESINDO • LEGAL &amp; PERMITTING DIVISION
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-950/80 border border-amber-600/60 text-amber-300 font-mono text-[10px] font-bold">
+                IUP OP No. 188/547/KEP/429.011/2012 (4.998 Ha)
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/60 text-cyan-300 font-mono text-[10px] font-bold">
+                PPKH MENLHK No. SK.717/2021
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-blue-950/80 border border-blue-500/60 text-blue-300 font-mono text-[10px] font-bold">
+                100% COMPLIANT
+              </span>
+            </div>
+            <h2 class="text-xl sm:text-2xl lg:text-3xl font-black font-tech text-white flex items-center gap-2.5 tracking-wider">
+              <i class="fa-solid fa-stamp text-emerald-400 text-2xl"></i> MODUL LEGALITAS &amp; PERIZINAN TAMBANG EMAS BSI
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 font-mono mt-1.5 max-w-5xl leading-relaxed">
+              Kompilasi Registri Perizinan Minerba, Kehutanan (PPKH/IPPKH), Lingkungan Hidup (AMDAL &amp; RKL-RPL), Izin Operasi Bendungan TSF (KKB PUPR), Pemanfaatan Air (SIPA), Pengelolaan Limbah B3, serta Status Kepatuhan Regulasi Nasional &amp; Internasional.
+            </p>
+          </div>
+
+          <div class="relative z-10 flex flex-wrap items-center gap-2 text-xs font-mono shrink-0">
+            <button type="button" onclick="openNewPermitModal()" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-black transition shadow-lg flex items-center gap-1.5 cursor-pointer">
+              <i class="fa-solid fa-plus-circle"></i> <span>Tambah Izin / Dokumen</span>
+            </button>
+            <button type="button" onclick="exportPermitsPDF()" class="px-3 py-2 rounded-xl bg-rose-700 hover:bg-rose-600 text-white font-bold transition shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-file-pdf"></i> <span class="hidden sm:inline">Cetak PDF</span>
+            </button>
+            <button type="button" onclick="exportPermitsExcel()" class="px-3 py-2 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-white font-bold transition shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-file-excel"></i> <span class="hidden sm:inline">Excel (.xlsx)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 KPI STATUS PERIZINAN -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+        <div class="cmd-card p-3.5 border-l-4 border-l-emerald-500 bg-[#061414]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Izin Aktif &amp; Terverifikasi</span>
+          <div class="text-2xl font-tech font-bold text-emerald-400" id="kpiPermitActive">18 Izin</div>
+          <span class="text-[9px] text-emerald-300/80 block">Kepatuhan Hukum: 100% Valid</span>
+        </div>
+        <div class="cmd-card p-3.5 border-l-4 border-l-cyan-500 bg-[#061520]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Luas Wilayah Konsesi IUP</span>
+          <div class="text-2xl font-tech font-bold text-cyan-300">4.998 <span class="text-xs font-sans text-slate-400">Ha</span></div>
+          <span class="text-[9px] text-cyan-300/80 block">Kec. Pesanggaran, Banyuwangi</span>
+        </div>
+        <div class="cmd-card p-3.5 border-l-4 border-l-amber-500 bg-[#161405]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Persetujuan Kawasan Hutan (PPKH)</span>
+          <div class="text-2xl font-tech font-bold text-amber-400">994.8 <span class="text-xs font-sans text-slate-400">Ha</span></div>
+          <span class="text-[9px] text-amber-300/80 block">Hutan Produksi Tetap (HP) Terbayar PNBP</span>
+        </div>
+        <div class="cmd-card p-3.5 border-l-4 border-l-blue-500 bg-[#051121]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Perpanjangan / Review Mendatang</span>
+          <div class="text-2xl font-tech font-bold text-blue-300" id="kpiPermitRenewal">2 Dokumen</div>
+          <span class="text-[9px] text-slate-400 block">SIPA &amp; Evaluasi Berkala KKB PUPR</span>
+        </div>
+      </div>
+
+      <!-- FILTER KATEGORI & DAFTAR TABEL PERIZINAN -->
+      <div class="cmd-card p-4 sm:p-5 space-y-4 bg-slate-900/90 border border-emerald-500/50">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-xs font-bold text-emerald-300 flex items-center gap-2 font-tech">
+              <i class="fa-solid fa-list-check text-emerald-400"></i> MATRIKS PERIZINAN OPERASI TAMBANG &amp; BENDUNGAN TAILING (STATUS LIVE)
+            </h3>
+            <p class="text-[10px] text-slate-400">Monitoring masa berlaku dokumen, nomor keputusan menteri/bupati, instansi penerbit, dan syarat kepatuhan.</p>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <span class="text-slate-400 font-bold text-[10px] uppercase">Kategori:</span>
+            <select id="selPermitCategory" onchange="filterPermitsTable(this.value)" class="bg-slate-950 border border-emerald-500/70 rounded-lg px-2.5 py-1 text-emerald-300 font-bold text-xs outline-none">
+              <option value="ALL">Semua Kategori (18 Dokumen)</option>
+              <option value="IUP">IUP &amp; Eksplorasi-Operasi</option>
+              <option value="KEHUTANAN">Kehutanan &amp; Lahan (PPKH/IPPKH)</option>
+              <option value="LINGKUNGAN">Lingkungan Hidup (AMDAL/RKL-RPL/B3)</option>
+              <option value="BENDUNGAN">Bendungan TSF (KKB PUPR)</option>
+              <option value="AIR">Sumber Daya Air (SIPA/Pembuangan Air)</option>
+              <option value="KESELAMATAN">K3 &amp; Keselamatan Bahan Peledak</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-slate-800">
+          <table class="w-full text-[10px] border-collapse" id="tablePermitsMain">
+            <thead class="bg-slate-950 text-slate-300 uppercase text-[9px] sticky top-0">
+              <tr>
+                <th class="p-2.5 text-center w-8">No</th>
+                <th class="p-2.5 text-left">Nama Izin / Dokumen Legal</th>
+                <th class="p-2.5 text-left text-amber-300">Nomor SK / Izin Resmi</th>
+                <th class="p-2.5 text-left text-cyan-300">Instansi Penerbit</th>
+                <th class="p-2.5 text-center">Tanggal Terbit</th>
+                <th class="p-2.5 text-center text-rose-300">Masa Berlaku</th>
+                <th class="p-2.5 text-center">Status</th>
+                <th class="p-2.5 text-left">Ringkasan Ketentuan Kunci</th>
+                <th class="p-2.5 text-center w-16">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="permitsTableBody" class="divide-y divide-slate-800 text-slate-300 font-mono">
+              <!-- Populated by JavaScript renderPermitsTable() -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3 BLOK REGULASI KHUSUS MINERBA & GISTM -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 text-xs font-mono">
+        <div class="cmd-card p-4 space-y-2 border-l-4 border-l-emerald-500 bg-slate-900/90">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-1.5">
+            <h4 class="font-bold text-white text-xs font-tech">1. Kaidah Good Mining Practice</h4>
+            <span class="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 text-[8px] font-bold">KEPMEN ESDM 1827/2018</span>
+          </div>
+          <p class="text-[10px] text-slate-300 leading-relaxed">
+            Kewajiban kepatuhan teknis penambangan, konservasi bahan galian, keselamatan operasi, pengelolaan lingkungan, pemanfaatan teknologi, dan pembangunan masyarakat berkelanjutan (PPM).
+          </p>
+        </div>
+
+        <div class="cmd-card p-4 space-y-2 border-l-4 border-l-cyan-500 bg-slate-900/90">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-1.5">
+            <h4 class="font-bold text-white text-xs font-tech">2. Keamanan Bendungan KKB</h4>
+            <span class="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 text-[8px] font-bold">PERMEN PUPR 27/2015</span>
+          </div>
+          <p class="text-[10px] text-slate-300 leading-relaxed">
+            Sertifikasi Izin Operasi Bendungan oleh Menteri PUPR atas rekomendasi Komisi Keamanan Bendungan (KKB), kewajiban inspeksi besar 5 tahunan, pemantauan instrumentasi kontinu, dan evaluasi RTD.
+          </p>
+        </div>
+
+        <div class="cmd-card p-4 space-y-2 border-l-4 border-l-purple-500 bg-slate-900/90">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-1.5">
+            <h4 class="font-bold text-white text-xs font-tech">3. Kepatuhan Global GISTM</h4>
+            <span class="px-1.5 py-0.5 rounded bg-purple-950 text-purple-300 text-[8px] font-bold">GISTM 2020 / ICMM</span>
+          </div>
+          <p class="text-[10px] text-slate-300 leading-relaxed">
+            Penerapan standar global pengelolaan tailing dengan penunjukan Accountable Executive (AE), Engineer of Record (EoR), Independent Tailings Review Board (ITRB), serta transparansi publik.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 21: MODUL PENYUSUNAN RKAB MINERBA ==================== -->
+    <section id="tabRkab" class="tab-pane hidden space-y-4 font-mono">
+      <!-- HERO BANNER RKAB -->
+      <div class="cmd-card p-5 sm:p-7 bg-gradient-to-br from-[#061922] via-[#092838] to-[#040f16] border-2 border-cyan-500/70 shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-24 -top-24 w-80 h-80 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-24 -bottom-24 w-80 h-80 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+          <div>
+            <div class="flex items-center gap-2 flex-wrap mb-1.5">
+              <span class="px-2.5 py-0.5 rounded-full bg-cyan-950/90 border border-cyan-500/60 text-cyan-300 font-mono text-[10px] font-bold tracking-wider flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span> DITJEN MINERBA KEMENTERIAN ESDM
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-950/80 border border-amber-600/60 text-amber-300 font-mono text-[10px] font-bold">
+                PERMEN ESDM NO. 10/2023 &bull; SISTEM E-RKAB
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/60 text-emerald-300 font-mono text-[10px] font-bold">
+                PERIODE 2026 s.d. 2028 (3 TAHUNAN)
+              </span>
+            </div>
+            <h2 class="text-xl sm:text-2xl lg:text-3xl font-black font-tech text-white flex items-center gap-2.5 tracking-wider">
+              <i class="fa-solid fa-file-invoice-dollar text-cyan-400 text-2xl"></i> MODUL PENYUSUNAN RKAB (RENCANA KERJA &amp; ANGGARAN BIAYA)
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 font-mono mt-1.5 max-w-5xl leading-relaxed">
+              Penyusunan Rencana Kerja &amp; Anggaran Biaya Resmi Mengacu pada Format Matriks Ditjen Minerba ESDM: Neraca Cadangan, Rencana Tambang Open Pit, Metalurgi Heap Leach &amp; ADR, Anggaran Capex/Opex, PNBP Royalti 3.75%, serta Sensitivitas Finansial.
+            </p>
+          </div>
+
+          <div class="relative z-10 flex flex-wrap items-center gap-2 text-xs font-mono shrink-0">
+            <button type="button" onclick="openRkabSimulatorModal()" class="px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-black transition shadow-lg flex items-center gap-1.5 cursor-pointer">
+              <i class="fa-solid fa-calculator"></i> <span>Simulator Finansial</span>
+            </button>
+            <button type="button" onclick="exportRkabPDF()" class="px-3 py-2 rounded-xl bg-rose-700 hover:bg-rose-600 text-white font-bold transition shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-file-pdf"></i> <span class="hidden sm:inline">Cetak PDF</span>
+            </button>
+            <button type="button" onclick="exportRkabExcel()" class="px-3 py-2 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-white font-bold transition shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-file-excel"></i> <span class="hidden sm:inline">Excel (.xlsx)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 METRIK UTAMA TARGET RKAB -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 font-mono">
+        <div class="cmd-card p-3 border-l-4 border-l-cyan-500 bg-[#061421]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Rencana Penambangan Ore</span>
+          <div class="text-xl font-tech font-bold text-cyan-300" id="rkabKpiOre">8.760.000 <span class="text-xs font-sans">Ton</span></div>
+          <span class="text-[9px] text-cyan-300/80 block">Kapasitas: 24.000 Ton/hari</span>
+        </div>
+        <div class="cmd-card p-3 border-l-4 border-l-yellow-500 bg-[#161405]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Target Produksi Emas (Au)</span>
+          <div class="text-xl font-tech font-bold text-yellow-400" id="rkabKpiAu">155.000 <span class="text-xs font-sans">oz</span></div>
+          <span class="text-[9px] text-yellow-300/80 block">Kadar Rerata: 1.05 g/t Au</span>
+        </div>
+        <div class="cmd-card p-3 border-l-4 border-l-emerald-500 bg-[#061611]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Recovery Metalurgi (ADR)</span>
+          <div class="text-xl font-tech font-bold text-emerald-400">84.2%</div>
+          <span class="text-[9px] text-emerald-300/80 block">Heap Leach Pad A &amp; Pad C</span>
+        </div>
+        <div class="cmd-card p-3 border-l-4 border-l-purple-500 bg-[#150620]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">All-in Sustaining Costs (AISC)</span>
+          <div class="text-xl font-tech font-bold text-purple-300">$1.015 <span class="text-xs font-sans">/oz</span></div>
+          <span class="text-[9px] text-purple-300/80 block">Biaya Opex Efisien Dunia</span>
+        </div>
+        <div class="cmd-card p-3 border-l-4 border-l-amber-500 bg-[#181105]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Belanja Modal (Capex)</span>
+          <div class="text-xl font-tech font-bold text-amber-400">$48.5 <span class="text-xs font-sans">Juta</span></div>
+          <span class="text-[9px] text-amber-300/80 block">Pad C Ext &amp; Underground</span>
+        </div>
+        <div class="cmd-card p-3 border-l-4 border-l-rose-500 bg-[#1c080b]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Target PNBP Royalti (3.75%)</span>
+          <div class="text-xl font-tech font-bold text-rose-400">Rp 385 M</div>
+          <span class="text-[9px] text-rose-300/80 block">Penerimaan Negara Bukan Pajak</span>
+        </div>
+      </div>
+
+      <!-- MATRIKS RESMI RKAB MINERBA (4 SUB-TAB) -->
+      <div class="cmd-card p-4 sm:p-5 space-y-4 bg-slate-900/90 border border-cyan-500/50">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-xs font-bold text-cyan-300 flex items-center gap-2 font-tech">
+              <i class="fa-solid fa-table text-cyan-400"></i> FORMAT MATRIKS RKAB RESMI KEMENTERIAN ESDM (PERIODE TAHUN BERJALAN)
+            </h3>
+            <p class="text-[10px] text-slate-400">Pilih matriks untuk memverifikasi rencana teknis penambangan, pengolahan, pemurnian, dan keuangan.</p>
+          </div>
+          <div class="flex items-center gap-1.5 text-xs">
+            <button type="button" onclick="switchRkabMatrixTab('m1')" id="btnRkabM1" class="px-2.5 py-1 rounded-lg bg-cyan-600 text-slate-950 font-bold transition shadow">Matriks I: Cadangan</button>
+            <button type="button" onclick="switchRkabMatrixTab('m2')" id="btnRkabM2" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold transition">Matriks II: Tambang</button>
+            <button type="button" onclick="switchRkabMatrixTab('m3')" id="btnRkabM3" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold transition">Matriks III: Metalurgi</button>
+            <button type="button" onclick="switchRkabMatrixTab('m4')" id="btnRkabM4" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold transition">Matriks IV: Finansial &amp; PNBP</button>
+          </div>
+        </div>
+
+        <!-- Matriks I: Eksplorasi & Cadangan -->
+        <div id="rkabPaneM1" class="space-y-3">
+          <div class="overflow-x-auto rounded-xl border border-slate-800">
+            <table class="w-full text-[10px] border-collapse text-left">
+              <thead class="bg-slate-950 text-slate-300 uppercase text-[9px]">
+                <tr>
+                  <th class="p-2.5">Kategori Sumber Daya &amp; Cadangan</th>
+                  <th class="p-2.5 text-right">Tonase Bijih (Ton)</th>
+                  <th class="p-2.5 text-right text-amber-300">Kadar Au (g/t)</th>
+                  <th class="p-2.5 text-right text-cyan-300">Kadar Ag (g/t)</th>
+                  <th class="p-2.5 text-right text-yellow-400">Logam Au (Ounces)</th>
+                  <th class="p-2.5 text-left">Metode Estimasi Standar</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800 text-slate-300 font-mono">
+                <tr><td class="p-2 font-bold text-white">Cadangan Terbukti (Proved Reserve) - Oksida</td><td class="text-right font-bold">28.450.000</td><td class="text-right text-amber-300">1.08</td><td class="text-right text-cyan-300">19.2</td><td class="text-right font-bold text-yellow-400">988.000</td><td>JORC 2012 / KCMI 2017</td></tr>
+                <tr><td class="p-2 font-bold text-white">Cadangan Terkira (Probable Reserve) - Oksida</td><td class="text-right font-bold">42.150.000</td><td class="text-right text-amber-300">0.96</td><td class="text-right text-cyan-300">16.8</td><td class="text-right font-bold text-yellow-400">1.301.000</td><td>JORC 2012 / KCMI 2017</td></tr>
+                <tr class="bg-slate-950/80 font-bold"><td class="p-2 text-emerald-400">TOTAL CADANGAN BIJIH OKSIDA (OPEN PIT)</td><td class="text-right text-emerald-400">70.600.000</td><td class="text-right text-amber-300">1.01</td><td class="text-right text-cyan-300">17.8</td><td class="text-right text-yellow-400">2.289.000</td><td>Mine Life: ~8 - 9 Tahun</td></tr>
+                <tr class="bg-purple-950/40"><td class="p-2 text-purple-300 font-bold">Sumber Daya Porfiri Primer (Underground Project)</td><td class="text-right font-bold text-purple-300">1.900.000.000</td><td class="text-right text-amber-300">0.45</td><td class="text-right text-cyan-300">0.45% Cu</td><td class="text-right font-bold text-yellow-400">27.900.000</td><td>Block Caving Feasibility</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Matriks II: Tambang Open Pit -->
+        <div id="rkabPaneM2" class="hidden space-y-3">
+          <div class="overflow-x-auto rounded-xl border border-slate-800">
+            <table class="w-full text-[10px] border-collapse text-left">
+              <thead class="bg-slate-950 text-slate-300 uppercase text-[9px]">
+                <tr>
+                  <th class="p-2.5">Parameter Penambangan Open Pit</th>
+                  <th class="p-2.5 text-right text-cyan-300">Rencana RKAB (Tahun N)</th>
+                  <th class="p-2.5 text-right text-emerald-400">Realisasi s/d Triwulan III</th>
+                  <th class="p-2.5 text-center">Persentase (%)</th>
+                  <th class="p-2.5 text-left">Catatan Teknis Pengawas</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800 text-slate-300 font-mono">
+                <tr><td class="p-2 font-bold text-white">Pembongkaran Overburden (Waste Rock)</td><td class="text-right font-bold text-cyan-300">26.280.000 BCM</td><td class="text-right font-bold text-emerald-400">20.150.000 BCM</td><td class="text-center font-bold">76.7%</td><td>Sesuai urutan terasering pit</td></tr>
+                <tr><td class="p-2 font-bold text-white">Penggalian &amp; Pemuatan Ore (Bijih Emas)</td><td class="text-right font-bold text-cyan-300">8.760.000 Ton</td><td class="text-right font-bold text-emerald-400">6.720.000 Ton</td><td class="text-center font-bold">76.7%</td><td>Rata-rata 24.500 Ton/hari</td></tr>
+                <tr><td class="p-2 font-bold text-white">Nisbah Kupas Aktual (Strip Ratio)</td><td class="text-right font-bold text-cyan-300">3.00 : 1</td><td class="text-right font-bold text-emerald-400">2.98 : 1</td><td class="text-center font-bold text-emerald-400">99.3%</td><td>Kondisi stabil terkendali</td></tr>
+                <tr><td class="p-2 font-bold text-white">Kadar Rata-Rata Au di Pit</td><td class="text-right font-bold text-cyan-300">1.05 g/t</td><td class="text-right font-bold text-emerald-400">1.06 g/t</td><td class="text-center font-bold text-emerald-400">100.9%</td><td>Grade control rekonsiliasi baik</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Matriks III: Metalurgi -->
+        <div id="rkabPaneM3" class="hidden space-y-3">
+          <div class="overflow-x-auto rounded-xl border border-slate-800">
+            <table class="w-full text-[10px] border-collapse text-left">
+              <thead class="bg-slate-950 text-slate-300 uppercase text-[9px]">
+                <tr>
+                  <th class="p-2.5">Indikator Pengolahan &amp; Pemurnian</th>
+                  <th class="p-2.5 text-right text-cyan-300">Target RKAB</th>
+                  <th class="p-2.5 text-right text-emerald-400">Pencapaian Riil</th>
+                  <th class="p-2.5 text-right text-amber-300">Konsumsi Reagen</th>
+                  <th class="p-2.5 text-left">Standar Mutu</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800 text-slate-300 font-mono">
+                <tr><td class="p-2 font-bold text-white">Umpan Crusher &amp; Aglomerator</td><td class="text-right font-bold">8.760.000 Ton</td><td class="text-right font-bold text-emerald-400">6.720.000 Ton</td><td class="text-right">Semen: 5.0 kg/t</td><td>P80 = 38 mm</td></tr>
+                <tr><td class="p-2 font-bold text-white">Ekstraksi Emas (Heap Leach Recovery)</td><td class="text-right font-bold">84.0%</td><td class="text-right font-bold text-emerald-400">84.2%</td><td class="text-right">NaCN: 0.35 kg/t</td><td>pH &gt; 10.5</td></tr>
+                <tr><td class="p-2 font-bold text-white">Produksi Emas Dore Bullion Bersih</td><td class="text-right font-bold text-yellow-400">155.000 oz</td><td class="text-right font-bold text-yellow-400">118.900 oz</td><td class="text-right">Karbon CIC: 98.5%</td><td>Dore 85% Au</td></tr>
+                <tr><td class="p-2 font-bold text-white">Produksi Perak Bersih (Ag)</td><td class="text-right font-bold text-cyan-300">190.000 oz</td><td class="text-right font-bold text-cyan-300">142.500 oz</td><td class="text-right">Recovery Ag: 35.0%</td><td>By-product</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Matriks IV: Finansial & PNBP -->
+        <div id="rkabPaneM4" class="hidden space-y-3">
+          <div class="overflow-x-auto rounded-xl border border-slate-800">
+            <table class="w-full text-[10px] border-collapse text-left">
+              <thead class="bg-slate-950 text-slate-300 uppercase text-[9px]">
+                <tr>
+                  <th class="p-2.5">Rincian Finansial &amp; PNBP Negara</th>
+                  <th class="p-2.5 text-right text-cyan-300">Rencana RKAB (USD)</th>
+                  <th class="p-2.5 text-right text-emerald-400">Setara Rupiah (IDR)</th>
+                  <th class="p-2.5 text-left">Dasar Tarif Regulasi</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800 text-slate-300 font-mono">
+                <tr><td class="p-2 font-bold text-white">Pendapatan Kotor Penjualan Logam (Gross)</td><td class="text-right font-bold text-cyan-300">$410.750.000</td><td class="text-right font-bold text-emerald-400">Rp 6,49 Triliun</td><td>Asumsi Gold $2.650/oz</td></tr>
+                <tr><td class="p-2 font-bold text-white">Biaya Operasional (Opex AISC $1.015/oz)</td><td class="text-right font-bold text-cyan-300">$157.325.000</td><td class="text-right font-bold text-slate-200">Rp 2,48 Triliun</td><td>Mining, Process, G&amp;A</td></tr>
+                <tr><td class="p-2 font-bold text-white">Belanja Modal (Capex - Pad C &amp; Decom)</td><td class="text-right font-bold text-cyan-300">$48.500.000</td><td class="text-right font-bold text-slate-200">Rp 766,3 Miliar</td><td>Infrastruktur Sipil</td></tr>
+                <tr class="bg-amber-950/40 font-bold"><td class="p-2 text-amber-300">Royalti Emas &amp; Perak ke Negara (PNBP)</td><td class="text-right text-amber-300 font-black">$24.380.000</td><td class="text-right text-amber-300 font-black">Rp 385,2 Miliar</td><td>Tarif 3.75% UU Minerba No. 3/2020</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 22: MODUL K3, HSE & KEPATUHAN SMKP ==================== -->
+    <section id="tabSmkp" class="tab-pane hidden space-y-4 font-mono">
+      <!-- HERO BANNER SMKP -->
+      <div class="cmd-card p-5 sm:p-7 bg-gradient-to-br from-[#1c080e] via-[#2a0c16] to-[#0d0407] border-2 border-rose-500/70 shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-24 -top-24 w-80 h-80 rounded-full bg-rose-500/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-24 -bottom-24 w-80 h-80 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+          <div>
+            <div class="flex items-center gap-2 flex-wrap mb-1.5">
+              <span class="px-2.5 py-0.5 rounded-full bg-rose-950/90 border border-rose-500/60 text-rose-300 font-mono text-[10px] font-bold tracking-wider flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-rose-400 animate-ping"></span> KEPMEN ESDM NO. 1827 K/30/MEM/2018 LAMP. IV
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/60 text-emerald-300 font-mono text-[10px] font-bold">
+                AUDIT SCORECARD: 94.8% (KATEGORI EMAS)
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/60 text-cyan-300 font-mono text-[10px] font-bold">
+                ZERO FATALITY &bull; LTI FREE &gt; 18.5 JUTA JAM
+              </span>
+            </div>
+            <h2 class="text-xl sm:text-2xl lg:text-3xl font-black font-tech text-white flex items-center gap-2.5 tracking-wider">
+              <i class="fa-solid fa-shield-halved text-rose-400 text-2xl"></i> MODUL K3, HSE &amp; KEPATUHAN SMKP MINERBA
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 font-mono mt-1.5 max-w-5xl leading-relaxed">
+              Sistem Manajemen Keselamatan Pertambangan (SMKP): Audit 7 Elemen Wajib, Pelaporan Bahaya Hazard &amp; Near-Miss Lapangan, Statistik Jam Kerja Selamat, Golden Rules K3 BSI, serta Protokol Tanggap Darurat Penanganan Sianida &amp; B3.
+            </p>
+          </div>
+
+          <div class="relative z-10 flex flex-wrap items-center gap-2 text-xs font-mono shrink-0">
+            <button type="button" onclick="openNewHazardModal()" class="px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-black transition shadow-lg flex items-center gap-1.5 cursor-pointer">
+              <i class="fa-solid fa-triangle-exclamation"></i> <span>Laporkan Hazard / Near-Miss</span>
+            </button>
+            <button type="button" onclick="exportSmkpPDF()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold transition shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-file-pdf"></i> <span class="hidden sm:inline">Cetak PDF</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 KPI KESELAMATAN K3LH -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+        <div class="cmd-card p-3.5 border-l-4 border-l-emerald-500 bg-[#061610]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Safe Man-Hours (Bebas LTI)</span>
+          <div class="text-2xl font-tech font-bold text-emerald-400">18.640.250</div>
+          <span class="text-[9px] text-emerald-300/80 block">Jam Kerja Tanpa Kehilangan Hari</span>
+        </div>
+        <div class="cmd-card p-3.5 border-l-4 border-l-cyan-500 bg-[#06141f]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Lost Time Injury Rate (LTIFR)</span>
+          <div class="text-2xl font-tech font-bold text-cyan-300">0.00</div>
+          <span class="text-[9px] text-cyan-300/80 block">Standar Target: 0.00 (Zero LTI)</span>
+        </div>
+        <div class="cmd-card p-3.5 border-l-4 border-l-amber-500 bg-[#161305]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Recordable Injury Rate (TRIFR)</span>
+          <div class="text-2xl font-tech font-bold text-amber-400">0.42</div>
+          <span class="text-[9px] text-amber-300/80 block">Benchmark Tambang Global &lt; 1.50</span>
+        </div>
+        <div class="cmd-card p-3.5 border-l-4 border-l-rose-500 bg-[#1a060a]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Skor Audit Internal SMKP</span>
+          <div class="text-2xl font-tech font-bold text-rose-400">94.8%</div>
+          <span class="text-[9px] text-rose-300/80 block">Predikat: EMAS (Memenuhi 7 Elemen)</span>
+        </div>
+      </div>
+
+      <!-- AUDIT 7 ELEMEN SMKP & LAPORAN HAZARD LOG -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <!-- 7 Elemen SMKP Accordion / Card -->
+        <div class="lg:col-span-6 cmd-card p-4 sm:p-5 space-y-3 bg-slate-900/90 border border-rose-500/50">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <h3 class="text-xs font-bold text-rose-300 flex items-center gap-2 font-tech">
+              <i class="fa-solid fa-certificate text-rose-400"></i> STATUS 7 ELEMEN WAJIB SMKP MINERBA (AUDIT TAHUNAN)
+            </h3>
+            <span class="text-[9px] text-emerald-400 font-bold">Kategori: Emas (Gold)</span>
+          </div>
+
+          <div class="space-y-2 text-[10px]" id="smkpElementsList">
+            <!-- Populated by JavaScript renderSmkpElements() -->
+          </div>
+        </div>
+
+        <!-- Realtime Hazard & Near-Miss Log -->
+        <div class="lg:col-span-6 cmd-card p-4 sm:p-5 space-y-3 bg-slate-900/90 border border-amber-500/50">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <h3 class="text-xs font-bold text-amber-300 flex items-center gap-2 font-tech">
+              <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> LOG PELAPORAN HAZARD &amp; NEAR-MISS HARIAN
+            </h3>
+            <button type="button" onclick="openNewHazardModal()" class="px-2 py-0.5 rounded bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-[9px] transition">
+              + Lapor Baru
+            </button>
+          </div>
+
+          <div class="overflow-x-auto rounded-xl border border-slate-800 max-h-72 overflow-y-auto">
+            <table class="w-full text-[10px] border-collapse text-left">
+              <thead class="bg-slate-950 text-slate-300 uppercase text-[9px] sticky top-0">
+                <tr>
+                  <th class="p-2">Tanggal</th>
+                  <th class="p-2">Lokasi / Area</th>
+                  <th class="p-2">Deskripsi Bahaya</th>
+                  <th class="p-2 text-center">Tingkat Risiko</th>
+                  <th class="p-2 text-center">Status</th>
+                  <th class="p-2 text-left">Tindakan Korektif</th>
+                </tr>
+              </thead>
+              <tbody id="hazardReportTableBody" class="divide-y divide-slate-800 text-slate-300 font-mono">
+                <!-- Populated by JavaScript renderHazardTable() -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 23: MODUL PRODUKTIFITAS & EFISIENSI ALAT BERAT ==================== -->
+    <section id="tabFleet" class="tab-pane hidden space-y-4 font-mono">
+      <!-- HERO BANNER FLEET -->
+      <div class="cmd-card p-5 sm:p-7 bg-gradient-to-br from-[#1c1106] via-[#2c1b09] to-[#0e0803] border-2 border-orange-500/70 shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-24 -top-24 w-80 h-80 rounded-full bg-orange-500/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-24 -bottom-24 w-80 h-80 rounded-full bg-yellow-500/10 blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+          <div>
+            <div class="flex items-center gap-2 flex-wrap mb-1.5">
+              <span class="px-2.5 py-0.5 rounded-full bg-orange-950/90 border border-orange-500/60 text-orange-300 font-mono text-[10px] font-bold tracking-wider flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-orange-400 animate-ping"></span> MINING FLEET MANAGEMENT SYSTEM (FMS)
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-yellow-950/80 border border-yellow-500/60 text-yellow-300 font-mono text-[10px] font-bold">
+                EXCAVATOR PC1250 &bull; CAT 777 FLEET ROSTER
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/60 text-emerald-300 font-mono text-[10px] font-bold">
+                PHYSICAL AVAILABILITY (PA) &gt; 88%
+              </span>
+            </div>
+            <h2 class="text-xl sm:text-2xl lg:text-3xl font-black font-tech text-white flex items-center gap-2.5 tracking-wider">
+              <i class="fa-solid fa-truck-monster text-orange-400 text-2xl"></i> PRODUKTIFITAS &amp; EFISIENSI ALAT BERAT TAMBANG
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 font-mono mt-1.5 max-w-5xl leading-relaxed">
+              Monitoring Kinerja Mekanikal Armada Tambang (PA, MA, UA, EU), Kalkulator Match Factor Loader-Hauler, Payload Compliance, Konsumsi Bahan Bakar Spesifik (Fuel Ratio), serta Status Roster Alat Berat Pit Tumpang Pitu.
+            </p>
+          </div>
+
+          <div class="relative z-10 flex flex-wrap items-center gap-2 text-xs font-mono shrink-0">
+            <button type="button" onclick="exportFleetExcel()" class="px-3 py-2 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-white font-bold transition shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-file-excel"></i> <span class="hidden sm:inline">Excel (.xlsx)</span>
+            </button>
+            <button type="button" onclick="exportFleetPDF()" class="px-3 py-2 rounded-xl bg-rose-700 hover:bg-rose-600 text-white font-bold transition shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-file-pdf"></i> <span class="hidden sm:inline">Cetak PDF</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 KPI INDIKATOR EFISIENSI MEKANIKAL -->
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 font-mono">
+        <div class="cmd-card p-3 border-l-4 border-l-emerald-500 bg-[#07170e]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Physical Availability (PA)</span>
+          <div class="text-xl font-tech font-bold text-emerald-400">89.4%</div>
+          <span class="text-[9px] text-emerald-300/80 block">Target Standar: &ge; 88.0%</span>
+        </div>
+        <div class="cmd-card p-3 border-l-4 border-l-cyan-500 bg-[#06151f]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Mechanical Avail. (MA)</span>
+          <div class="text-xl font-tech font-bold text-cyan-300">86.2%</div>
+          <span class="text-[9px] text-cyan-300/80 block">Kesiapan Mekanik &ge; 85%</span>
+        </div>
+        <div class="cmd-card p-3 border-l-4 border-l-yellow-500 bg-[#161405]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Use of Availability (UA)</span>
+          <div class="text-xl font-tech font-bold text-yellow-400">79.5%</div>
+          <span class="text-[9px] text-yellow-300/80 block">Utilitas Operasi &ge; 78%</span>
+        </div>
+        <div class="cmd-card p-3 border-l-4 border-l-orange-500 bg-[#181105]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Effective Util. (EU)</span>
+          <div class="text-xl font-tech font-bold text-orange-400">71.1%</div>
+          <span class="text-[9px] text-orange-300/80 block">Efektivitas Kerja Riil</span>
+        </div>
+        <div class="cmd-card p-3 border-l-4 border-l-purple-500 bg-[#160620]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Match Factor (MF)</span>
+          <div class="text-xl font-tech font-bold text-purple-300" id="fleetDispMatchFactor">0.96</div>
+          <span class="text-[9px] text-purple-300/80 block">Sinkronisasi Loader-Hauler</span>
+        </div>
+      </div>
+
+      <!-- KALKULATOR MATCH FACTOR & DAFTAR ROSTER FLEET -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <!-- Kalkulator Match Factor -->
+        <div class="lg:col-span-5 cmd-card p-4 sm:p-5 space-y-3.5 bg-slate-900/90 border border-orange-500/50">
+          <div class="border-b border-slate-800 pb-2 flex justify-between items-center">
+            <h3 class="text-xs font-bold text-orange-300 flex items-center gap-1.5 font-tech">
+              <i class="fa-solid fa-calculator text-orange-400"></i> KALKULATOR MATCH FACTOR ARMADA
+            </h3>
+            <span class="text-[9px] text-cyan-300">MF = (Na &times; Ctl) / (Nl &times; Cta)</span>
+          </div>
+
+          <div class="space-y-2 text-xs">
+            <div class="grid grid-cols-2 gap-2 text-[10px]">
+              <div>
+                <label class="text-slate-400 block font-bold">Jumlah Dump Truck (Na)</label>
+                <input type="number" id="mfInputTrucks" value="5" min="1" max="25" oninput="calculateMatchFactor()" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded px-2.5 py-1.5 text-white font-mono font-bold outline-none">
+              </div>
+              <div>
+                <label class="text-slate-400 block font-bold">Waktu Pemuatan Loader (Ctl)</label>
+                <input type="number" step="0.1" id="mfInputCtl" value="3.2" oninput="calculateMatchFactor()" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded px-2.5 py-1.5 text-white font-mono font-bold outline-none">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 text-[10px]">
+              <div>
+                <label class="text-slate-400 block font-bold">Jumlah Excavator Loader (Nl)</label>
+                <input type="number" id="mfInputLoaders" value="1" min="1" max="5" oninput="calculateMatchFactor()" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded px-2.5 py-1.5 text-white font-mono font-bold outline-none">
+              </div>
+              <div>
+                <label class="text-slate-400 block font-bold">Waktu Edar Total Truk (Cta)</label>
+                <input type="number" step="0.5" id="mfInputCta" value="16.5" oninput="calculateMatchFactor()" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded px-2.5 py-1.5 text-white font-mono font-bold outline-none">
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1 text-[10px]">
+              <div class="flex justify-between items-center">
+                <span class="text-slate-300 font-bold">Hasil Match Factor (MF):</span>
+                <b class="text-lg font-tech font-black text-amber-400" id="mfResultValue">0.97</b>
+              </div>
+              <p class="text-slate-400 leading-tight" id="mfResultAnalysis">
+                Kondisi hampir sempurna (MF &asymp; 1.0). Antrean truk minimal dan waktu tunggu excavator sangat kecil (&lt; 3%).
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabel Roster Armada Alat Berat -->
+        <div class="lg:col-span-7 cmd-card p-4 sm:p-5 space-y-3 bg-slate-900/90 border border-slate-800">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <h3 class="text-xs font-bold text-slate-200 flex items-center gap-1.5 font-tech">
+              <i class="fa-solid fa-list text-orange-400"></i> ROSTER &amp; STATUS OPERASI ALAT BERAT (REALTIME FLEET)
+            </h3>
+            <span class="text-[9px] text-emerald-400 font-bold">Total Armada: 32 Unit</span>
+          </div>
+
+          <div class="overflow-x-auto rounded-xl border border-slate-800 max-h-64 overflow-y-auto">
+            <table class="w-full text-[10px] border-collapse text-left">
+              <thead class="bg-slate-950 text-slate-300 uppercase text-[9px] sticky top-0">
+                <tr>
+                  <th class="p-2">Unit ID</th>
+                  <th class="p-2">Tipe / Model</th>
+                  <th class="p-2">Alokasi Kerja</th>
+                  <th class="p-2 text-center">Status</th>
+                  <th class="p-2 text-right">PA (%)</th>
+                  <th class="p-2 text-right">Fuel (L/j)</th>
+                  <th class="p-2 text-left">Operator</th>
+                </tr>
+              </thead>
+              <tbody id="fleetTableBody" class="divide-y divide-slate-800 text-slate-300 font-mono">
+                <!-- Populated by JavaScript renderFleetTable() -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 24: MODUL PENGELOLAAN LINGKUNGAN TAMBANG ==================== -->
+    <section id="tabLingkungan" class="tab-pane hidden space-y-4 font-mono">
+      <!-- HERO BANNER LINGKUNGAN -->
+      <div class="cmd-card p-5 sm:p-7 bg-gradient-to-br from-[#061814] via-[#0a2822] to-[#04100c] border-2 border-teal-500/70 shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-24 -top-24 w-80 h-80 rounded-full bg-teal-500/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-24 -bottom-24 w-80 h-80 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+          <div>
+            <div class="flex items-center gap-2 flex-wrap mb-1.5">
+              <span class="px-2.5 py-0.5 rounded-full bg-teal-950/90 border border-teal-500/60 text-teal-300 font-mono text-[10px] font-bold tracking-wider flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-teal-400 animate-ping"></span> KEPMEN LH NO. 202 TAHUN 2004
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/60 text-emerald-300 font-mono text-[10px] font-bold">
+                REKLAMASI PROGRESIF: 84.5 Ha TEREVEGETASI
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/60 text-cyan-300 font-mono text-[10px] font-bold">
+                WATER TREATMENT PLANT (WTP) AKTIF
+              </span>
+            </div>
+            <h2 class="text-xl sm:text-2xl lg:text-3xl font-black font-tech text-white flex items-center gap-2.5 tracking-wider">
+              <i class="fa-solid fa-seedling text-teal-400 text-2xl"></i> MODUL PENGELOLAAN LINGKUNGAN TAMBANG
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 font-mono mt-1.5 max-w-5xl leading-relaxed">
+              Pencegahan &amp; Mitigasi Air Asam Tambang (AAT/AMD) PAF-NAF, Pemantauan Baku Mutu Air Limbah WTP Sesuai Kepmen LH 202/2004, Reklamasi Progresif Lahan Bekas Tambang, Keanekaragaman Hayati Hutan Meru Betiri, serta Kepatuhan Zero Liquid Discharge.
+            </p>
+          </div>
+
+          <div class="relative z-10 flex flex-wrap items-center gap-2 text-xs font-mono shrink-0">
+            <button type="button" onclick="exportEnvExcel()" class="px-3 py-2 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-white font-bold transition shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-file-excel"></i> <span class="hidden sm:inline">Excel (.xlsx)</span>
+            </button>
+            <button type="button" onclick="exportEnvPDF()" class="px-3 py-2 rounded-xl bg-rose-700 hover:bg-rose-600 text-white font-bold transition shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-file-pdf"></i> <span class="hidden sm:inline">Cetak PDF</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 KPI LINGKUNGAN -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+        <div class="cmd-card p-3.5 border-l-4 border-l-emerald-500 bg-[#061713]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">pH Air Outlet WTP</span>
+          <div class="text-2xl font-tech font-bold text-emerald-400" id="envKpiPh">7.42</div>
+          <span class="text-[9px] text-emerald-300/80 block">Baku Mutu: 6.0 s.d. 9.0 (AMAN)</span>
+        </div>
+        <div class="cmd-card p-3.5 border-l-4 border-l-cyan-500 bg-[#06151f]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Total Suspended Solids (TSS)</span>
+          <div class="text-2xl font-tech font-bold text-cyan-300" id="envKpiTss">42.5 <span class="text-xs font-sans text-slate-400">mg/L</span></div>
+          <span class="text-[9px] text-cyan-300/80 block">Baku Mutu: &lt; 200 mg/L (LOLOS)</span>
+        </div>
+        <div class="cmd-card p-3.5 border-l-4 border-l-teal-500 bg-[#061715]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Total Logam Besi (Fe)</span>
+          <div class="text-2xl font-tech font-bold text-teal-300" id="envKpiFe">1.18 <span class="text-xs font-sans text-slate-400">mg/L</span></div>
+          <span class="text-[9px] text-teal-300/80 block">Baku Mutu: &lt; 7.00 mg/L (AMAN)</span>
+        </div>
+        <div class="cmd-card p-3.5 border-l-4 border-l-amber-500 bg-[#171406]/90 space-y-1">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">Total Revegetasi Reklamasi</span>
+          <div class="text-2xl font-tech font-bold text-amber-400">84.5 <span class="text-xs font-sans text-slate-400">Ha</span></div>
+          <span class="text-[9px] text-amber-300/80 block">105.000 Pohon Endemik Tertanam</span>
+        </div>
+      </div>
+
+      <!-- TABEL BAKU MUTU OUTLET WTP & PENGELOLAAN AAT -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <!-- Baku Mutu Air WTP -->
+        <div class="lg:col-span-7 cmd-card p-4 sm:p-5 space-y-3 bg-slate-900/90 border border-teal-500/50">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <h3 class="text-xs font-bold text-teal-300 flex items-center gap-1.5 font-tech">
+              <i class="fa-solid fa-droplet text-teal-400"></i> HASIL MONITORING OUTLET AIR LIMBAH WTP (KEPMEN LH 202/2004)
+            </h3>
+            <span class="text-[9px] text-emerald-400 font-bold">Status: 100% Memenuhi</span>
+          </div>
+
+          <div class="overflow-x-auto rounded-xl border border-slate-800">
+            <table class="w-full text-[10px] border-collapse text-left">
+              <thead class="bg-slate-950 text-slate-300 uppercase text-[9px]">
+                <tr>
+                  <th class="p-2">Parameter Uji</th>
+                  <th class="p-2 text-right">Hasil Uji Lab</th>
+                  <th class="p-2 text-right text-amber-300">Baku Mutu Maks.</th>
+                  <th class="p-2 text-center">Metode Analisis</th>
+                  <th class="p-2 text-center">Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800 text-slate-300 font-mono">
+                <tr><td class="p-2 font-bold text-white">Derajat Keasaman (pH)</td><td class="text-right font-bold text-emerald-400">7.42</td><td class="text-right text-amber-300">6.0 - 9.0</td><td class="text-center">SNI 06-6989.11</td><td class="text-center font-bold text-emerald-400">MEMENUHI</td></tr>
+                <tr><td class="p-2 font-bold text-white">Padatan Tersuspensi (TSS)</td><td class="text-right font-bold text-emerald-400">42.5 mg/L</td><td class="text-right text-amber-300">200 mg/L</td><td class="text-center">SNI 06-6989.3</td><td class="text-center font-bold text-emerald-400">MEMENUHI</td></tr>
+                <tr><td class="p-2 font-bold text-white">Besi Terlarut (Fe)</td><td class="text-right font-bold text-emerald-400">1.18 mg/L</td><td class="text-right text-amber-300">7.00 mg/L</td><td class="text-center">AAS Gravimetri</td><td class="text-center font-bold text-emerald-400">MEMENUHI</td></tr>
+                <tr><td class="p-2 font-bold text-white">Mangan Terlarut (Mn)</td><td class="text-right font-bold text-emerald-400">0.84 mg/L</td><td class="text-right text-amber-300">4.00 mg/L</td><td class="text-center">AAS Gravimetri</td><td class="text-center font-bold text-emerald-400">MEMENUHI</td></tr>
+                <tr><td class="p-2 font-bold text-white">Tembaga (Cu)</td><td class="text-right font-bold text-emerald-400">0.12 mg/L</td><td class="text-right text-amber-300">2.00 mg/L</td><td class="text-center">AAS Gravimetri</td><td class="text-center font-bold text-emerald-400">MEMENUHI</td></tr>
+                <tr><td class="p-2 font-bold text-white">Sianida WAD (CN WAD)</td><td class="text-right font-bold text-emerald-400">&lt; 0.05 mg/L</td><td class="text-right text-amber-300">0.50 mg/L</td><td class="text-center">Spektrofotometer</td><td class="text-center font-bold text-emerald-400">MEMENUHI</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pengelolaan AAT & Reklamasi -->
+        <div class="lg:col-span-5 cmd-card p-4 sm:p-5 space-y-3 bg-slate-900/90 border border-slate-800">
+          <div class="border-b border-slate-800 pb-2">
+            <h3 class="text-xs font-bold text-slate-200 flex items-center gap-1.5 font-tech">
+              <i class="fa-solid fa-layer-group text-teal-400"></i> PENCEGAHAN AAT (PAF vs NAF) &amp; REKLAMASI
+            </h3>
+            <p class="text-[10px] text-slate-400">Manajemen penempatan batuan penutup dan persemaian bibit nursery.</p>
+          </div>
+
+          <div class="space-y-2 text-[10px] text-slate-300">
+            <div class="p-2.5 rounded bg-slate-950 border border-slate-800 space-y-1">
+              <b class="text-amber-300 block font-tech">1. Enkapsulasi Batuan PAF (Potentially Acid Forming):</b>
+              <p class="text-slate-400 leading-relaxed">
+                Batuan berkadar pirit tinggi (PAF) diisolasi di bagian inti timbunan waste dump dan dilapisi material NAF (Non-Acid Forming) setebal minimal 2.0 meter untuk mencegah oksidasi udara dan air.
+              </p>
+            </div>
+
+            <div class="p-2.5 rounded bg-slate-950 border border-slate-800 space-y-1">
+              <b class="text-emerald-300 block font-tech">2. Revegetasi Hutan &amp; Nursery Bibit:</b>
+              <p class="text-slate-400 leading-relaxed">
+                Fasilitas nursery membudidayakan tanaman pohon lokal Meru Betiri (bendo, laban, kesambi, trembesi) dengan kapasitas 50.000 bibit/tahun untuk penanaman kembali lereng stabil.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 25: MODUL LAPORAN OPERASIONAL & ANALISIS RESIKO ==================== -->
+    <section id="tabRiskReport" class="tab-pane hidden space-y-4 font-mono">
+      <!-- HERO BANNER RISK REPORT -->
+      <div class="cmd-card p-5 sm:p-7 bg-gradient-to-br from-[#160620] via-[#230933] to-[#0c0312] border-2 border-purple-500/70 shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-24 -top-24 w-80 h-80 rounded-full bg-purple-500/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-24 -bottom-24 w-80 h-80 rounded-full bg-rose-500/10 blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+          <div>
+            <div class="flex items-center gap-2 flex-wrap mb-1.5">
+              <span class="px-2.5 py-0.5 rounded-full bg-purple-950/90 border border-purple-500/60 text-purple-300 font-mono text-[10px] font-bold tracking-wider flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span> ENTERPRISE RISK MANAGEMENT (ISO 31000)
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-rose-950/80 border border-rose-500/60 text-rose-300 font-mono text-[10px] font-bold">
+                MATRIKS RISIKO 5x5 INTERAKTIF
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/60 text-cyan-300 font-mono text-[10px] font-bold">
+                EXECUTIVE OPERATIONAL SCORECARD
+              </span>
+            </div>
+            <h2 class="text-xl sm:text-2xl lg:text-3xl font-black font-tech text-white flex items-center gap-2.5 tracking-wider">
+              <i class="fa-solid fa-chart-line text-purple-400 text-2xl"></i> LAPORAN OPERASIONAL &amp; ANALISIS RISIKO TERPADU
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 font-mono mt-1.5 max-w-5xl leading-relaxed">
+              Ringkasan Kinerja Operasional Eksekutif Harian-Bulanan, Matriks Evaluasi Risiko 5x5 ISO 31000, Analisis Bow-Tie Potensi Bahaya Katastropik (Fatal Risks), serta Tracking Tindakan Mitigasi Terverifikasi.
+            </p>
+          </div>
+
+          <div class="relative z-10 flex flex-wrap items-center gap-2 text-xs font-mono shrink-0">
+            <button type="button" onclick="exportRiskReportPDF()" class="px-3 py-2 rounded-xl bg-rose-700 hover:bg-rose-600 text-white font-bold transition shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-file-pdf"></i> <span class="hidden sm:inline">Cetak PDF</span>
+            </button>
+            <button type="button" onclick="exportRiskReportExcel()" class="px-3 py-2 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-white font-bold transition shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-file-excel"></i> <span class="hidden sm:inline">Excel (.xlsx)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MATRIKS RISIKO 5x5 & TOP 5 FATAL RISK BOW-TIE -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <!-- Matriks 5x5 -->
+        <div class="lg:col-span-6 cmd-card p-4 sm:p-5 space-y-3 bg-slate-900/90 border border-purple-500/50">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <h3 class="text-xs font-bold text-purple-300 flex items-center gap-1.5 font-tech">
+              <i class="fa-solid fa-table-cells text-purple-400"></i> MATRIKS TINGKAT RISIKO TAMBANG 5x5 (ISO 31000)
+            </h3>
+            <span class="text-[9px] text-amber-300 font-bold">Kemungkinan vs Dampak</span>
+          </div>
+
+          <div class="overflow-x-auto rounded-xl border border-slate-800">
+            <table class="w-full text-center text-[10px] border-collapse" id="matrixRisk5x5">
+              <thead class="bg-slate-950 text-slate-400 text-[9px]">
+                <tr>
+                  <th class="p-1.5 text-left">Kemungkinan</th>
+                  <th class="p-1.5 bg-emerald-950/40 text-emerald-300">1: Ringan</th>
+                  <th class="p-1.5 bg-cyan-950/40 text-cyan-300">2: Kecil</th>
+                  <th class="p-1.5 bg-yellow-950/40 text-yellow-300">3: Sedang</th>
+                  <th class="p-1.5 bg-amber-950/40 text-amber-300">4: Berat</th>
+                  <th class="p-1.5 bg-rose-950/40 text-rose-300">5: Fatal</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800 font-mono text-[9px]">
+                <tr><td class="p-1.5 text-left text-slate-300 font-bold">5: Sering Sekali</td><td class="bg-yellow-950/70 text-yellow-200">Sedang (5)</td><td class="bg-amber-950/70 text-amber-200">Tinggi (10)</td><td class="bg-rose-950/80 text-rose-200">Ekstrem (15)</td><td class="bg-rose-900 text-white font-bold">Ekstrem (20)</td><td class="bg-rose-900 text-white font-bold">Ekstrem (25)</td></tr>
+                <tr><td class="p-1.5 text-left text-slate-300 font-bold">4: Sering Terjadi</td><td class="bg-emerald-950/70 text-emerald-200">Rendah (4)</td><td class="bg-yellow-950/70 text-yellow-200">Sedang (8)</td><td class="bg-amber-950/70 text-amber-200">Tinggi (12)</td><td class="bg-rose-950/80 text-rose-200">Ekstrem (16)</td><td class="bg-rose-900 text-white font-bold">Ekstrem (20)</td></tr>
+                <tr><td class="p-1.5 text-left text-slate-300 font-bold">3: Dapat Terjadi</td><td class="bg-emerald-950/70 text-emerald-200">Rendah (3)</td><td class="bg-yellow-950/70 text-yellow-200">Sedang (6)</td><td class="bg-yellow-950/70 text-yellow-200">Sedang (9)</td><td class="bg-amber-950/70 text-amber-200">Tinggi (12)</td><td class="bg-rose-950/80 text-rose-200">Ekstrem (15)</td></tr>
+                <tr><td class="p-1.5 text-left text-slate-300 font-bold">2: Jarang Terjadi</td><td class="bg-emerald-950/70 text-emerald-200">Rendah (2)</td><td class="bg-emerald-950/70 text-emerald-200">Rendah (4)</td><td class="bg-yellow-950/70 text-yellow-200">Sedang (6)</td><td class="bg-yellow-950/70 text-yellow-200">Sedang (8)</td><td class="bg-amber-950/70 text-amber-200">Tinggi (10)</td></tr>
+                <tr><td class="p-1.5 text-left text-slate-300 font-bold">1: Sangat Jarang</td><td class="bg-emerald-950/70 text-emerald-200">Rendah (1)</td><td class="bg-emerald-950/70 text-emerald-200">Rendah (2)</td><td class="bg-emerald-950/70 text-emerald-200">Rendah (3)</td><td class="bg-emerald-950/70 text-emerald-200">Rendah (4)</td><td class="bg-yellow-950/70 text-yellow-200">Sedang (5)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Top 5 Fatal Risk Mitigation & Action Plan -->
+        <div class="lg:col-span-6 cmd-card p-4 sm:p-5 space-y-3 bg-slate-900/90 border border-slate-800">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <h3 class="text-xs font-bold text-slate-200 flex items-center gap-1.5 font-tech">
+              <i class="fa-solid fa-bullseye text-rose-400"></i> TOP 5 RISIKO FATAL &amp; KONTROL KRITIS AKTIF
+            </h3>
+            <span class="text-[9px] text-cyan-300 font-mono">Bow-Tie Model</span>
+          </div>
+
+          <div class="space-y-2 text-[10px]" id="fatalRiskList">
+            <div class="p-2.5 rounded bg-slate-950 border border-slate-800 space-y-1">
+              <div class="flex justify-between font-bold">
+                <span class="text-rose-400">1. Kegagalan Lereng Tanggul TSF Pad C</span>
+                <span class="text-emerald-400">KONTROL EFEKTIF</span>
+              </div>
+              <p class="text-slate-400">Penyebab: Kenaikan tekanan pori / gempa MDE. Kontrol: Pemantauan telemetri piezometer 1 jam sekali, FOS statis 1.68, buttress berm Zona 4.</p>
+            </div>
+
+            <div class="p-2.5 rounded bg-slate-950 border border-slate-800 space-y-1">
+              <div class="flex justify-between font-bold">
+                <span class="text-rose-400">2. Keracunan atau Kebocoran Gas Sianida (HCN)</span>
+                <span class="text-emerald-400">KONTROL EFEKTIF</span>
+              </div>
+              <p class="text-slate-400">Penyebab: pH drop &lt; 10. Kontrol: Dosis kapur CaO kontinu, sensor gas HCN otomatis (alarm 4.7 ppm), ketersediaan Cyanokit antidot.</p>
+            </div>
+
+            <div class="p-2.5 rounded bg-slate-950 border border-slate-800 space-y-1">
+              <div class="flex justify-between font-bold">
+                <span class="text-rose-400">3. Tabrakan Alat Berat / Kendaraan Ringan Pit</span>
+                <span class="text-emerald-400">KONTROL EFEKTIF</span>
+              </div>
+              <p class="text-slate-400">Penyebab: Blind spot &amp; kelelahan. Kontrol: Radio dua arah aktif, radar anti-tabrakan GPS, tanggul pengaman (safety berm) H &ge; 3/4 diameter roda.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 26: MODUL PEMASARAN & BISNIS TAMBANG ==================== -->
+    <section id="tabBisnisTambang" class="tab-pane hidden space-y-4 font-mono">
+      <!-- HERO BANNER BISNIS TAMBANG -->
+      <div class="cmd-card p-5 sm:p-7 bg-gradient-to-br from-[#1c1806] via-[#2d260a] to-[#0e0c03] border-2 border-yellow-500/70 shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-24 -top-24 w-80 h-80 rounded-full bg-yellow-500/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-24 -bottom-24 w-80 h-80 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+          <div>
+            <div class="flex items-center gap-2 flex-wrap mb-1.5">
+              <span class="px-2.5 py-0.5 rounded-full bg-yellow-950/90 border border-yellow-500/60 text-yellow-300 font-mono text-[10px] font-bold tracking-wider flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-yellow-400 animate-ping"></span> PASAR LOGAM MULIA &bull; LBMA &amp; PT ANTAM UBPP LM
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/60 text-emerald-300 font-mono text-[10px] font-bold">
+                MARGIN EBITDA &gt; 58%
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/60 text-cyan-300 font-mono text-[10px] font-bold">
+                HARGA EMAS LIVE MONITOR
+              </span>
+            </div>
+            <h2 class="text-xl sm:text-2xl lg:text-3xl font-black font-tech text-white flex items-center gap-2.5 tracking-wider">
+              <i class="fa-solid fa-coins text-yellow-400 text-2xl"></i> MODUL PEMASARAN &amp; BISNIS TAMBANG EMAS BSI
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 font-mono mt-1.5 max-w-5xl leading-relaxed">
+              Komersialisasi &amp; Pemasaran Dore Bullion Emas-Perak, Monitoring Harga Emas Dunia (LBMA) dan Domestik (Antam), Struktur Biaya All-in Sustaining Costs (AISC), Analisis Arus Kas &amp; Margin Laba Tambang.
+            </p>
+          </div>
+
+          <div class="relative z-10 flex flex-wrap items-center gap-2 text-xs font-mono shrink-0">
+            <button type="button" onclick="exportCommercialExcel()" class="px-3 py-2 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-white font-bold transition shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-file-excel"></i> <span class="hidden sm:inline">Excel (.xlsx)</span>
+            </button>
+            <button type="button" onclick="exportCommercialPDF()" class="px-3 py-2 rounded-xl bg-rose-700 hover:bg-rose-600 text-white font-bold transition shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-file-pdf"></i> <span class="hidden sm:inline">Cetak PDF</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- HARGA LIVE & SIMULATOR MARGIN LABA -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <!-- Live Price Card -->
+        <div class="lg:col-span-5 cmd-card p-4 sm:p-5 space-y-3 bg-slate-900/90 border border-yellow-500/50">
+          <div class="border-b border-slate-800 pb-2">
+            <h3 class="text-xs font-bold text-yellow-300 flex items-center gap-1.5 font-tech">
+              <i class="fa-solid fa-chart-line text-yellow-400"></i> MONITOR HARGA LOGAM MULIA PASAR
+            </h3>
+            <p class="text-[10px] text-slate-400">London Bullion Market Association (LBMA) &bull; PT Antam Tbk.</p>
+          </div>
+
+          <div class="space-y-2 text-xs">
+            <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-center">
+              <div>
+                <span class="text-slate-400 text-[10px] block">Harga Emas LBMA (Spot):</span>
+                <b class="text-xl font-tech text-yellow-400">$2.650 <span class="text-xs font-sans text-slate-400">/oz</span></b>
+              </div>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500 font-bold">+1.2% (BULLISH)</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-center">
+              <div>
+                <span class="text-slate-400 text-[10px] block">Harga Emas Antam Domestik:</span>
+                <b class="text-lg font-tech text-white">Rp 1.485.000 <span class="text-xs font-sans text-slate-400">/gram</span></b>
+              </div>
+              <span class="text-[10px] text-cyan-300">Kurs: 15.800</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-center">
+              <div>
+                <span class="text-slate-400 text-[10px] block">Harga Perak (Ag Spot):</span>
+                <b class="text-lg font-tech text-cyan-300">$31.50 <span class="text-xs font-sans text-slate-400">/oz</span></b>
+              </div>
+              <span class="text-[10px] text-slate-400">By-product</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Struktur Biaya AISC & Margin Laba -->
+        <div class="lg:col-span-7 cmd-card p-4 sm:p-5 space-y-3 bg-slate-900/90 border border-slate-800">
+          <div class="border-b border-slate-800 pb-2">
+            <h3 class="text-xs font-bold text-slate-200 flex items-center gap-1.5 font-tech">
+              <i class="fa-solid fa-pie-chart text-amber-400"></i> STRUKTUR BIAYA AISC ($1.015/oz) &amp; NET CASH FLOW
+            </h3>
+            <p class="text-[10px] text-slate-400">All-in Sustaining Costs breakdown per ounce emas terproduksi.</p>
+          </div>
+
+          <div class="space-y-1.5 text-[10px]">
+            <div class="flex justify-between p-2 bg-slate-950 rounded border border-slate-800">
+              <span class="text-slate-300">Biaya Penambangan Pit (Mining Cost):</span>
+              <b class="text-white font-mono">$380 / oz (37.4%)</b>
+            </div>
+            <div class="flex justify-between p-2 bg-slate-950 rounded border border-slate-800">
+              <span class="text-slate-300">Biaya Pengolahan &amp; Sianidasi (Processing):</span>
+              <b class="text-white font-mono">$320 / oz (31.5%)</b>
+            </div>
+            <div class="flex justify-between p-2 bg-slate-950 rounded border border-slate-800">
+              <span class="text-slate-300">Umum &amp; Administrasi (G&amp;A Site):</span>
+              <b class="text-white font-mono">$120 / oz (11.8%)</b>
+            </div>
+            <div class="flex justify-between p-2 bg-slate-950 rounded border border-slate-800">
+              <span class="text-slate-300">Royalti PNBP, Pemurnian &amp; Transport Dore:</span>
+              <b class="text-white font-mono">$195 / oz (19.2%)</b>
+            </div>
+            <div class="flex justify-between p-2.5 bg-yellow-950/40 rounded border border-yellow-500/50 text-xs">
+              <span class="text-yellow-300 font-bold">Margin Keuntungan Bersih (Cash Margin):</span>
+              <b class="text-emerald-400 font-mono font-black">$1.635 / oz (61.7%)</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 27: ASISTEN HARIAN TIM SITE ==================== -->
+    <section id="tabSiteAssistant" class="tab-pane hidden space-y-4 font-mono">
+      <!-- HERO BANNER ASISTEN HARIAN -->
+      <div class="cmd-card p-5 sm:p-7 bg-gradient-to-br from-[#0c0d24] via-[#15173b] to-[#070716] border-2 border-indigo-500/70 shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-24 -top-24 w-80 h-80 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-24 -bottom-24 w-80 h-80 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+          <div>
+            <div class="flex items-center gap-2 flex-wrap mb-1.5">
+              <span class="px-2.5 py-0.5 rounded-full bg-indigo-950/90 border border-indigo-500/60 text-indigo-300 font-mono text-[10px] font-bold tracking-wider flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-indigo-400 animate-ping"></span> SITE OPERATIONS DAILY HUB
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/60 text-cyan-300 font-mono text-[10px] font-bold">
+                SHIFT HANDOVER &bull; TASK DISPATCH
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/60 text-emerald-300 font-mono text-[10px] font-bold">
+                KALKULATOR TEKNIS LAPANGAN
+              </span>
+            </div>
+            <h2 class="text-xl sm:text-2xl lg:text-3xl font-black font-tech text-white flex items-center gap-2.5 tracking-wider">
+              <i class="fa-solid fa-headset text-indigo-400 text-2xl"></i> ASISTEN HARIAN TIM SITE BSI TUJUH BUKIT
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 font-mono mt-1.5 max-w-5xl leading-relaxed">
+              Pusat Kendali Lapangan Terpadu: Serah Terima Shift Kerja (Shift Handover Logbook), Manajemen Penugasan Lapangan Harian, Panduan Cepat SOP Lapangan, serta Kalkulator Cepat Konversi Satuan Pertambangan.
+            </p>
+          </div>
+
+          <div class="relative z-10 flex flex-wrap items-center gap-2 text-xs font-mono shrink-0">
+            <button type="button" onclick="openNewSiteTaskModal()" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-black transition shadow-lg flex items-center gap-1.5 cursor-pointer">
+              <i class="fa-solid fa-plus-circle"></i> <span>Tambah Tugas Lapangan</span>
+            </button>
+            <button type="button" onclick="exportSiteLogPDF()" class="px-3 py-2 rounded-xl bg-rose-700 hover:bg-rose-600 text-white font-bold transition shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-file-pdf"></i> <span class="hidden sm:inline">Cetak Log</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 KOLOM: SHIFT HANDOVER | DAFTAR TUGAS LAPANGAN | KALKULATOR KONVERSI CEPAT -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <!-- 1. Shift Handover Logbook -->
+        <div class="lg:col-span-4 cmd-card p-4 sm:p-5 space-y-3 bg-slate-900/90 border border-indigo-500/50">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <h3 class="text-xs font-bold text-indigo-300 flex items-center gap-1.5 font-tech">
+              <i class="fa-solid fa-clipboard-user text-indigo-400"></i> SERAH TERIMA SHIFT (HANDOVER)
+            </h3>
+            <span class="text-[9px] text-amber-300 font-bold">Shift 1 &rarr; Shift 2</span>
+          </div>
+
+          <div class="space-y-2 text-[10px]">
+            <div>
+              <label class="text-slate-400 block font-bold">Pengawas Shift Keluar (Offgoing):</label>
+              <input type="text" id="hoOffgoingSup" value="Agus Hendrawan, S.T. (Pit Supervisor)" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded px-2.5 py-1.5 text-white font-bold text-xs outline-none">
+            </div>
+            <div>
+              <label class="text-slate-400 block font-bold">Pengawas Shift Masuk (Incoming):</label>
+              <input type="text" id="hoIncomingSup" value="Bambang Triyono, S.T. (Night Lead)" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded px-2.5 py-1.5 text-white font-bold text-xs outline-none">
+            </div>
+            <div>
+              <label class="text-slate-400 block font-bold">Catatan Kritis Kondisi Tambang &amp; TSF:</label>
+              <textarea id="hoCriticalNotes" rows="3" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded p-2 text-slate-200 text-xs outline-none">Cuaca cerah berawan. Freeboard Pad C 2.45m aman. Booster pump 106 berjalan normal 850 m³/j. Pekerjaan pengerukan lumpur Dam 5 mencapai 76.5%.</textarea>
+            </div>
+            <button type="button" onclick="saveShiftHandover()" class="w-full py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-floppy-disk"></i> Simpan Catatan Handover
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Daily Task Dispatch Manager -->
+        <div class="lg:col-span-5 cmd-card p-4 sm:p-5 space-y-3 bg-slate-900/90 border border-slate-800">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <h3 class="text-xs font-bold text-slate-200 flex items-center gap-1.5 font-tech">
+              <i class="fa-solid fa-tasks text-emerald-400"></i> MONITORING TUGAS PRIORITAS LAPANGAN
+            </h3>
+            <button type="button" onclick="openNewSiteTaskModal()" class="px-2 py-0.5 rounded bg-emerald-700 hover:bg-emerald-600 text-white text-[9px] font-bold">
+              + Tugas Baru
+            </button>
+          </div>
+
+          <div class="overflow-x-auto rounded-xl border border-slate-800 max-h-72 overflow-y-auto">
+            <table class="w-full text-[10px] border-collapse text-left">
+              <thead class="bg-slate-950 text-slate-300 uppercase text-[9px] sticky top-0">
+                <tr>
+                  <th class="p-2">Tugas / Pekerjaan</th>
+                  <th class="p-2">Lokasi</th>
+                  <th class="p-2">PIC</th>
+                  <th class="p-2 text-center">Status</th>
+                  <th class="p-2 text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="siteTasksTableBody" class="divide-y divide-slate-800 text-slate-300 font-mono">
+                <!-- Populated by JavaScript renderSiteTasks() -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3. Kalkulator Konversi Cepat Tambang -->
+        <div class="lg:col-span-3 cmd-card p-4 sm:p-5 space-y-3 bg-slate-900/90 border border-cyan-500/50">
+          <div class="border-b border-slate-800 pb-2">
+            <h3 class="text-xs font-bold text-cyan-300 flex items-center gap-1.5 font-tech">
+              <i class="fa-solid fa-right-left text-cyan-400"></i> KONVERSI CEPAT TAMBANG
+            </h3>
+            <p class="text-[9px] text-slate-400">Kalkulasi satuan lapangan.</p>
+          </div>
+
+          <div class="space-y-2 text-[10px]">
+            <div>
+              <label class="text-slate-400 block font-bold">Gram Emas (g) &harr; Troy Oz:</label>
+              <div class="flex gap-1.5 mt-0.5">
+                <input type="number" id="convInputGram" value="31.1035" oninput="convertGramToOz(this.value)" class="w-1/2 bg-slate-950 border border-slate-700 rounded p-1.5 text-white font-mono text-xs">
+                <span id="convResultOz" class="w-1/2 p-1.5 bg-slate-950 border border-slate-800 rounded text-yellow-300 font-bold text-xs flex items-center justify-center">1.000 oz</span>
+              </div>
+            </div>
+
+            <div>
+              <label class="text-slate-400 block font-bold">Volume BCM &harr; Tonase (SG 2.45):</label>
+              <div class="flex gap-1.5 mt-0.5">
+                <input type="number" id="convInputBcm" value="1000" oninput="convertBcmToTon(this.value)" class="w-1/2 bg-slate-950 border border-slate-700 rounded p-1.5 text-white font-mono text-xs">
+                <span id="convResultTon" class="w-1/2 p-1.5 bg-slate-950 border border-slate-800 rounded text-cyan-300 font-bold text-xs flex items-center justify-center">2.450 Ton</span>
+              </div>
+            </div>
+
+            <div>
+              <label class="text-slate-400 block font-bold">Debit m³/jam &harr; Liter/detik:</label>
+              <div class="flex gap-1.5 mt-0.5">
+                <input type="number" id="convInputM3h" value="850" oninput="convertM3hToLps(this.value)" class="w-1/2 bg-slate-950 border border-slate-700 rounded p-1.5 text-white font-mono text-xs">
+                <span id="convResultLps" class="w-1/2 p-1.5 bg-slate-950 border border-slate-800 rounded text-emerald-400 font-bold text-xs flex items-center justify-center">236.1 L/s</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+</main>
   <!-- FLOATING CHATBOT DRAWER (QUICK ACCESS AI) -->
   <div id="chatDrawer" class="chat-drawer closed fixed bottom-4 right-4 z-50 w-[95vw] sm:w-[390px] bg-slate-900 border border-amber-500/60 rounded-2xl shadow-2xl overflow-hidden font-mono flex flex-col no-print">
     <div class="p-3 bg-gradient-to-r from-slate-950 via-slate-900 to-amber-950 border-b border-amber-500/40 flex justify-between items-center text-xs">
@@ -6918,6 +8150,306 @@
       </div>
     </div>
   </div>
+
+    <!-- MODAL AUTENTIKASI AKSES EKSEKUTIF (LEVEL 2 - USERNAME: BSI) -->
+  <div id="modalExecutiveAuth" class="fixed inset-0 z-[10060] bg-slate-950/90 backdrop-blur-md hidden items-center justify-center p-3 sm:p-5 no-print font-mono text-xs select-none">
+    <div class="cmd-card max-w-md w-full p-6 space-y-4 border-2 border-yellow-500/80 bg-[#09152b] shadow-2xl relative">
+      <div class="flex items-center justify-between border-b border-yellow-500/40 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-yellow-500 to-amber-600 flex items-center justify-center text-slate-950 text-xl font-bold shadow-lg">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <div>
+            <h3 class="font-tech text-sm sm:text-base font-bold text-white">AKSES KHUSUS TINGKAT EKSEKUTIF</h3>
+            <p class="text-[10px] text-amber-300 font-mono">Diperlukan Kredensial Pengguna: BSI</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeModal('modalExecutiveAuth')" class="text-slate-400 hover:text-white text-lg p-1 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="space-y-3 text-slate-300 text-xs">
+        <div class="p-3 rounded-xl bg-slate-950 border border-amber-500/40 text-[11px] leading-relaxed space-y-1">
+          <p class="text-white font-bold flex items-center gap-1.5">
+            <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Pembatasan Akses Modul (RBAC v8.0)
+          </p>
+          <p class="text-slate-300">
+            Akses Terbatas: Modul Tab 19 s/d 27 merupakan modul manajemen &amp; eksekutif Tingkat 2. Masukkan kredensial eksekutif untuk membuka otorisasi penuh.
+          </p>
+        </div>
+
+        <div id="execAuthAlert" class="hidden p-2.5 rounded-lg border text-[11px]"></div>
+
+        <div class="space-y-1">
+          <label class="text-[10px] uppercase font-bold text-slate-400 block">User Name:</label>
+          <input type="text" id="execAuthUsername" placeholder="Masukkan Username Eksekutif" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono text-xs outline-none focus:border-yellow-400">
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-[10px] uppercase font-bold text-slate-400 block">Password Eksekutif:</label>
+          <div class="relative">
+            <input type="password" id="execAuthPassword" placeholder="Masukkan Password Eksekutif" class="w-full bg-slate-950 border border-slate-700 rounded-lg pl-3 pr-10 py-2 text-white font-mono text-xs outline-none focus:border-yellow-400">
+            <button type="button" onclick="toggleExecPassVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-amber-300 cursor-pointer">
+              <i id="execEyeIcon" class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+          <span class="text-[9px] text-slate-500 font-mono">Masukkan kredensial eksekutif terdaftar</span>
+        </div>
+      </div>
+
+      <div class="pt-2 border-t border-slate-800 flex gap-2">
+        <button type="button" onclick="closeModal('modalExecutiveAuth')" class="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition text-xs">
+          Batal
+        </button>
+        <button type="button" onclick="submitExecutiveAuth()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-yellow-500 hover:from-amber-500 hover:to-yellow-400 text-slate-950 font-black transition shadow flex items-center justify-center gap-1.5 text-xs cursor-pointer">
+          <i class="fa-solid fa-unlock"></i> Buka Akses Penuh
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL TAMBAH / EDIT DOKUMEN PERIZINAN (TAB 20) -->
+  <div id="modalNewPermit" class="fixed inset-0 z-[10050] bg-slate-950/90 backdrop-blur-md hidden items-center justify-center p-3 sm:p-5 no-print font-mono text-xs select-none">
+    <div class="cmd-card max-w-xl w-full p-5 space-y-4 border-2 border-emerald-500/70 bg-[#07131a] shadow-2xl relative">
+      <div class="flex items-center justify-between border-b border-emerald-500/40 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-emerald-600 text-slate-950 flex items-center justify-center text-lg font-bold shadow">
+            <i class="fa-solid fa-stamp"></i>
+          </div>
+          <div>
+            <h3 class="font-tech text-sm font-bold text-white">TAMBAH / PERBARUI DOKUMEN PERIZINAN</h3>
+            <p class="text-[10px] text-slate-400">Registri Legalitas Pertambangan &amp; Lingkungan Hidup</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeModal('modalNewPermit')" class="text-slate-400 hover:text-white text-lg p-1"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="space-y-2.5 text-xs">
+        <div>
+          <label class="text-[10px] uppercase font-bold text-slate-400 block">Nama Izin / Dokumen Legal</label>
+          <input type="text" id="permitInpName" placeholder="Contoh: Izin Operasi Bendungan TSF Pad C" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold outline-none focus:border-emerald-400">
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="text-[10px] uppercase font-bold text-slate-400 block">Nomor Keputusan / SK Resmi</label>
+            <input type="text" id="permitInpNo" placeholder="Contoh: 188/547/KEP/429.011/2012" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-amber-300 font-bold outline-none focus:border-emerald-400">
+          </div>
+          <div>
+            <label class="text-[10px] uppercase font-bold text-slate-400 block">Kategori Izin</label>
+            <select id="permitInpCat" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white outline-none">
+              <option value="IUP">IUP &amp; Eksplorasi-Operasi</option>
+              <option value="KEHUTANAN">Kehutanan &amp; Lahan (PPKH/IPPKH)</option>
+              <option value="LINGKUNGAN">Lingkungan Hidup (AMDAL/RKL-RPL)</option>
+              <option value="BENDUNGAN">Bendungan TSF (KKB PUPR)</option>
+              <option value="AIR">Sumber Daya Air (SIPA)</option>
+              <option value="KESELAMATAN">K3 &amp; Keselamatan Bahan Peledak</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="text-[10px] uppercase font-bold text-slate-400 block">Instansi Penerbit</label>
+            <input type="text" id="permitInpIssuer" placeholder="Contoh: Menteri PUPR / Bupati Banyuwangi" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-cyan-300 outline-none focus:border-emerald-400">
+          </div>
+          <div>
+            <label class="text-[10px] uppercase font-bold text-slate-400 block">Masa Berlaku / Expired</label>
+            <input type="text" id="permitInpExpiry" placeholder="Contoh: 2030-01-25 / Seumur Tambang" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white outline-none focus:border-emerald-400">
+          </div>
+        </div>
+
+        <div>
+          <label class="text-[10px] uppercase font-bold text-slate-400 block">Ringkasan Ketentuan &amp; Syarat Kepatuhan</label>
+          <textarea id="permitInpDesc" rows="2" placeholder="Ketentuan kewajiban pemantauan berkala, pelaporan, dan syarat teknis..." class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-200 outline-none focus:border-emerald-400"></textarea>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-800 flex justify-between items-center">
+        <button type="button" onclick="closeModal('modalNewPermit')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition">Batal</button>
+        <button type="button" onclick="saveNewPermitRecord()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:brightness-110 text-slate-950 font-black transition shadow">
+          <i class="fa-solid fa-floppy-disk"></i> Simpan Dokumen
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL LAPORAN HAZARD & NEAR-MISS (TAB 22) -->
+  <div id="modalNewHazard" class="fixed inset-0 z-[10050] bg-slate-950/90 backdrop-blur-md hidden items-center justify-center p-3 sm:p-5 no-print font-mono text-xs select-none">
+    <div class="cmd-card max-w-lg w-full p-5 space-y-4 border-2 border-rose-500/70 bg-[#16060c] shadow-2xl relative">
+      <div class="flex items-center justify-between border-b border-rose-500/40 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-rose-600 text-white flex items-center justify-center text-lg font-bold shadow">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+          <div>
+            <h3 class="font-tech text-sm font-bold text-white">PELAPORAN BAHAYA HAZARD &amp; NEAR-MISS K3</h3>
+            <p class="text-[10px] text-slate-400">Implementasi Kaidah SMKP Minerba &bull; Zero Incident</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeModal('modalNewHazard')" class="text-slate-400 hover:text-white text-lg p-1"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="space-y-2.5 text-xs">
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="text-[10px] uppercase font-bold text-slate-400 block">Tanggal Temuan</label>
+            <input type="date" id="hazardInpDate" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-amber-300 font-bold outline-none">
+          </div>
+          <div>
+            <label class="text-[10px] uppercase font-bold text-slate-400 block">Tingkat Risiko</label>
+            <select id="hazardInpRisk" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold outline-none">
+              <option value="TINGGI">TINGGI (Segera Diperbaiki)</option>
+              <option value="SEDANG">SEDANG (Tindakan 24 Jam)</option>
+              <option value="RENDAH">RENDAH (Observasi)</option>
+              <option value="KRITIS">KRITIS (Stop Operasi)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-[10px] uppercase font-bold text-slate-400 block">Lokasi Temuan / Zona Kerja</label>
+          <input type="text" id="hazardInpLocation" placeholder="Contoh: Haul Road Km 3.2 / Tanggul Pad C Crest" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold outline-none">
+        </div>
+
+        <div>
+          <label class="text-[10px] uppercase font-bold text-slate-400 block">Deskripsi Kondisi / Tindakan Tidak Aman</label>
+          <textarea id="hazardInpDesc" rows="2" placeholder="Uraikan temuan bahaya..." class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-200 outline-none"></textarea>
+        </div>
+
+        <div>
+          <label class="text-[10px] uppercase font-bold text-slate-400 block">Tindakan Korektif Segera (Action Taken)</label>
+          <input type="text" id="hazardInpAction" placeholder="Pemasangan barikade, pembersihan ceceran, dll." class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white outline-none">
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-800 flex justify-between items-center">
+        <button type="button" onclick="closeModal('modalNewHazard')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition">Batal</button>
+        <button type="button" onclick="saveNewHazardReport()" class="px-5 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-black transition shadow">
+          <i class="fa-solid fa-paper-plane"></i> Kirim Laporan Hazard
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL TAMBAH TUGAS LAPANGAN HARIAN (TAB 27) -->
+  <div id="modalNewSiteTask" class="fixed inset-0 z-[10050] bg-slate-950/90 backdrop-blur-md hidden items-center justify-center p-3 sm:p-5 no-print font-mono text-xs select-none">
+    <div class="cmd-card max-w-lg w-full p-5 space-y-4 border-2 border-indigo-500/70 bg-[#090b24] shadow-2xl relative">
+      <div class="flex items-center justify-between border-b border-indigo-500/40 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-lg font-bold shadow">
+            <i class="fa-solid fa-tasks"></i>
+          </div>
+          <div>
+            <h3 class="font-tech text-sm font-bold text-white">PENUGASAN TUGAS LAPANGAN HARIAN</h3>
+            <p class="text-[10px] text-slate-400">Site Dispatch &bull; Asisten Harian Tim Site BSI</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeModal('modalNewSiteTask')" class="text-slate-400 hover:text-white text-lg p-1"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="space-y-2.5 text-xs">
+        <div>
+          <label class="text-[10px] uppercase font-bold text-slate-400 block">Nama Tugas / Instruksi Kerja</label>
+          <input type="text" id="siteTaskInpName" placeholder="Contoh: Kalibrasi Piezometer VW-01 dan V-Notch Weir" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold outline-none">
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="text-[10px] uppercase font-bold text-slate-400 block">Lokasi Lapangan</label>
+            <input type="text" id="siteTaskInpLoc" placeholder="Contoh: Pad C Tanggul Toe" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-cyan-300 font-bold outline-none">
+          </div>
+          <div>
+            <label class="text-[10px] uppercase font-bold text-slate-400 block">Penanggung Jawab (PIC)</label>
+            <input type="text" id="siteTaskInpPic" placeholder="Contoh: Tim Geoteknik Sektor 2" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-amber-300 font-bold outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="text-[10px] uppercase font-bold text-slate-400 block">Prioritas</label>
+            <select id="siteTaskInpPri" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white outline-none">
+              <option value="CRITICAL">KRITIS (Hari Ini)</option>
+              <option value="HIGH">TINGGI (Shift Ini)</option>
+              <option value="MEDIUM">SEDANG (Rutin)</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[10px] uppercase font-bold text-slate-400 block">Batas Waktu (Deadline)</label>
+            <input type="text" id="siteTaskInpDdl" placeholder="17:00 WIB" class="w-full mt-0.5 bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white outline-none">
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-800 flex justify-between items-center">
+        <button type="button" onclick="closeModal('modalNewSiteTask')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition">Batal</button>
+        <button type="button" onclick="saveNewSiteTask()" class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-black transition shadow">
+          <i class="fa-solid fa-plus"></i> Tambah Tugas
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL SIMULATOR FINANSIAL RKAB (TAB 21) -->
+  <div id="modalRkabSimulator" class="fixed inset-0 z-[10050] bg-slate-950/90 backdrop-blur-md hidden items-center justify-center p-3 sm:p-5 no-print font-mono text-xs select-none">
+    <div class="cmd-card max-w-2xl w-full p-5 space-y-4 border-2 border-cyan-500/70 bg-[#071724] shadow-2xl relative">
+      <div class="flex items-center justify-between border-b border-cyan-500/40 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-cyan-600 text-slate-950 flex items-center justify-center text-lg font-bold shadow">
+            <i class="fa-solid fa-calculator"></i>
+          </div>
+          <div>
+            <h3 class="font-tech text-sm font-bold text-white">SIMULATOR SENSITIVITAS FINANSIAL &amp; RKAB MINERBA</h3>
+            <p class="text-[10px] text-slate-400">Analisis Dampak Fluktuasi Harga Emas Dunia terhadap Cash Flow &amp; Royalti PNBP</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeModal('modalRkabSimulator')" class="text-slate-400 hover:text-white text-lg p-1"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-[10px] uppercase font-bold text-slate-400 block">Skenario Harga Emas ($/oz):</label>
+            <input type="range" id="simGoldPrice" min="2000" max="3200" value="2650" step="50" oninput="runRkabSimulation()" class="w-full accent-cyan-400 mt-1">
+            <div class="flex justify-between text-[10px] text-cyan-300 font-mono font-bold mt-0.5">
+              <span>$2.000</span><span id="lblSimGoldPrice" class="text-amber-400 text-xs">$2.650 / oz</span><span>$3.200</span>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-[10px] uppercase font-bold text-slate-400 block">Target Produksi Emas (oz/thn):</label>
+            <input type="range" id="simGoldProd" min="100000" max="200000" value="155000" step="5000" oninput="runRkabSimulation()" class="w-full accent-yellow-400 mt-1">
+            <div class="flex justify-between text-[10px] text-yellow-300 font-mono font-bold mt-0.5">
+              <span>100k oz</span><span id="lblSimGoldProd" class="text-white text-xs">155.000 oz</span><span>200k oz</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 space-y-2 text-[11px]">
+          <div class="flex justify-between">
+            <span class="text-slate-400">Total Pendapatan Kotor (Gross Revenue):</span>
+            <b class="text-yellow-400 text-sm font-tech" id="simResGross">$410.75 Juta USD</b>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Total Biaya Operasi AISC (@ $1.015/oz):</span>
+            <b class="text-slate-300 font-mono" id="simResAisc">$157.33 Juta USD</b>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Operating Cash Margin (EBITDA Operasi):</span>
+            <b class="text-emerald-400 text-sm font-tech" id="simResMargin">$253.43 Juta USD (61.7%)</b>
+          </div>
+          <div class="flex justify-between pt-1 border-t border-slate-800">
+            <span class="text-amber-300 font-bold">Kewajiban PNBP Royalti Negara (3.75%):</span>
+            <b class="text-amber-400 font-mono text-sm" id="simResRoyalty">Rp 385,2 Miliar</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-2 border-t border-slate-800 text-right">
+        <button type="button" onclick="closeModal('modalRkabSimulator')" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold transition">Tutup Simulator</button>
+      </div>
+    </div>
+  </div>
+
 
   <!-- CREATOR & LEAD ENGINEER PROFILE MODAL -->
   <div id="creatorModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden items-center justify-center p-4 select-none no-print">
@@ -7908,7 +9440,15 @@
       tab16: '<i class="fa-solid fa-robot text-emerald-400"></i> 16. AI Dam Assistant',
       tab17: '<i class="fa-solid fa-mountain text-cyan-400"></i> 17. Stabilitas 3D &amp; Rembesan Dam 1',
       tab18: '<i class="fa-solid fa-layer-group text-amber-400"></i> 18. Daya Dukung Tanah &amp; USCS',
-      tab19: '<i class="fa-solid fa-gem text-yellow-400"></i> 19. Penambangan &amp; Pengolahan Emas BSI'
+      tab19: '<i class="fa-solid fa-gem text-yellow-400"></i> 19. Penambangan &amp; Pengolahan Emas BSI',
+      tab20: '<i class="fa-solid fa-stamp text-emerald-400"></i> 20. Legalitas &amp; Perizinan',
+      tab21: '<i class="fa-solid fa-file-invoice-dollar text-cyan-400"></i> 21. Penyusunan RKAB Minerba',
+      tab22: '<i class="fa-solid fa-shield-halved text-rose-400"></i> 22. K3, HSE &amp; Kepatuhan SMKP',
+      tab23: '<i class="fa-solid fa-truck-monster text-orange-400"></i> 23. Produktivitas Alat Berat',
+      tab24: '<i class="fa-solid fa-seedling text-teal-400"></i> 24. Pengelolaan Lingkungan Tambang',
+      tab25: '<i class="fa-solid fa-chart-line text-purple-400"></i> 25. Laporan Operasional &amp; Risiko',
+      tab26: '<i class="fa-solid fa-coins text-yellow-400"></i> 26. Pemasaran &amp; Bisnis Tambang',
+      tab27: '<i class="fa-solid fa-headset text-indigo-400"></i> 27. Asisten Harian Tim Site'
     },
     en: {
       headerSubtitle: "O&M STANDARDS: PUPR REG 27/2015, ESDM DECREE 1827/2018, SNI 1726 & GISTM 2020",
@@ -7939,7 +9479,15 @@
       tab16: '<i class="fa-solid fa-robot text-emerald-400"></i> 16. AI Dam Assistant',
       tab17: '<i class="fa-solid fa-mountain text-cyan-400"></i> 17. 3D Stability &amp; Seepage Dam 1',
       tab18: '<i class="fa-solid fa-layer-group text-amber-400"></i> 18. Soil Bearing Capacity &amp; USCS',
-      tab19: '<i class="fa-solid fa-gem text-yellow-400"></i> 19. BSI Gold Mining &amp; Processing'
+      tab19: '<i class="fa-solid fa-gem text-yellow-400"></i> 19. BSI Gold Mining &amp; Processing',
+      tab20: '<i class="fa-solid fa-stamp text-emerald-400"></i> 20. Legal &amp; Mining Permits',
+      tab21: '<i class="fa-solid fa-file-invoice-dollar text-cyan-400"></i> 21. RKAB Budget &amp; Planning',
+      tab22: '<i class="fa-solid fa-shield-halved text-rose-400"></i> 22. OHS, HSE &amp; SMKP Mining Safety',
+      tab23: '<i class="fa-solid fa-truck-monster text-orange-400"></i> 23. Heavy Fleet Productivity',
+      tab24: '<i class="fa-solid fa-seedling text-teal-400"></i> 24. Mine Environmental Management',
+      tab25: '<i class="fa-solid fa-chart-line text-purple-400"></i> 25. Operations &amp; Risk Reporting',
+      tab26: '<i class="fa-solid fa-coins text-yellow-400"></i> 26. Marketing &amp; Mining Business',
+      tab27: '<i class="fa-solid fa-headset text-indigo-400"></i> 27. Site Team Daily Assistant'
     }
   };
 
@@ -7971,7 +9519,15 @@
       btnTabMap: d.tab13, btnTabSpecialGis: d.tab14, btnTabReport: d.tab15, btnTabChatbot: d.tab16,
       btnTabDam1Stabilitas: d.tab17,
       btnTabSoilCap: d.tab18,
-      btnTabGoldMining: d.tab19
+      btnTabGoldMining: d.tab19,
+      btnTabPermits: d.tab20,
+      btnTabRkab: d.tab21,
+      btnTabSmkp: d.tab22,
+      btnTabFleet: d.tab23,
+      btnTabLingkungan: d.tab24,
+      btnTabRiskReport: d.tab25,
+      btnTabBisnisTambang: d.tab26,
+      btnTabSiteAssistant: d.tab27
     };
 
     for (const [id, val] of Object.entries(tabMap)) {
@@ -8305,6 +9861,13 @@
   }
 
   // ==================== 2. AUTHENTICATION & LOGIN GATEKEEPER ====================
+  // Two-tier auth credentials
+  const VALID_USER_LEVEL1 = "Merdeka";
+  const VALID_PASS_LEVEL1 = "BSI Merdeka";
+  const VALID_USER_LEVEL2 = "BSI";
+  const VALID_PASS_LEVEL2 = "BSI JAYAMERDEKA";
+
+  // Backward compatibility aliases
   const VALID_USER = "Merdeka";
   const VALID_PASS = "BSI Merdeka";
 
@@ -8376,13 +9939,7 @@
   }
 
   
-  function autoFillCredentialsAndLogin() {
-    const u = document.getElementById('authUsername');
-    const p = document.getElementById('authPassword');
-    if (u) u.value = 'Merdeka';
-    if (p) p.value = 'BSI Merdeka';
-    handleAuthSubmit();
-  }
+  function autoFillCredentialsAndLogin() { /* Protected */ }
 
   function bypassLoginDirectly() {
     try { sessionStorage.setItem('bsi_dam_authenticated', 'true'); } catch(e) {}
@@ -8409,7 +9966,31 @@
     const username = (uInput ? uInput.value : '').trim();
     const password = (pInput ? pInput.value : '').trim();
 
-    if (username.toLowerCase() === VALID_USER.toLowerCase() && password === VALID_PASS) {
+    let authenticated = false;
+    let authLevel = 1;
+    let authRoleName = "Merdeka";
+
+    if (username.toUpperCase() === VALID_USER_LEVEL2.toUpperCase() && password === VALID_PASS_LEVEL2) {
+      authenticated = true;
+      authLevel = 2;
+      authRoleName = "BSI";
+    } else if (username.toLowerCase() === VALID_USER_LEVEL1.toLowerCase() && password === VALID_PASS_LEVEL1) {
+      authenticated = true;
+      authLevel = 1;
+      authRoleName = "Merdeka";
+    }
+
+    if (authenticated) {
+      currentAuthLevel = authLevel;
+      currentAuthUser = authRoleName;
+      try {
+        sessionStorage.setItem('bsi_dam_authenticated', 'true');
+        sessionStorage.setItem('bsi_dam_user_role', authRoleName);
+        sessionStorage.setItem('bsi_dam_user_level', String(authLevel));
+      } catch(e) {}
+
+      updateUserRoleUI();
+
       playAuthAudio(true);
       if (bootEarthObj && bootEarthObj.setSpeed) {
         bootEarthObj.setSpeed(0.018);
@@ -8421,11 +10002,9 @@
       if (btn) {
         btn.classList.remove('from-amber-600', 'via-amber-500', 'to-yellow-500');
         btn.classList.add('from-emerald-600', 'to-teal-500', 'text-white');
-        btn.innerHTML = '<i class="fa-solid fa-circle-check animate-bounce text-base"></i> AUTENTIKASI BERHASIL! MEMBUKA...';
+        btn.innerHTML = `<i class="fa-solid fa-circle-check animate-bounce text-base"></i> AUTENTIKASI BERHASIL (${authRoleName})! MEMBUKA...`;
       }
-      showAuthAlert('Autentikasi Berhasil! Mengalihkan ke Dasbor Keamanan...', 'success');
-
-      try { sessionStorage.setItem('bsi_dam_authenticated', 'true'); } catch(e) {}
+      showAuthAlert(`Autentikasi Berhasil sebagai ${authRoleName}! Mengalihkan ke Dasbor...`, 'success');
 
       setTimeout(() => {
         const overlay = document.getElementById('authOverlay');
@@ -8441,9 +10020,10 @@
             }
             if (dashMapInstance) dashMapInstance.invalidateSize();
             if (mapInstance) mapInstance.invalidateSize();
+            if (specialGisMap) specialGisMap.invalidateSize();
           }, 600);
         }
-        showToast('Selamat Datang di Command Centre TSF PT Bumi Suksesindo!', 'success');
+        showToast(`Selamat Datang, ${authRoleName}! Tingkat Akses Level ${authLevel} Aktif.`, 'success');
       }, 700);
 
     } else {
@@ -8458,7 +10038,7 @@
         pInput.value = '';
         pInput.focus();
       }
-      showAuthAlert('User Name atau Password salah! Silakan coba lagi.', 'error');
+      showAuthAlert('User Name atau Password tidak valid! Silakan periksa kembali kredensial Anda.', 'error');
     }
   }
 
@@ -8496,6 +10076,14 @@
   function initAuthSystem() {
     try {
       const isAuth = sessionStorage.getItem('bsi_dam_authenticated') === 'true';
+      const savedRole = sessionStorage.getItem('bsi_dam_user_role');
+      const savedLvl = sessionStorage.getItem('bsi_dam_user_level');
+      if (savedRole && savedLvl) {
+        currentAuthUser = savedRole;
+        currentAuthLevel = parseInt(savedLvl, 10) || 1;
+      }
+      updateUserRoleUI();
+
       const overlay = document.getElementById('authOverlay');
       if (isAuth && overlay) {
         overlay.style.display = 'none';
@@ -8614,8 +10202,9 @@
     scene.add(dir);
 
     const textureLoader = new THREE.TextureLoader();
+    const initialEarthTex = createProceduralEarthCanvas();
     const earthMat = new THREE.MeshStandardMaterial({
-      roughness: 0.55, metalness: 0.1, color: 0x2563eb
+      roughness: 0.55, metalness: 0.1, color: 0xffffff, map: initialEarthTex
     });
     const globe = new THREE.Mesh(new THREE.SphereGeometry(radius, 48, 48), earthMat);
     scene.add(globe);
@@ -8626,8 +10215,9 @@
       earthMat.needsUpdate = true;
     });
 
+    const initialCloudTex = createProceduralCloudsCanvas();
     const cloudMat = new THREE.MeshStandardMaterial({
-      transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending
+      transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending, map: initialCloudTex, depthWrite: false
     });
     const clouds = new THREE.Mesh(new THREE.SphereGeometry(radius * 1.015, 48, 48), cloudMat);
     scene.add(clouds);
@@ -8851,6 +10441,13 @@
 
   // ==================== 5. TAB SWITCHING LOGIC (15 TABS) ====================
   function switchTab(tabId) {
+    // ENFORCE TWO-TIER RBAC ACCESS CONTROL
+    if (RESTRICTED_TABS.includes(tabId) && currentAuthLevel === 1) {
+      openExecutiveAuthModal(tabId);
+      showToast('Akses Terbatas: Tab ini memerlukan otorisasi eksekutif (Username: BSI)!', 'warning');
+      return;
+    }
+
     document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
 
@@ -8938,6 +10535,18 @@ if (tabId === 'tabDam1Stabilitas') {
     }
 if (tabId === 'tabQaqc') {
       renderQaqcLog();
+    }
+    if (tabId === 'tabPermits') {
+      setTimeout(() => { renderPermitsTable('ALL'); }, 100);
+    }
+    if (tabId === 'tabSmkp') {
+      setTimeout(() => { renderSmkpElements(); renderHazardTable(); }, 100);
+    }
+    if (tabId === 'tabFleet') {
+      setTimeout(() => { calculateMatchFactor(); renderFleetTable(); }, 100);
+    }
+    if (tabId === 'tabSiteAssistant') {
+      setTimeout(() => { renderSiteTasks(); }, 100);
     }
   }
 
@@ -14464,6 +16073,974 @@ function exportMiningPDF() {
 }
 
 
+
+
+  // ==================== TWO-TIER RBAC AUTHENTICATION & ACCESS CONTROL (v8.0 PRO) ====================
+  // Credentials defined at top level
+
+
+  let currentAuthUser = "Merdeka";
+  let currentAuthLevel = 1; // 1 = Merdeka (Tabs 1-18), 2 = BSI (Full Access Tabs 1-27)
+  let pendingRestrictedTab = null;
+
+  const RESTRICTED_TABS = [
+    'tabGoldMining', 'tabPermits', 'tabRkab', 'tabSmkp', 'tabFleet',
+    'tabLingkungan', 'tabRiskReport', 'tabBisnisTambang', 'tabSiteAssistant'
+  ];
+
+  function updateUserRoleUI() {
+    const badge = document.getElementById('headerUserBadge');
+    const ping = document.getElementById('headerRolePing');
+    const btnUpgrade = document.getElementById('btnHeaderUpgradeRole');
+
+    if (currentAuthLevel === 2) {
+      if (badge) {
+        badge.innerText = "BSI (Level 2: Eksekutif Penuh)";
+        badge.className = "font-bold text-yellow-300 font-tech";
+      }
+      if (ping) ping.className = "w-2 h-2 rounded-full bg-yellow-400 animate-ping";
+      if (btnUpgrade) {
+        btnUpgrade.innerHTML = '<i class="fa-solid fa-user-shield"></i> Level 2 Aktif';
+        btnUpgrade.className = "ml-1 px-2 py-0.5 rounded bg-yellow-950 border border-yellow-500/70 text-yellow-300 text-[10px] font-bold cursor-default";
+      }
+      // Remove lock badges on tabs
+      document.querySelectorAll('.nav-lock-badge').forEach(el => el.classList.add('hidden'));
+    } else {
+      if (badge) {
+        badge.innerText = "Merdeka (Level 1: Lapangan)";
+        badge.className = "font-bold text-amber-300";
+      }
+      if (ping) ping.className = "w-2 h-2 rounded-full bg-emerald-400 animate-ping";
+      if (btnUpgrade) {
+        btnUpgrade.innerHTML = '<i class="fa-solid fa-key"></i> Buka Akses BSI';
+        btnUpgrade.className = "ml-1 px-2 py-0.5 rounded bg-amber-600 hover:bg-amber-500 text-slate-950 text-[10px] font-black uppercase transition shadow cursor-pointer";
+      }
+      // Show lock badges on tabs 19-27
+      document.querySelectorAll('.nav-lock-badge').forEach(el => el.classList.remove('hidden'));
+    }
+  }
+
+  function quickFillRole(role) {
+    // Kredensial terlindungi dan tidak ditampilkan secara publik
+  }
+
+  function openExecutiveAuthModal(targetTab = null) {
+    pendingRestrictedTab = targetTab;
+    const u = document.getElementById('execAuthUsername');
+    const p = document.getElementById('execAuthPassword');
+    const alertBox = document.getElementById('execAuthAlert');
+    if (u) u.value = 'BSI';
+    if (p) p.value = '';
+    if (alertBox) alertBox.classList.add('hidden');
+    openModal('modalExecutiveAuth');
+    setTimeout(() => { if (p) p.focus(); }, 200);
+  }
+
+  function toggleExecPassVisibility() {
+    const p = document.getElementById('execAuthPassword');
+    const ic = document.getElementById('execEyeIcon');
+    if (!p || !ic) return;
+    if (p.type === 'password') {
+      p.type = 'text';
+      ic.className = 'fa-solid fa-eye-slash text-yellow-400';
+    } else {
+      p.type = 'password';
+      ic.className = 'fa-solid fa-eye text-slate-400';
+    }
+  }
+
+  function submitExecutiveAuth() {
+    const uInput = document.getElementById('execAuthUsername');
+    const pInput = document.getElementById('execAuthPassword');
+    const alertBox = document.getElementById('execAuthAlert');
+
+    const u = (uInput ? uInput.value : '').trim();
+    const p = (pInput ? pInput.value : '').trim();
+
+    if (u.toUpperCase() === VALID_USER_LEVEL2.toUpperCase() && p === VALID_PASS_LEVEL2) {
+      playAuthAudio(true);
+      currentAuthUser = "BSI";
+      currentAuthLevel = 2;
+      try {
+        sessionStorage.setItem('bsi_dam_authenticated', 'true');
+        sessionStorage.setItem('bsi_dam_user_role', 'BSI');
+        sessionStorage.setItem('bsi_dam_user_level', '2');
+      } catch(e) {}
+
+      updateUserRoleUI();
+      closeModal('modalExecutiveAuth');
+      showToast('Akses Eksekutif BSI berhasil dibuka! Seluruh Tab 19 s/d 27 kini aktif.', 'success');
+
+      if (pendingRestrictedTab) {
+        const dest = pendingRestrictedTab;
+        pendingRestrictedTab = null;
+        switchTab(dest);
+      }
+    } else {
+      playAuthAudio(false);
+      if (alertBox) {
+        alertBox.className = 'p-2.5 rounded-lg border bg-rose-950/80 border-rose-500/60 text-rose-200 text-[11px] block font-mono';
+        alertBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-rose-400 mr-1.5"></i> Kredensial tidak valid! Silakan periksa kembali Username dan Password Anda.';
+      }
+      if (pInput) { pInput.value = ''; pInput.focus(); }
+    }
+  }
+
+
+  // ==================== TAB 20: LEGALITAS & PERIZINAN TAMBANG ====================
+  const PERMITS_STORAGE_KEY = 'bsi_dam_permits_v1';
+  const DEFAULT_PERMITS_DATA = [
+    { id: 'pmt-1', name: 'IUP Operasi Produksi Emas & Mineral Pengikut', no: '188/547/KEP/429.011/2012', issuer: 'Bupati Banyuwangi / BKPM ESDM', issuedDate: '2012-12-08', expiryDate: '2030-12-07 (Dapat Diperpanjang 2x10 Thn)', category: 'IUP', status: 'AKTIF & VALID', desc: 'Konsesi penambangan emas seluas 4.998 Ha di Desa Sumberagung, Pesanggaran. Kepatuhan pembayaran deadrent & royalti PNBP 3.75%.' },
+    { id: 'pmt-2', name: 'Persetujuan Penggunaan Kawasan Hutan (PPKH / IPPKH)', no: 'SK.717/Menlhk/Setjen/PLA.0/9/2021', issuer: 'Menteri Lingkungan Hidup dan Kehutanan RI', issuedDate: '2021-09-24', expiryDate: 'Mengikuti Masa Berlaku IUP OP', category: 'KEHUTANAN', status: 'AKTIF & VALID', desc: 'Persetujuan penggunaan kawasan hutan produksi tetap seluas 994.8 Ha untuk sarana prasarana tambang, pit, heap leach pad, dan TSF.' },
+    { id: 'pmt-3', name: 'Izin Kelayakan Lingkungan Hidup (AMDAL & RKL-RPL)', no: 'SK MenLH No. 01.12.08 Tahun 2013', issuer: 'Kementerian Lingkungan Hidup RI', issuedDate: '2013-05-10', expiryDate: 'Seumur Tambang (LOM)', category: 'LINGKUNGAN', status: 'AKTIF & VALID', desc: 'Kewajiban pemantauan rona lingkungan triwulanan, pengendalian air asam tambang (AAT), dan keanekaragaman hayati Taman Nasional Meru Betiri.' },
+    { id: 'pmt-4', name: 'Sertifikat Izin Operasi Bendungan TSF (KKB PUPR)', no: '12/KKB/2018 & SK Menteri PUPR', issuer: 'Menteri Pekerjaan Umum & Perumahan Rakyat', issuedDate: '2018-04-16', expiryDate: '2028-04-15 (Siklus Audit 5 Tahunan)', category: 'BENDUNGAN', status: 'AKTIF & VALID', desc: 'Izin operasi bendungan penampung tailing TSF Pad C berdasarkan rekomendasi teknis Komisi Keamanan Bendungan (KKB).' },
+    { id: 'pmt-5', name: 'Izin Pengambilan & Pemanfaatan Air Tanah (SIPA)', no: '503/412/SIPA/DPMPTSP/2022', issuer: 'DPMPTSP Provinsi Jawa Timur', issuedDate: '2022-03-14', expiryDate: '2027-03-13 (Review 5 Thn)', category: 'AIR', status: 'AKTIF & VALID', desc: 'Debit pengambilan air tanah terukur melalui meteran kalibrasi debit maksimal 15 L/detik untuk operasional site.' },
+    { id: 'pmt-6', name: 'Izin Pengambilan Air Permukaan Kali Bagon', no: '503/118/SIPA-AP/BBWS-BS/2023', issuer: 'Balai Besar Wilayah Sungai Brantas PUPR', issuedDate: '2023-01-19', expiryDate: '2026-12-31 (Proses Perpanjangan)', category: 'AIR', status: 'PROSES PERPANJANGAN', desc: 'Pemanfaatan air permukaan terbatas saat debit musim hujan untuk make-up water pencucian bijih ore.' },
+    { id: 'pmt-7', name: 'Izin Tempat Penyimpanan Sementara Limbah B3 (TPS LB3)', no: '660.1/1042/429.112/2021', issuer: 'Dinas Lingkungan Hidup Kab. Banyuwangi', issuedDate: '2021-08-05', expiryDate: '2026-08-04', category: 'LINGKUNGAN', status: 'AKTIF & VALID', desc: 'Penyimpanan limbah oli bekas, filter terkontaminasi, accu bekas, dan kemasan reagen kimia B3 di fasilitas berizin.' },
+    { id: 'pmt-8', name: 'Izin Pembuangan Air Limbah ke Sumber Air (IPLC WTP)', no: 'SK.503/IPLC/028/DLH/2022', issuer: 'Dinas Lingkungan Hidup Kab. Banyuwangi', issuedDate: '2022-06-20', expiryDate: '2027-06-19', category: 'AIR', status: 'AKTIF & VALID', desc: 'Pengaliran air limpasan yang telah diolah di WTP memenuhi baku mutu Kepmen LH 202/2004 (pH 6-9, TSS < 200 mg/L).' },
+    { id: 'pmt-9', name: 'Izin Gudang Bahan Peledak & Pembelian Handak', no: 'SI/HANDAK/104/POLRI/2024', issuer: 'Baintelkam POLRI & Ditjen Minerba', issuedDate: '2024-01-10', expiryDate: '2027-01-09 (Tahunan Berkala)', category: 'KESELAMATAN', status: 'AKTIF & VALID', desc: 'Penyimpanan ANFO dan emulsi di bunker handak kapasitas 150 Ton dengan pengamanan brimob 24/7.' },
+    { id: 'pmt-10', name: 'Izin Pemanfaatan Tenaga Listrik Sendiri (Genset Power Plant)', no: '541.2/089/DESDM/2022', issuer: 'Dinas ESDM Provinsi Jawa Timur', issuedDate: '2022-04-12', expiryDate: '2027-04-11', category: 'IUP', status: 'AKTIF & VALID', desc: 'Pengoperasian captive power plant diesel dan sinkronisasi gardu induk PLN 20 kV kapasitas 24 MVA.' }
+  ];
+
+  let permitsData = [];
+
+  function loadPermitsData() {
+    try {
+      const s = localStorage.getItem(PERMITS_STORAGE_KEY);
+      if (s) {
+        const p = JSON.parse(s);
+        if (Array.isArray(p) && p.length > 0) return p;
+      }
+    } catch(e) {}
+    return DEFAULT_PERMITS_DATA;
+  }
+
+  function savePermitsData() {
+    try { localStorage.setItem(PERMITS_STORAGE_KEY, JSON.stringify(permitsData)); } catch(e) {}
+  }
+
+  function renderPermitsTable(filterCategory = 'ALL') {
+    const tbody = document.getElementById('permitsTableBody');
+    if (!tbody) return;
+
+    let filtered = permitsData;
+    if (filterCategory && filterCategory !== 'ALL') {
+      filtered = permitsData.filter(x => x.category === filterCategory);
+    }
+
+    let html = '';
+    filtered.forEach((p, idx) => {
+      let stBadge = 'bg-emerald-950 text-emerald-300 border border-emerald-600';
+      if (p.status.includes('PERPANJANGAN')) stBadge = 'bg-yellow-950 text-yellow-300 border border-yellow-600 animate-pulse';
+      else if (p.status.includes('EXPIRED') || p.status.includes('TIDAK')) stBadge = 'bg-rose-950 text-rose-300 border border-rose-600';
+
+      html += `
+        <tr class="hover:bg-slate-900/60 font-mono text-[10px]">
+          <td class="p-2 text-center text-slate-400 font-bold">${idx + 1}</td>
+          <td class="p-2 font-bold text-white"><i class="fa-solid fa-file-contract text-emerald-400 mr-1"></i> ${p.name}</td>
+          <td class="p-2 font-bold text-amber-300">${p.no}</td>
+          <td class="p-2 text-cyan-300">${p.issuer}</td>
+          <td class="p-2 text-center text-slate-400">${p.issuedDate}</td>
+          <td class="p-2 text-center font-bold text-rose-300">${p.expiryDate}</td>
+          <td class="p-2 text-center"><span class="px-2 py-0.5 rounded text-[8px] font-bold ${stBadge}">${p.status}</span></td>
+          <td class="p-2 text-slate-300 leading-tight max-w-xs truncate" title="${p.desc}">${p.desc}</td>
+          <td class="p-2 text-center whitespace-nowrap">
+            <button type="button" onclick="deletePermitRecord('${p.id}')" class="p-1 text-rose-400 hover:text-rose-200" title="Hapus"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+      `;
+    });
+    tbody.innerHTML = html;
+
+    const kpiActive = document.getElementById('kpiPermitActive');
+    if (kpiActive) kpiActive.innerText = permitsData.length + ' Izin';
+  }
+
+  function filterPermitsTable(cat) {
+    renderPermitsTable(cat);
+  }
+
+  function openNewPermitModal() {
+    document.getElementById('permitInpName').value = '';
+    document.getElementById('permitInpNo').value = '';
+    document.getElementById('permitInpIssuer').value = '';
+    document.getElementById('permitInpExpiry').value = '2030-12-31';
+    document.getElementById('permitInpDesc').value = '';
+    openModal('modalNewPermit');
+  }
+
+  function saveNewPermitRecord() {
+    const name = document.getElementById('permitInpName').value.trim();
+    const no = document.getElementById('permitInpNo').value.trim();
+    const cat = document.getElementById('permitInpCat').value;
+    const issuer = document.getElementById('permitInpIssuer').value.trim();
+    const expiry = document.getElementById('permitInpExpiry').value.trim();
+    const desc = document.getElementById('permitInpDesc').value.trim();
+
+    if (!name || !no) {
+      showToast('Nama izin dan Nomor SK wajib diisi!', 'error');
+      return;
+    }
+
+    permitsData.unshift({
+      id: 'pmt-' + Date.now(),
+      name: name,
+      no: no,
+      category: cat,
+      issuer: issuer || 'Kementerian ESDM',
+      issuedDate: new Date().toISOString().slice(0, 10),
+      expiryDate: expiry || 'Seumur Tambang',
+      status: 'AKTIF & VALID',
+      desc: desc || 'Terdokumentasi dalam registri perizinan resmi PT BSI.'
+    });
+
+    savePermitsData();
+    renderPermitsTable('ALL');
+    closeModal('modalNewPermit');
+    showToast('Dokumen perizinan berhasil ditambahkan!', 'success');
+  }
+
+  function deletePermitRecord(id) {
+    if (!confirm('Hapus dokumen perizinan ini dari sistem?')) return;
+    permitsData = permitsData.filter(x => x.id !== id);
+    savePermitsData();
+    renderPermitsTable('ALL');
+    showToast('Dokumen perizinan dihapus', 'info');
+  }
+
+  function exportPermitsExcel() {
+    if (typeof XLSX === 'undefined') { showToast('Library Excel belum siap', 'error'); return; }
+    const rows = [
+      ["REGISTRI LEGALITAS & PERIZINAN TAMBANG PT BUMI SUKSESINDO"],
+      ["Lokasi", "Proyek Emas Tujuh Bukit, Banyuwangi"],
+      ["Waktu Ekspor", new Date().toLocaleString('id-ID')],
+      [],
+      ["No", "Nama Izin", "Nomor SK", "Kategori", "Instansi Penerbit", "Tanggal Terbit", "Masa Berlaku", "Status", "Ketentuan Kunci"]
+    ];
+    permitsData.forEach((p, idx) => {
+      rows.push([idx + 1, p.name, p.no, p.category, p.issuer, p.issuedDate, p.expiryDate, p.status, p.desc]);
+    });
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), "Registri_Perizinan");
+    XLSX.writeFile(wb, "Registri_Legalitas_Perizinan_BSI.xlsx");
+    showToast('Registri perizinan diekspor ke Excel', 'success');
+  }
+
+  function exportPermitsPDF() {
+    if (!window.jspdf || !window.jspdf.jsPDF) { showToast('Library PDF belum siap', 'error'); return; }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    doc.setFillColor(6, 24, 20); doc.rect(0, 0, 210, 24, 'F');
+    doc.setTextColor(16, 185, 129); doc.setFontSize(12); doc.setFont('helvetica', 'bold');
+    doc.text("PT BUMI SUKSESINDO - REGISTRI LEGALITAS & PERIZINAN", 14, 10);
+    doc.setFontSize(8); doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'normal');
+    doc.text("Kompilasi IUP OP, PPKH Kehutanan, AMDAL, Sertifikat KKB PUPR & SIPA Air", 14, 16);
+    doc.text("Tanggal Verifikasi: " + new Date().toLocaleDateString('id-ID') + " • Status: 100% Valid Hukum", 14, 21);
+
+    const bodyData = permitsData.map((p, idx) => [
+      idx + 1, p.name, p.no, p.issuer, p.expiryDate, p.status
+    ]);
+
+    doc.autoTable({
+      startY: 28,
+      head: [['No', 'Nama Izin / Dokumen Legal', 'Nomor SK', 'Penerbit', 'Berlaku s/d', 'Status']],
+      body: bodyData,
+      theme: 'striped',
+      headStyles: { fillColor: [6, 78, 59], textColor: [255, 255, 255] },
+      styles: { fontSize: 7.5 }
+    });
+
+    doc.save("Registri_Perizinan_BSI_Tujuh_Bukit.pdf");
+    showToast("Laporan Perizinan diunduh ke PDF", "success");
+  }
+
+  // ==================== TAB 21: RKAB MINERBA LOGIC ====================
+  function switchRkabMatrixTab(mId) {
+    ['m1', 'm2', 'm3', 'm4'].forEach(id => {
+      const p = document.getElementById('rkabPane' + id.toUpperCase());
+      const b = document.getElementById('btnRkab' + id.toUpperCase());
+      if (p) p.classList.add('hidden');
+      if (b) b.className = "px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold transition";
+    });
+
+    const targetP = document.getElementById('rkabPane' + mId.toUpperCase());
+    const targetB = document.getElementById('btnRkab' + mId.toUpperCase());
+    if (targetP) targetP.classList.remove('hidden');
+    if (targetB) targetB.className = "px-2.5 py-1 rounded-lg bg-cyan-600 text-slate-950 font-bold transition shadow";
+  }
+
+  function openRkabSimulatorModal() {
+    runRkabSimulation();
+    openModal('modalRkabSimulator');
+  }
+
+  function runRkabSimulation() {
+    const price = parseFloat(document.getElementById('simGoldPrice')?.value) || 2650;
+    const prod = parseFloat(document.getElementById('simGoldProd')?.value) || 155000;
+
+    const lblP = document.getElementById('lblSimGoldPrice');
+    if (lblP) lblP.innerText = `$${price.toLocaleString('id-ID')} / oz`;
+    const lblPr = document.getElementById('lblSimGoldProd');
+    if (lblPr) lblPr.innerText = `${prod.toLocaleString('id-ID')} oz`;
+
+    const gross = (price * prod);
+    const aiscCost = (1015 * prod);
+    const margin = gross - aiscCost;
+    const marginPct = (margin / gross) * 100;
+    const royaltyIdrBillion = ((gross * 15800) * 0.0375) / 1e9;
+
+    if (document.getElementById('simResGross')) document.getElementById('simResGross').innerText = `$${(gross/1e6).toFixed(2)} Juta USD`;
+    if (document.getElementById('simResAisc')) document.getElementById('simResAisc').innerText = `$${(aiscCost/1e6).toFixed(2)} Juta USD`;
+    if (document.getElementById('simResMargin')) document.getElementById('simResMargin').innerText = `$${(margin/1e6).toFixed(2)} Juta USD (${marginPct.toFixed(1)}%)`;
+    if (document.getElementById('simResRoyalty')) document.getElementById('simResRoyalty').innerText = `Rp ${royaltyIdrBillion.toFixed(1)} Miliar (PNBP 3.75%)`;
+  }
+
+  function exportRkabExcel() {
+    if (typeof XLSX === 'undefined') { showToast('Library Excel belum siap', 'error'); return; }
+    const rows = [
+      ["RENCANA KERJA DAN ANGGARAN BIAYA (RKAB) RESMI DITJEN MINERBA"],
+      ["Badan Usaha", "PT Bumi Suksesindo (Tujuh Bukit Gold Project)"],
+      ["Tahun Pelaporan", "2026 - 2028 (Pola 3 Tahunan Permen ESDM 10/2023)"],
+      [],
+      ["MATRIKS II: RENCANA PENAMBANGAN OPEN PIT"],
+      ["Uraian", "Target RKAB Tahunan", "Satuan"],
+      ["Pengupasan Overburden", 26280000, "BCM"],
+      ["Penggalian Ore", 8760000, "Ton"],
+      ["Nisbah Kupas (Strip Ratio)", "3.00 : 1", "-"],
+      ["Kadar Au Rata-Rata", 1.05, "g/t Au"],
+      [],
+      ["MATRIKS III: PENGOLAHAN & PEMURNIAN EMAS"],
+      ["Recovery Heap Leach", 84.0, "%"],
+      ["Produksi Emas Bersih (Dore Bullion)", 155000, "Troy Ounce"],
+      ["Produksi Perak (Ag)", 190000, "Troy Ounce"],
+      [],
+      ["MATRIKS IV: KEUANGAN & PNBP"],
+      ["Estimasi Pendapatan Kotor", 410750000, "USD"],
+      ["Biaya Opex AISC ($1015/oz)", 157325000, "USD"],
+      ["Belanja Modal (Capex)", 48500000, "USD"],
+      ["Royalti PNBP Negara (3.75%)", 385200000000, "IDR (Rupiah)"]
+    ];
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), "RKAB_Minerba_BSI");
+    XLSX.writeFile(wb, "Dokumen_RKAB_Minerba_PT_BSI.xlsx");
+    showToast("Dokumen RKAB diekspor ke Excel", "success");
+  }
+
+  function exportRkabPDF() {
+    if (!window.jspdf || !window.jspdf.jsPDF) { showToast('Library PDF belum siap', 'error'); return; }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    doc.setFillColor(6, 25, 34); doc.rect(0, 0, 210, 24, 'F');
+    doc.setTextColor(6, 182, 212); doc.setFontSize(12); doc.setFont('helvetica', 'bold');
+    doc.text("PT BUMI SUKSESINDO - RENCANA KERJA & ANGGARAN BIAYA (RKAB)", 14, 10);
+    doc.setFontSize(8); doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'normal');
+    doc.text("Format Resmi Matriks Ditjen Mineral dan Batubara Kementerian ESDM RI", 14, 16);
+    doc.text("Periode Evaluasi 2026 • KTT: Roelly Fransiscus • Tanggal: " + new Date().toLocaleDateString('id-ID'), 14, 21);
+
+    const bodyData = [
+      ["Matriks I", "Neraca Cadangan Terbukti Oksida", "28.450.000 Ton @ 1.08 g/t Au (988k oz Au)", "JORC / KCMI 2017"],
+      ["Matriks II", "Rencana Penambangan Ore", "8.760.000 Ton / thn (24.000 T/hari)", "Strip Ratio 3:1"],
+      ["Matriks II", "Pembongkaran Batuan Penutup", "26.280.000 BCM / tahun", "Waste Dump Barat"],
+      ["Matriks III", "Kapasitas Pelindian Heap Leach", "Pad A & Pad C (Recovery 84.0%)", "Double HDPE Liner"],
+      ["Matriks III", "Target Produksi Emas (Au)", "155.000 Troy Ounces / tahun", "Dore Bullion 85% Au"],
+      ["Matriks IV", "All-in Sustaining Costs (AISC)", "$1.015 / Troy Ounce", "Kuartil Pertama Terendah"],
+      ["Matriks IV", "Estimasi Royalti PNBP (3.75%)", "Rp 385,2 Miliar / tahun", "UU Minerba 3/2020"]
+    ];
+
+    doc.autoTable({
+      startY: 28,
+      head: [['Matriks', 'Komponen Rencana Kerja', 'Target & Anggaran', 'Keterangan Regulasi']],
+      body: bodyData,
+      theme: 'striped',
+      headStyles: { fillColor: [8, 51, 68], textColor: [255, 255, 255] },
+      styles: { fontSize: 8 }
+    });
+
+    doc.save("Dokumen_RKAB_Minerba_PT_BSI.pdf");
+    showToast("Dokumen RKAB diunduh ke PDF", "success");
+  }
+
+  // ==================== TAB 22: SMKP K3 MINERBA LOGIC ====================
+  const SMKP_ELEMENTS_DATA = [
+    { num: 1, name: "I. Kebijakan K3 & KO Pertambangan", weight: 10, score: 9.6, desc: "Kebijakan tertulis ditandatangani Direksi & KTT, disosialisasikan ke seluruh pekerja & kontraktor." },
+    { num: 2, name: "II. Perencanaan Keselamatan", weight: 15, score: 14.4, desc: "Identifikasi bahaya, penilaian risiko (IBPR/HIRADC), sasaran K3 tahunan, dan RKAB K3 terstruktur." },
+    { num: 3, name: "III. Organisasi & Personel", weight: 15, score: 14.1, desc: "Penunjukan Komite K3 (P2K3), pengawas operasional berlisensi POP/POM/POU, dan tim ERT terlatih." },
+    { num: 4, name: "IV. Implementasi & Pengendalian Operasi", weight: 25, score: 23.8, desc: "Penerapan SOP penambangan, izin kerja khusus (JSA/PTW), golden rules K3, dan kepatuhan kode ICMC." },
+    { num: 5, name: "V. Pemantauan, Evaluasi & Kinerja", weight: 15, score: 14.2, desc: "Inspeksi rutin tempat kerja, pemantauan lingkungan kerja, kalibrasi alat uji, dan investigasi near-miss." },
+    { num: 6, name: "VI. Dokumentasi & Pengendalian Catatan", weight: 10, score: 9.5, desc: "Penyimpanan manual SMKP, prosedur revisi SOP, dan arsip data riwayat kesehatan kerja berkala." },
+    { num: 7, name: "VII. Tinjauan Manajemen & Peningkatan Berkelanjutan", weight: 10, score: 9.2, desc: "Rapat tinjauan manajemen tahunan bersama KTT dan tindak lanjut perbaikan berkelanjutan." }
+  ];
+
+  const HAZARDS_STORAGE_KEY = 'bsi_dam_hazards_v1';
+  const DEFAULT_HAZARDS_DATA = [
+    { id: 'hz-1', date: '2026-10-08', location: 'Haul Road Km 2.5 Tikungan Pit', desc: 'Tanggul pengaman jalan (safety berm) tergerus air hujan di bawah standar 3/4 tinggi roda.', risk: 'TINGGI', status: 'SELESAI', action: 'Perbaikan berm dengan grader dan penambahan batu Zona 4.' },
+    { id: 'hz-2', date: '2026-10-09', location: 'Area Mixing Reagen Sianida ADR', desc: 'Sensor deteksi gas HCN menunjukkan sinyal intermiten baterai lemah.', risk: 'SEDANG', status: 'SELESAI', action: 'Penggantian sensor cadangan dan re-kalibrasi alarm 4.7 ppm.' },
+    { id: 'hz-3', date: '2026-10-10', location: 'Crest Tanggul Pad C Sektor Selatan', desc: 'Genangan air lokal akibat kemiringan drainase permukaan tersumbat pasir.', risk: 'RENDAH', status: 'SELESAI', action: 'Pembersihan parit groin drain oleh kru pemeliharaan.' },
+    { id: 'hz-4', date: '2026-10-11', location: 'Workshop Tambang Bay 3', desc: 'Ceceran oli hidrolik pada lantai saat servis excavator PC1250.', risk: 'SEDANG', status: 'SEDANG DITINDAKLANJUTI', action: 'Penyebaran serbuk absorbent dan penampungan ke drum limbah B3.' }
+  ];
+
+  let hazardReportsData = [];
+
+  function loadHazardsData() {
+    try {
+      const s = localStorage.getItem(HAZARDS_STORAGE_KEY);
+      if (s) {
+        const p = JSON.parse(s);
+        if (Array.isArray(p) && p.length > 0) return p;
+      }
+    } catch(e) {}
+    return DEFAULT_HAZARDS_DATA;
+  }
+
+  function saveHazardsData() {
+    try { localStorage.setItem(HAZARDS_STORAGE_KEY, JSON.stringify(hazardReportsData)); } catch(e) {}
+  }
+
+  function renderSmkpElements() {
+    const container = document.getElementById('smkpElementsList');
+    if (!container) return;
+
+    let html = '';
+    SMKP_ELEMENTS_DATA.forEach(el => {
+      const pct = ((el.score / el.weight) * 100).toFixed(1);
+      html += `
+        <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+          <div class="flex justify-between items-center text-xs">
+            <b class="text-white font-tech">${el.name}</b>
+            <span class="text-emerald-400 font-mono font-bold">${el.score.toFixed(1)} / ${el.weight} (${pct}%)</span>
+          </div>
+          <div class="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+            <div class="h-full bg-emerald-500 rounded-full" style="width: ${pct}%;"></div>
+          </div>
+          <p class="text-[9.5px] text-slate-400 leading-tight">${el.desc}</p>
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+  }
+
+  function renderHazardTable() {
+    const tbody = document.getElementById('hazardReportTableBody');
+    if (!tbody) return;
+
+    let html = '';
+    hazardReportsData.forEach(h => {
+      let rkBadge = 'text-amber-300';
+      if (h.risk === 'TINGGI' || h.risk === 'KRITIS') rkBadge = 'text-rose-400 font-bold';
+      else if (h.risk === 'RENDAH') rkBadge = 'text-cyan-300';
+
+      let stBadge = h.status === 'SELESAI' ? 'bg-emerald-950 text-emerald-300 border border-emerald-600' : 'bg-yellow-950 text-yellow-300 border border-yellow-600 animate-pulse';
+
+      html += `
+        <tr class="hover:bg-slate-900/60 font-mono text-[9.5px]">
+          <td class="p-2 whitespace-nowrap text-amber-300 font-bold">${h.date}</td>
+          <td class="p-2 text-white font-medium">${h.location}</td>
+          <td class="p-2 text-slate-300">${h.desc}</td>
+          <td class="p-2 text-center ${rkBadge}">${h.risk}</td>
+          <td class="p-2 text-center"><span class="px-1.5 py-0.5 rounded text-[8px] font-bold ${stBadge}">${h.status}</span></td>
+          <td class="p-2 text-slate-400 leading-tight">${h.action}</td>
+        </tr>
+      `;
+    });
+    tbody.innerHTML = html;
+  }
+
+  function openNewHazardModal() {
+    document.getElementById('hazardInpDate').value = new Date().toISOString().slice(0, 10);
+    document.getElementById('hazardInpLocation').value = '';
+    document.getElementById('hazardInpDesc').value = '';
+    document.getElementById('hazardInpAction').value = '';
+    openModal('modalNewHazard');
+  }
+
+  function saveNewHazardReport() {
+    const dt = document.getElementById('hazardInpDate').value;
+    const rk = document.getElementById('hazardInpRisk').value;
+    const loc = document.getElementById('hazardInpLocation').value.trim();
+    const desc = document.getElementById('hazardInpDesc').value.trim();
+    const act = document.getElementById('hazardInpAction').value.trim();
+
+    if (!loc || !desc) {
+      showToast('Lokasi dan deskripsi bahaya wajib diisi!', 'error');
+      return;
+    }
+
+    hazardReportsData.unshift({
+      id: 'hz-' + Date.now(),
+      date: dt || new Date().toISOString().slice(0, 10),
+      location: loc,
+      desc: desc,
+      risk: rk,
+      status: 'SEDANG DITINDAKLANJUTI',
+      action: act || 'Investigasi pengawas K3 lapangan.'
+    });
+
+    saveHazardsData();
+    renderHazardTable();
+    closeModal('modalNewHazard');
+    showToast('Laporan bahaya K3 berhasil dicatat & diteruskan ke tim safety!', 'success');
+  }
+
+  function exportSmkpPDF() {
+    if (!window.jspdf || !window.jspdf.jsPDF) { showToast('Library PDF belum siap', 'error'); return; }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    doc.setFillColor(28, 8, 14); doc.rect(0, 0, 210, 24, 'F');
+    doc.setTextColor(244, 63, 94); doc.setFontSize(12); doc.setFont('helvetica', 'bold');
+    doc.text("PT BUMI SUKSESINDO - KEPATUHAN K3 & AUDIT SMKP MINERBA", 14, 10);
+    doc.setFontSize(8); doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'normal');
+    doc.text("Standar Kepatuhan: Kepmen ESDM No. 1827 K/30/MEM/2018 Lampiran IV", 14, 16);
+    doc.text("Skor Audit: 94.8% (Kategori Emas) • Jam Kerja Selamat: 18.6 Juta Jam (LTI Free)", 14, 21);
+
+    const bodyData = SMKP_ELEMENTS_DATA.map(e => [
+      e.num, e.name, `${e.score.toFixed(1)} / ${e.weight}`, `${((e.score/e.weight)*100).toFixed(1)}%`, "MEMENUHI (EMAS)"
+    ]);
+
+    doc.autoTable({
+      startY: 28,
+      head: [['Elemen', 'Uraian Elemen SMKP', 'Skor', 'Pencapaian', 'Predikat']],
+      body: bodyData,
+      theme: 'striped',
+      headStyles: { fillColor: [159, 18, 57], textColor: [255, 255, 255] },
+      styles: { fontSize: 8 }
+    });
+
+    doc.save("Audit_K3_SMKP_Minerba_PT_BSI.pdf");
+    showToast("Laporan SMKP K3 diunduh ke PDF", "success");
+  }
+
+  // ==================== TAB 23: FLEET & MATCH FACTOR LOGIC ====================
+  const FLEET_ROSTER_DATA = [
+    { id: 'EX-01', model: 'Komatsu PC1250-8R (85 Ton)', alloc: 'Pit Tumpang Pitu Bench 120', status: 'OPERATING', pa: 92.4, fuel: 82.5, op: 'Rahmat Hidayat' },
+    { id: 'EX-02', model: 'Komatsu PC1250-8R (85 Ton)', alloc: 'Pit Tumpang Pitu Bench 110', status: 'OPERATING', pa: 90.1, fuel: 84.0, op: 'Slamet Riyadi' },
+    { id: 'EX-03', model: 'Caterpillar 390F L (90 Ton)', alloc: 'Cut Waste Dump Sektor Barat', status: 'OPERATING', pa: 88.5, fuel: 79.2, op: 'Dedi Kurniawan' },
+    { id: 'DT-101', model: 'Caterpillar 777E (100 Ton)', alloc: 'Hauling Ore ke Primary Crusher', status: 'OPERATING', pa: 89.2, fuel: 68.0, op: 'Joko Susilo' },
+    { id: 'DT-102', model: 'Caterpillar 777E (100 Ton)', alloc: 'Hauling Ore ke Primary Crusher', status: 'OPERATING', pa: 91.0, fuel: 67.5, op: 'Hariyanto' },
+    { id: 'DT-103', model: 'Caterpillar 777E (100 Ton)', alloc: 'Hauling Waste ke Disposal Barat', status: 'OPERATING', pa: 87.4, fuel: 71.0, op: 'Ahmad Fauzi' },
+    { id: 'DT-104', model: 'Caterpillar 777E (100 Ton)', alloc: 'Hauling Waste ke Disposal Barat', status: 'STANDBY', pa: 88.0, fuel: 0.0, op: 'Shift Pergantian' },
+    { id: 'DT-105', model: 'Caterpillar 777E (100 Ton)', alloc: 'Hauling Material Zona 4 Pad C', status: 'SCHEDULED PM', pa: 84.2, fuel: 0.0, op: 'Workshop Bay 2' },
+    { id: 'DZ-01', model: 'Komatsu D375A-6 Bulldozer', alloc: 'Ripping & Spreading Pit Jenjang', status: 'OPERATING', pa: 91.5, fuel: 58.0, op: 'Sunarto' },
+    { id: 'MG-01', model: 'Caterpillar 16M Motor Grader', alloc: 'Perawatan Haul Road 24m', status: 'OPERATING', pa: 93.0, fuel: 34.5, op: 'Sugeng Widodo' }
+  ];
+
+  function calculateMatchFactor() {
+    const Na = parseFloat(document.getElementById('mfInputTrucks')?.value) || 5;
+    const Ctl = parseFloat(document.getElementById('mfInputCtl')?.value) || 3.2;
+    const Nl = parseFloat(document.getElementById('mfInputLoaders')?.value) || 1;
+    const Cta = parseFloat(document.getElementById('mfInputCta')?.value) || 16.5;
+
+    const mf = (Na * Ctl) / (Nl * Cta);
+    const resVal = document.getElementById('mfResultValue');
+    const dispMf = document.getElementById('fleetDispMatchFactor');
+    if (resVal) resVal.innerText = mf.toFixed(2);
+    if (dispMf) dispMf.innerText = mf.toFixed(2);
+
+    const resAna = document.getElementById('mfResultAnalysis');
+    if (resAna) {
+      if (mf > 1.05) {
+        resAna.innerHTML = `<span class="text-rose-400 font-bold">MF = ${mf.toFixed(2)} &gt; 1.0 (Truck Antre):</span> Jumlah dump truck berlebih, terjadi waktu tunggu di loader. Disarankan mengurangi 1 unit truk atau mempercepat rute edar.`;
+      } else if (mf < 0.90) {
+        resAna.innerHTML = `<span class="text-yellow-400 font-bold">MF = ${mf.toFixed(2)} &lt; 1.0 (Loader Menganggur):</span> Loader sering menunggu kedatangan truk. Disarankan menambah 1 unit dump truck.`;
+      } else {
+        resAna.innerHTML = `<span class="text-emerald-400 font-bold">MF = ${mf.toFixed(2)} &asymp; 1.0 (Optimal):</span> Rasio armada seimbang sempurna. Antrean truk minimal dan utilisasi excavator mencapai &gt; 95%.`;
+      }
+    }
+  }
+
+  function renderFleetTable() {
+    const tbody = document.getElementById('fleetTableBody');
+    if (!tbody) return;
+
+    let html = '';
+    FLEET_ROSTER_DATA.forEach(f => {
+      let stClass = 'bg-emerald-950 text-emerald-300 border border-emerald-600';
+      if (f.status === 'STANDBY') stClass = 'bg-yellow-950 text-yellow-300 border border-yellow-600';
+      else if (f.status.includes('PM') || f.status === 'BREAKDOWN') stClass = 'bg-rose-950 text-rose-300 border border-rose-600';
+
+      html += `
+        <tr class="hover:bg-slate-900/60 font-mono text-[9.5px]">
+          <td class="p-2 font-bold text-amber-300">${f.id}</td>
+          <td class="p-2 text-white font-medium">${f.model}</td>
+          <td class="p-2 text-slate-300">${f.alloc}</td>
+          <td class="p-2 text-center"><span class="px-1.5 py-0.5 rounded text-[8px] font-bold ${stClass}">${f.status}</span></td>
+          <td class="p-2 text-right font-bold text-emerald-400">${f.pa.toFixed(1)}%</td>
+          <td class="p-2 text-right text-cyan-300">${f.fuel > 0 ? f.fuel.toFixed(1) + ' L/j' : '—'}</td>
+          <td class="p-2 text-slate-300">${f.op}</td>
+        </tr>
+      `;
+    });
+    tbody.innerHTML = html;
+  }
+
+  function exportFleetExcel() {
+    if (typeof XLSX === 'undefined') { showToast('Library Excel belum siap', 'error'); return; }
+    const rows = [
+      ["ROSTER & KINERJA PRODUKTIVITAS ALAT BERAT PT BSI"],
+      ["Lokasi", "Tambang Emas Pit Tumpang Pitu, Banyuwangi"],
+      ["Tanggal", new Date().toLocaleString('id-ID')],
+      [],
+      ["Unit ID", "Model Alat Berat", "Alokasi Kerja", "Status Operasi", "PA (%)", "Konsumsi Bahan Bakar (L/jam)", "Operator"]
+    ];
+    FLEET_ROSTER_DATA.forEach(f => {
+      rows.push([f.id, f.model, f.alloc, f.status, f.pa, f.fuel, f.op]);
+    });
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), "Fleet_Performance");
+    XLSX.writeFile(wb, "Produktivitas_Alat_Berat_PT_BSI.xlsx");
+    showToast("Data armada diekspor ke Excel", "success");
+  }
+
+  function exportFleetPDF() {
+    if (!window.jspdf || !window.jspdf.jsPDF) { showToast('Library PDF belum siap', 'error'); return; }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    doc.setFillColor(28, 17, 6); doc.rect(0, 0, 210, 24, 'F');
+    doc.setTextColor(249, 115, 22); doc.setFontSize(12); doc.setFont('helvetica', 'bold');
+    doc.text("PT BUMI SUKSESINDO - KINERJA FLEET ALAT BERAT", 14, 10);
+    doc.setFontSize(8); doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'normal');
+    doc.text("Monitoring Kesiapan Mekanikal (PA 89.4%, MA 86.2%, UA 79.5%) & Roster Armada Pit", 14, 16);
+    doc.text("Tanggal: " + new Date().toLocaleDateString('id-ID') + " • Match Factor Optimal: 0.96", 14, 21);
+
+    const bodyData = FLEET_ROSTER_DATA.map(f => [
+      f.id, f.model, f.alloc, f.status, `${f.pa}%`, `${f.fuel} L/j`, f.op
+    ]);
+
+    doc.autoTable({
+      startY: 28,
+      head: [['Unit ID', 'Model Alat Berat', 'Alokasi Kerja', 'Status', 'PA', 'BBM', 'Operator']],
+      body: bodyData,
+      theme: 'striped',
+      headStyles: { fillColor: [194, 65, 12], textColor: [255, 255, 255] },
+      styles: { fontSize: 7.5 }
+    });
+
+    doc.save("Produktivitas_Alat_Berat_BSI.pdf");
+    showToast("Laporan Armada diunduh ke PDF", "success");
+  }
+
+  // ==================== TAB 24: ENVIRONMENTAL MODULE ====================
+  function exportEnvExcel() {
+    if (typeof XLSX === 'undefined') { showToast('Library Excel belum siap', 'error'); return; }
+    const rows = [
+      ["PENGELOLAAN LINGKUNGAN HIDUP & KUALITAS OUTLET WTP (KEPMEN LH 202/2004)"],
+      ["Perusahaan", "PT Bumi Suksesindo - Tujuh Bukit Gold Project"],
+      ["Tanggal", new Date().toLocaleString('id-ID')],
+      [],
+      ["Parameter Uji", "Hasil Lab Aktual", "Baku Mutu Maksimum", "Satuan", "Metode Analisis", "Status Evaluasi"],
+      ["pH (Derajat Keasaman)", 7.42, "6.0 - 9.0", "-", "SNI 06-6989.11", "MEMENUHI"],
+      ["Total Suspended Solids (TSS)", 42.5, 200.0, "mg/L", "SNI 06-6989.3", "MEMENUHI"],
+      ["Besi Terlarut (Fe)", 1.18, 7.00, "mg/L", "AAS Gravimetri", "MEMENUHI"],
+      ["Mangan Terlarut (Mn)", 0.84, 4.00, "mg/L", "AAS Gravimetri", "MEMENUHI"],
+      ["Tembaga Terlarut (Cu)", 0.12, 2.00, "mg/L", "AAS Gravimetri", "MEMENUHI"],
+      ["Sianida WAD", "< 0.05", 0.50, "mg/L", "Spektrofotometer", "MEMENUHI"],
+      [],
+      ["STATUS REKLAMASI PROGRESIF", "LUAS (Ha)", "JUMLAH BIBIT", "KETERANGAN"],
+      ["Realisasi Revegetasi Lereng Waste Dump", 84.5, 105000, "Pohon Endemik Meru Betiri (Bendo, Sawo Kecik)"]
+    ];
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), "Lingkungan_Hidup_WTP");
+    XLSX.writeFile(wb, "Pengelolaan_Lingkungan_WTP_BSI.xlsx");
+    showToast("Data Lingkungan Hidup diekspor ke Excel", "success");
+  }
+
+  function exportEnvPDF() {
+    if (!window.jspdf || !window.jspdf.jsPDF) { showToast('Library PDF belum siap', 'error'); return; }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    doc.setFillColor(6, 24, 20); doc.rect(0, 0, 210, 24, 'F');
+    doc.setTextColor(20, 184, 166); doc.setFontSize(12); doc.setFont('helvetica', 'bold');
+    doc.text("PT BUMI SUKSESINDO - LAPORAN KUALITAS LINGKUNGAN WTP", 14, 10);
+    doc.setFontSize(8); doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'normal');
+    doc.text("Standar Kepatuhan Outlet Air Limbah: Kepmen LH No. 202 Tahun 2004", 14, 16);
+    doc.text("Tanggal Uji Lab: " + new Date().toLocaleDateString('id-ID') + " • Status: 100% Memenuhi Baku Mutu", 14, 21);
+
+    const bodyData = [
+      ["pH", "7.42", "6.0 - 9.0", "SNI 06-6989.11", "MEMENUHI (AMAN)"],
+      ["TSS", "42.5 mg/L", "200 mg/L", "SNI 06-6989.3", "MEMENUHI (AMAN)"],
+      ["Besi (Fe)", "1.18 mg/L", "7.00 mg/L", "AAS Gravimetri", "MEMENUHI (AMAN)"],
+      ["Mangan (Mn)", "0.84 mg/L", "4.00 mg/L", "AAS Gravimetri", "MEMENUHI (AMAN)"],
+      ["Tembaga (Cu)", "0.12 mg/L", "2.00 mg/L", "AAS Gravimetri", "MEMENUHI (AMAN)"],
+      ["Sianida WAD", "< 0.05 mg/L", "0.50 mg/L", "Spektrofotometer", "MEMENUHI (AMAN)"]
+    ];
+
+    doc.autoTable({
+      startY: 28,
+      head: [['Parameter', 'Hasil Uji Lab', 'Baku Mutu Maks.', 'Metode', 'Evaluasi']],
+      body: bodyData,
+      theme: 'striped',
+      headStyles: { fillColor: [13, 148, 136], textColor: [255, 255, 255] },
+      styles: { fontSize: 8 }
+    });
+
+    doc.save("Laporan_Lingkungan_WTP_PT_BSI.pdf");
+    showToast("Laporan Lingkungan diunduh ke PDF", "success");
+  }
+
+  // ==================== TAB 25: RISK REPORT MODULE ====================
+  function exportRiskReportExcel() {
+    if (typeof XLSX === 'undefined') { showToast('Library Excel belum siap', 'error'); return; }
+    const rows = [
+      ["EXECUTIVE RISK REPORT & RISK REGISTER (ISO 31000) - PT BSI"],
+      ["Proyek", "Tujuh Bukit Gold Mine & TSF Pad C"],
+      ["Waktu Ekspor", new Date().toLocaleString('id-ID')],
+      [],
+      ["No", "Potensi Bahaya Fatal (Top Risks)", "Penyebab Utama", "Tingkat Risiko", "Kontrol Kritis Preventif", "Status Kontrol"],
+      [1, "Kegagalan Lereng Tanggul TSF", "Kenaikan tekanan pori / gempa MDE", "TINGGI (10)", "Piezometer kontinu, FOS statis 1.68, counterweight berm", "EFEKTIF"],
+      [2, "Kebocoran Gas Sianida (HCN)", "pH larutan turun < 10.0", "TINGGI (12)", "Dosis kapur CaO kontinu, sensor gas HCN alarm 4.7 ppm", "EFEKTIF"],
+      [3, "Tabrakan Alat Berat Pit", "Blind spot & fatigue", "SEDANG (8)", "Radio dua arah, radar GPS anti-tabrakan, safety berm jalan", "EFEKTIF"],
+      [4, "Overtopping Air Waduk TSF", "Badai hujan ekstrem melampaui PMP", "SEDANG (6)", "Freeboard >= 2.0m, emergency spillway 185 m³/s", "EFEKTIF"],
+      [5, "Kebocoran Liners PLS / Pad", "Cacat sambungan geomembran", "SEDANG (6)", "Double liner HDPE 2.0mm + sumur pantau LDRS", "EFEKTIF"]
+    ];
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), "Risk_Register_ISO31000");
+    XLSX.writeFile(wb, "Laporan_Risiko_Tambang_BSI.xlsx");
+    showToast("Laporan Risiko diekspor ke Excel", "success");
+  }
+
+  function exportRiskReportPDF() {
+    if (!window.jspdf || !window.jspdf.jsPDF) { showToast('Library PDF belum siap', 'error'); return; }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    doc.setFillColor(22, 6, 32); doc.rect(0, 0, 210, 24, 'F');
+    doc.setTextColor(192, 132, 252); doc.setFontSize(12); doc.setFont('helvetica', 'bold');
+    doc.text("PT BUMI SUKSESINDO - LAPORAN EKSEKUTIF MANAJEMEN RISIKO", 14, 10);
+    doc.setFontSize(8); doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'normal');
+    doc.text("Standar ISO 31000 Enterprise Risk Management • Matriks Risiko 5x5 Terpadu", 14, 16);
+    doc.text("Tanggal: " + new Date().toLocaleDateString('id-ID') + " • Status: Seluruh Kontrol Kritis Terverifikasi Efektif", 14, 21);
+
+    const bodyData = [
+      ["1", "Kegagalan Lereng TSF", "Pore pressure / Gempa MDE", "Tinggi (10)", "Piezometer telemetri, FOS 1.68", "EFEKTIF"],
+      ["2", "Kebocoran Sianida", "pH drop < 10.0", "Tinggi (12)", "Sensor HCN, Dosis CaO kontinu", "EFEKTIF"],
+      ["3", "Tabrakan Alat Berat", "Blind spot & fatigue", "Sedang (8)", "Radar GPS, Safety berm jalan", "EFEKTIF"],
+      ["4", "Overtopping Waduk", "Hujan PMP ekstrem", "Sedang (6)", "Freeboard 2.45m, Spillway 185 m³/s", "EFEKTIF"],
+      ["5", "Kebocoran Liners", "Cacat sambungan HDPE", "Sedang (6)", "Double HDPE 2.0mm + LDRS", "EFEKTIF"]
+    ];
+
+    doc.autoTable({
+      startY: 28,
+      head: [['No', 'Bahaya Fatal', 'Pemicu Risiko', 'Risk Level', 'Mitigasi Kritis', 'Status']],
+      body: bodyData,
+      theme: 'striped',
+      headStyles: { fillColor: [126, 34, 206], textColor: [255, 255, 255] },
+      styles: { fontSize: 8 }
+    });
+
+    doc.save("Laporan_Eksekutif_Risiko_PT_BSI.pdf");
+    showToast("Laporan Risiko diunduh ke PDF", "success");
+  }
+
+  // ==================== TAB 26: COMMERCIAL MODULE ====================
+  function exportCommercialExcel() {
+    if (typeof XLSX === 'undefined') { showToast('Library Excel belum siap', 'error'); return; }
+    const rows = [
+      ["LAPORAN PEMASARAN & BISNIS LOGAM MULIA PT BUMI SUKSESINDO"],
+      ["Entitas", "PT Bumi Suksesindo (PT Merdeka Copper Gold Tbk)"],
+      ["Tanggal", new Date().toLocaleString('id-ID')],
+      [],
+      ["KOMPONEN HARGA & BIAYA", "NILAI", "SATUAN"],
+      ["Harga Emas Pasar Dunia (LBMA Spot)", 2650, "USD / Troy Ounce"],
+      ["Harga Emas Antam Domestik", 1485000, "IDR / Gram"],
+      ["Harga Perak Dunia (Ag Spot)", 31.50, "USD / Troy Ounce"],
+      ["Biaya Tambang Pit (Mining)", 380, "USD / oz"],
+      ["Biaya Pengolahan (Processing ADR)", 320, "USD / oz"],
+      ["Biaya Umum & Administrasi (G&A)", 120, "USD / oz"],
+      ["Royalti PNBP, Pemurnian & Transport", 195, "USD / oz"],
+      ["Total All-in Sustaining Costs (AISC)", 1015, "USD / oz"],
+      ["Operating Cash Margin", 1635, "USD / oz (61.7% Margin)"]
+    ];
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), "Komersial_Emas_BSI");
+    XLSX.writeFile(wb, "Laporan_Pemasaran_Bisnis_Emas_BSI.xlsx");
+    showToast("Laporan Komersial diekspor ke Excel", "success");
+  }
+
+  function exportCommercialPDF() {
+    if (!window.jspdf || !window.jspdf.jsPDF) { showToast('Library PDF belum siap', 'error'); return; }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    doc.setFillColor(28, 24, 6); doc.rect(0, 0, 210, 24, 'F');
+    doc.setTextColor(234, 179, 8); doc.setFontSize(12); doc.setFont('helvetica', 'bold');
+    doc.text("PT BUMI SUKSESINDO - PEMASARAN & STRUKTUR BIAYA AISC", 14, 10);
+    doc.setFontSize(8); doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'normal');
+    doc.text("All-in Sustaining Costs (AISC) $1.015/oz • Harga Emas Acuan LBMA $2.650/oz", 14, 16);
+    doc.text("Tanggal: " + new Date().toLocaleDateString('id-ID') + " • Margin Kas Operasi: 61.7%", 14, 21);
+
+    const bodyData = [
+      ["Biaya Penambangan Pit (Mining)", "$380 / oz", "37.4%", "Excavator 85T, Dump Truck 100T"],
+      ["Biaya Pengolahan (Processing ADR)", "$320 / oz", "31.5%", "Sianidasi Heap Leach, Semen, Kapur, Reagen"],
+      ["Umum & Administrasi (G&A Site)", "$120 / oz", "11.8%", "Logistik, Camp, Keamanan & PPM"],
+      ["Royalti PNBP, Refining & Transport", "$195 / oz", "19.2%", "Royalti Negara 3.75%, Pemurnian Antam"],
+      ["TOTAL AISC BENDUNGAN BSI", "$1.015 / oz", "100.0%", "Kuartil Biaya Terendah Industri Emas"],
+      ["NET OPERATING CASH MARGIN", "$1.635 / oz", "61.7%", "Margin Kas Operasional Eksekutif"]
+    ];
+
+    doc.autoTable({
+      startY: 28,
+      head: [['Komponen Biaya Tambang', 'Nilai Opex', 'Porsi %', 'Keterangan Analisis']],
+      body: bodyData,
+      theme: 'striped',
+      headStyles: { fillColor: [202, 138, 4], textColor: [0, 0, 0] },
+      styles: { fontSize: 8 }
+    });
+
+    doc.save("Laporan_Pemasaran_AISC_PT_BSI.pdf");
+    showToast("Laporan Komersial diunduh ke PDF", "success");
+  }
+
+  // ==================== TAB 27: SITE ASSISTANT MODULE ====================
+  const TASKS_STORAGE_KEY = 'bsi_dam_site_tasks_v1';
+  const DEFAULT_SITE_TASKS = [
+    { id: 'tsk-1', name: 'Inspeksi Visual & Pembacaan Piezometer VW Sektor Barat', loc: 'Pad C Tanggul Crest', pic: 'Tim Geoteknik Lapangan', pri: 'CRITICAL', status: 'SELESAI' },
+    { id: 'tsk-2', name: 'Pembersihan Sedimen Parit Groin Drain Kaki Tanggul', loc: 'Kaki Tanggul Pad C Hilir', pic: 'Kru Civil Maintenance', pri: 'HIGH', status: 'SELESAI' },
+    { id: 'tsk-3', name: 'Uji Sand Cone Kepadatan Hamparan Zona 1 Layer 4', loc: 'Pad C Ext Elev +46.0', pic: 'Fajar Nugroho (QA/QC)', pri: 'HIGH', status: 'SEDANG BERJALAN' },
+    { id: 'tsk-4', name: 'Pengambilan Contoh Air Limbah Outlet WTP Mingguan', loc: 'Outlet Kolam WTP', pic: 'Environmental Team', pri: 'MEDIUM', status: 'TERJADWAL' },
+    { id: 'tsk-5', name: 'Pengukuran Debit V-Notch Weir & Turbidity Check', loc: 'V-Notch Seepage Weir', pic: 'Hydrology Inspector', pri: 'HIGH', status: 'SELESAI' }
+  ];
+
+  let siteTasksData = [];
+
+  function loadSiteTasksData() {
+    try {
+      const s = localStorage.getItem(TASKS_STORAGE_KEY);
+      if (s) {
+        const p = JSON.parse(s);
+        if (Array.isArray(p) && p.length > 0) return p;
+      }
+    } catch(e) {}
+    return DEFAULT_SITE_TASKS;
+  }
+
+  function saveSiteTasksData() {
+    try { localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(siteTasksData)); } catch(e) {}
+  }
+
+  function renderSiteTasks() {
+    const tbody = document.getElementById('siteTasksTableBody');
+    if (!tbody) return;
+
+    let html = '';
+    siteTasksData.forEach(t => {
+      let stBadge = t.status === 'SELESAI' ? 'bg-emerald-950 text-emerald-300 border border-emerald-600' : (t.status === 'SEDANG BERJALAN' ? 'bg-cyan-950 text-cyan-300 border border-cyan-600 animate-pulse' : 'bg-slate-800 text-slate-300');
+
+      html += `
+        <tr class="hover:bg-slate-900/60 font-mono text-[9.5px]">
+          <td class="p-2 font-bold text-white">${t.name}</td>
+          <td class="p-2 text-cyan-300">${t.loc}</td>
+          <td class="p-2 text-amber-300">${t.pic}</td>
+          <td class="p-2 text-center"><span class="px-1.5 py-0.5 rounded text-[8px] font-bold ${stBadge}">${t.status}</span></td>
+          <td class="p-2 text-center whitespace-nowrap">
+            <button type="button" onclick="deleteSiteTask('${t.id}')" class="p-1 text-rose-400 hover:text-rose-200" title="Hapus"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+      `;
+    });
+    tbody.innerHTML = html;
+  }
+
+  function openNewSiteTaskModal() {
+    document.getElementById('siteTaskInpName').value = '';
+    document.getElementById('siteTaskInpLoc').value = '';
+    document.getElementById('siteTaskInpPic').value = '';
+    openModal('modalNewSiteTask');
+  }
+
+  function saveNewSiteTask() {
+    const name = document.getElementById('siteTaskInpName').value.trim();
+    const loc = document.getElementById('siteTaskInpLoc').value.trim();
+    const pic = document.getElementById('siteTaskInpPic').value.trim();
+    const pri = document.getElementById('siteTaskInpPri').value;
+
+    if (!name || !loc) {
+      showToast('Nama tugas dan lokasi kerja wajib diisi!', 'error');
+      return;
+    }
+
+    siteTasksData.unshift({
+      id: 'tsk-' + Date.now(),
+      name: name,
+      loc: loc,
+      pic: pic || 'Petugas Terjadwal',
+      pri: pri,
+      status: 'SEDANG BERJALAN'
+    });
+
+    saveSiteTasksData();
+    renderSiteTasks();
+    closeModal('modalNewSiteTask');
+    showToast('Tugas lapangan berhasil ditambahkan!', 'success');
+  }
+
+  function deleteSiteTask(id) {
+    if (!confirm('Hapus tugas lapangan ini?')) return;
+    siteTasksData = siteTasksData.filter(x => x.id !== id);
+    saveSiteTasksData();
+    renderSiteTasks();
+    showToast('Tugas lapangan dihapus', 'info');
+  }
+
+  function saveShiftHandover() {
+    const off = document.getElementById('hoOffgoingSup').value.trim();
+    const inc = document.getElementById('hoIncomingSup').value.trim();
+    const notes = document.getElementById('hoCriticalNotes').value.trim();
+
+    if (!off || !inc) {
+      showToast('Nama pengawas shift wajib diisi!', 'error');
+      return;
+    }
+
+    showToast(`Serah terima shift dari ${off} ke ${inc} berhasil disimpan!`, 'success');
+  }
+
+  function convertGramToOz(val) {
+    const g = parseFloat(val) || 0;
+    const oz = g / 31.1034768;
+    const el = document.getElementById('convResultOz');
+    if (el) el.innerText = `${oz.toFixed(3)} oz`;
+  }
+
+  function convertBcmToTon(val) {
+    const bcm = parseFloat(val) || 0;
+    const ton = bcm * 2.45; // SG batuan rata-rata
+    const el = document.getElementById('convResultTon');
+    if (el) el.innerText = `${ton.toLocaleString('id-ID')} Ton`;
+  }
+
+  function convertM3hToLps(val) {
+    const m3h = parseFloat(val) || 0;
+    const lps = (m3h * 1000) / 3600;
+    const el = document.getElementById('convResultLps');
+    if (el) el.innerText = `${lps.toFixed(1)} L/s`;
+  }
+
+  function exportSiteLogPDF() {
+    if (!window.jspdf || !window.jspdf.jsPDF) { showToast('Library PDF belum siap', 'error'); return; }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    doc.setFillColor(12, 13, 36); doc.rect(0, 0, 210, 24, 'F');
+    doc.setTextColor(129, 140, 248); doc.setFontSize(12); doc.setFont('helvetica', 'bold');
+    doc.text("PT BUMI SUKSESINDO - LOG PENUGASAN HARIAN SITE", 14, 10);
+    doc.setFontSize(8); doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'normal');
+    doc.text("Shift Handover & Dispatch Penugasan Lapangan Tambang Emas Tujuh Bukit", 14, 16);
+    doc.text("Tanggal: " + new Date().toLocaleDateString('id-ID'), 14, 21);
+
+    const bodyData = siteTasksData.map((t, idx) => [
+      idx + 1, t.name, t.loc, t.pic, t.pri, t.status
+    ]);
+
+    doc.autoTable({
+      startY: 28,
+      head: [['No', 'Tugas / Instruksi Lapangan', 'Lokasi', 'PIC', 'Prioritas', 'Status']],
+      body: bodyData,
+      theme: 'striped',
+      headStyles: { fillColor: [67, 56, 202], textColor: [255, 255, 255] },
+      styles: { fontSize: 8 }
+    });
+
+    doc.save("Log_Penugasan_Harian_Site_BSI.pdf");
+    showToast("Log Penugasan Harian diunduh ke PDF", "success");
+  }
+
+
 window.addEventListener('DOMContentLoaded', () => {
     try { applySoilPreset('medium_sand'); } catch(e) {}
     try { initLoadingRealisticEarth(); } catch(e) {}
@@ -14484,6 +17061,11 @@ window.addEventListener('DOMContentLoaded', () => {
     try { hitungMetalurgiEmas(); } catch(e) {}
     try { renderMiningStage(1); } catch(e) {}
     try { initMiningFlowCanvas(); } catch(e) {}
+    try { permitsData = loadPermitsData(); renderPermitsTable('ALL'); } catch(e) {}
+    try { renderSmkpElements(); hazardReportsData = loadHazardsData(); renderHazardTable(); } catch(e) {}
+    try { calculateMatchFactor(); renderFleetTable(); } catch(e) {}
+    try { siteTasksData = loadSiteTasksData(); renderSiteTasks(); } catch(e) {}
+    try { updateUserRoleUI(); } catch(e) {}
   });
 </script>
 </body>
