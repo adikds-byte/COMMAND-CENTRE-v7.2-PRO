@@ -529,7 +529,7 @@
                 <b class="text-amber-300 font-tech">TINGKAT 1 (LAPANGAN)</b>
               </div>
               <p class="text-[9px] text-slate-400 leading-tight">Pengawas Geoteknik, Sipil &amp; Operasional</p>
-              <span class="text-[8px] text-emerald-400 font-bold block">&bull; Akses Modul Tab 01 s/d 18</span>
+              <span class="text-[8px] text-emerald-400 font-bold block">&bull; Akses Modul Tab 01 s/d 19</span>
             </div>
 
             <div class="p-2.5 rounded-xl bg-slate-950/90 border border-slate-700/80 space-y-1 shadow">
@@ -538,7 +538,7 @@
                 <b class="text-yellow-300 font-tech">TINGKAT 2 (EKSEKUTIF)</b>
               </div>
               <p class="text-[9px] text-slate-400 leading-tight">Manajemen Tambang, KTT, Legal &amp; Bisnis</p>
-              <span class="text-[8px] text-cyan-300 font-bold block">&bull; Akses Penuh Seluruh Modul (Tab 01 s/d 27)</span>
+              <span class="text-[8px] text-cyan-300 font-bold block">&bull; Akses Penuh Seluruh Modul (Tab 01 s/d 28)</span>
             </div>
           </div>
 
@@ -823,41 +823,46 @@
       <button onclick="switchTab('tabSoilCap')" id="btnTabSoilCap" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-amber-500/80 text-amber-300 hover:text-white hover:bg-amber-950/80 transition flex items-center gap-1.5 bg-gradient-to-r from-amber-950/80 via-slate-900 to-yellow-950/60 shadow-lg shadow-amber-500/10">
         <i class="fa-solid fa-layer-group text-amber-400"></i> 18. Daya Dukung Tanah &amp; USCS
       </button>
-      <!-- TAB 19 - 27: AKSES LEVEL 2 (USERNAME: BSI) -->
+            <!-- TAB 19: DAFTAR ISTILAH PROYEK BSI -->
+      <button onclick="switchTab('tabGlossary')" id="btnTabGlossary" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-amber-500/80 text-amber-300 hover:text-white hover:bg-amber-950/80 transition flex items-center gap-1.5 bg-gradient-to-r from-amber-950/80 via-slate-900 to-yellow-950/60 shadow-lg shadow-amber-500/10">
+        <i class="fa-solid fa-book-bookmark text-amber-400"></i> 19. Daftar Istilah Proyek BSI
+      </button>
+
+      <!-- TAB 20 - 28: AKSES LEVEL 2 (USERNAME: BSI) -->
       <button onclick="switchTab('tabGoldMining')" id="btnTabGoldMining" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-yellow-500/80 text-yellow-300 hover:text-white hover:bg-yellow-950/80 transition flex items-center gap-1.5 bg-gradient-to-r from-yellow-950/80 via-slate-900 to-amber-950/60 shadow-lg shadow-yellow-500/10">
-        <i class="fa-solid fa-gem text-yellow-400"></i> 19. Penambangan &amp; Pengolahan Emas BSI <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
+        <i class="fa-solid fa-gem text-yellow-400"></i> 20. Penambangan &amp; Pengolahan Emas BSI <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
       </button>
 
       <button onclick="switchTab('tabPermits')" id="btnTabPermits" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-emerald-500/80 text-emerald-300 hover:text-white hover:bg-emerald-950/80 transition flex items-center gap-1.5 bg-slate-900 shadow">
-        <i class="fa-solid fa-stamp text-emerald-400"></i> 20. Legalitas &amp; Perizinan <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
+        <i class="fa-solid fa-stamp text-emerald-400"></i> 21. Legalitas &amp; Perizinan <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
       </button>
 
       <button onclick="switchTab('tabRkab')" id="btnTabRkab" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-cyan-500/80 text-cyan-300 hover:text-white hover:bg-cyan-950/80 transition flex items-center gap-1.5 bg-slate-900 shadow">
-        <i class="fa-solid fa-file-invoice-dollar text-cyan-400"></i> 21. Penyusunan RKAB Minerba <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
+        <i class="fa-solid fa-file-invoice-dollar text-cyan-400"></i> 22. Penyusunan RKAB Minerba <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
       </button>
 
       <button onclick="switchTab('tabSmkp')" id="btnTabSmkp" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-rose-500/80 text-rose-300 hover:text-white hover:bg-rose-950/80 transition flex items-center gap-1.5 bg-slate-900 shadow">
-        <i class="fa-solid fa-shield-halved text-rose-400"></i> 22. K3, HSE &amp; Kepatuhan SMKP <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
+        <i class="fa-solid fa-shield-halved text-rose-400"></i> 23. K3, HSE &amp; Kepatuhan SMKP <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
       </button>
 
       <button onclick="switchTab('tabFleet')" id="btnTabFleet" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-orange-500/80 text-orange-300 hover:text-white hover:bg-orange-950/80 transition flex items-center gap-1.5 bg-slate-900 shadow">
-        <i class="fa-solid fa-truck-monster text-orange-400"></i> 23. Produktivitas Alat Berat <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
+        <i class="fa-solid fa-truck-monster text-orange-400"></i> 24. Produktivitas Alat Berat <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
       </button>
 
       <button onclick="switchTab('tabLingkungan')" id="btnTabLingkungan" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-teal-500/80 text-teal-300 hover:text-white hover:bg-teal-950/80 transition flex items-center gap-1.5 bg-slate-900 shadow">
-        <i class="fa-solid fa-seedling text-teal-400"></i> 24. Pengelolaan Lingkungan Tambang <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
+        <i class="fa-solid fa-seedling text-teal-400"></i> 25. Pengelolaan Lingkungan Tambang <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
       </button>
 
       <button onclick="switchTab('tabRiskReport')" id="btnTabRiskReport" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-purple-500/80 text-purple-300 hover:text-white hover:bg-purple-950/80 transition flex items-center gap-1.5 bg-slate-900 shadow">
-        <i class="fa-solid fa-chart-line text-purple-400"></i> 25. Laporan Operasional &amp; Risiko <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
+        <i class="fa-solid fa-chart-line text-purple-400"></i> 26. Laporan Operasional &amp; Risiko <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
       </button>
 
       <button onclick="switchTab('tabBisnisTambang')" id="btnTabBisnisTambang" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-yellow-500/80 text-yellow-300 hover:text-white hover:bg-yellow-950/80 transition flex items-center gap-1.5 bg-slate-900 shadow">
-        <i class="fa-solid fa-coins text-yellow-400"></i> 26. Pemasaran &amp; Bisnis Tambang <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
+        <i class="fa-solid fa-coins text-yellow-400"></i> 27. Pemasaran &amp; Bisnis Tambang <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
       </button>
 
       <button onclick="switchTab('tabSiteAssistant')" id="btnTabSiteAssistant" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-indigo-500/80 text-indigo-300 hover:text-white hover:bg-indigo-950/80 transition flex items-center gap-1.5 bg-gradient-to-r from-indigo-950/80 via-slate-900 to-purple-950/60 shadow">
-        <i class="fa-solid fa-headset text-indigo-400"></i> 27. Asisten Harian Tim Site <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
+        <i class="fa-solid fa-headset text-indigo-400"></i> 28. Asisten Harian Tim Site <span class="nav-lock-badge hidden text-amber-400"><i class="fa-solid fa-lock text-[9px]"></i></span>
       </button>
 
     </div>
@@ -6313,7 +6318,307 @@
     </div>
     </section>
 
-    <!-- ==================== TAB 19: PROSES PENAMBANGAN & METALURGI PENGOLAHAN EMAS BSI TUJUH BUKIT (NEW) ==================== -->
+    <!-- ==================== TAB 20: PROSES PENAMBANGAN & METALURGI PENGOLAHAN EMAS BSI TUJUH BUKIT ==================== -->
+    
+    <!-- ==================== TAB 19: DAFTAR ISTILAH DALAM PEKERJAAN PROYEK PT BSI TUJUH BUKIT BANYUWANGI ==================== -->
+    <section id="tabGlossary" class="tab-pane hidden space-y-4 font-mono">
+
+      <!-- HERO BANNER DAFTAR ISTILAH -->
+      <div class="cmd-card p-5 sm:p-7 bg-gradient-to-br from-[#121c08] via-[#1a1c0d] to-[#040a14] border-2 border-amber-500/70 shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-24 -top-24 w-80 h-80 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-24 -bottom-24 w-80 h-80 rounded-full bg-yellow-500/10 blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+          <div>
+            <div class="flex items-center gap-2 flex-wrap mb-1.5">
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-950/90 border border-amber-500/60 text-amber-300 font-mono text-[10px] font-bold tracking-wider flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span> PT BUMI SUKSESINDO • TUJUH BUKIT BANYUWANGI
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-yellow-950/80 border border-yellow-500/60 text-yellow-300 font-mono text-[10px] font-bold">
+                GLOSARIUM RESMI 68 ISTILAH TEKNIS
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/60 text-emerald-300 font-mono text-[10px] font-bold">
+                6 BIDANG TEKNIS OPERASIONAL
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/60 text-cyan-300 font-mono text-[10px] font-bold">
+                FITUR KIRIM WHATSAPP TERINTEGRASI
+              </span>
+            </div>
+            <h2 class="text-xl sm:text-2xl lg:text-3xl font-black font-tech text-white flex items-center gap-2.5 tracking-wider">
+              <i class="fa-solid fa-book-bookmark text-amber-400 text-2xl"></i> DAFTAR ISTILAH DALAM PEKERJAAN PROYEK PT BSI
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 font-mono mt-1.5 max-w-5xl leading-relaxed">
+              Kompilasi Glosarium Resmi Istilah Asing &amp; Teknis Operasional Tambang Emas Tujuh Bukit (Tumpang Pitu) Banyuwangi: Penambangan Open Pit &amp; Bawah Tanah Porfiri, Metalurgi Heap Leach &amp; ADR Plant, Keamanan Bendungan TSF &amp; Geoteknik, Lingkungan Hidup &amp; Sianida ICMC, Manajemen Armada Alat Berat (FMS), serta Komersial &amp; Regulasi Minerba. Dilengkapi Fitur Kirim ke WhatsApp dengan Input Nomor Dinamis.
+            </p>
+          </div>
+
+          <!-- TOMBOL KONTROL & EKSPOR TAB 20 -->
+          <div class="relative z-10 flex flex-wrap items-center gap-2 text-xs font-mono shrink-0">
+            <button type="button" onclick="exportGlossaryPDF()" class="px-3.5 py-2 rounded-xl bg-rose-700 hover:bg-rose-600 text-white font-bold transition shadow-lg shadow-rose-900/30 flex items-center gap-1.5 cursor-pointer" title="Cetak Glosarium Lengkap ke PDF (A4)">
+              <i class="fa-solid fa-file-pdf"></i> <span class="hidden sm:inline">Cetak PDF</span>
+            </button>
+            <button type="button" onclick="exportGlossaryWord()" class="px-3.5 py-2 rounded-xl bg-blue-700 hover:bg-blue-600 text-white font-bold transition shadow-lg shadow-blue-900/30 flex items-center gap-1.5 cursor-pointer" title="Ekspor Glosarium ke Dokumen Word (.doc)">
+              <i class="fa-solid fa-file-word"></i> <span class="hidden sm:inline">Word (.doc)</span>
+            </button>
+            <button type="button" onclick="exportGlossaryExcel()" class="px-3.5 py-2 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-white font-bold transition shadow-lg shadow-emerald-900/30 flex items-center gap-1.5 cursor-pointer" title="Ekspor Seluruh Istilah ke Excel (.xlsx)">
+              <i class="fa-solid fa-file-excel"></i> <span class="hidden sm:inline">Excel (.xlsx)</span>
+            </button>
+            <button type="button" onclick="speakGlossarySummary()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/50 font-bold transition flex items-center gap-1 cursor-pointer" title="Dengarkan Narasi Suara Glosarium Istilah Proyek BSI">
+              <i class="fa-solid fa-volume-high text-amber-400"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KARTU DATA PROGRAMMER & LEAD GEOTECHNICAL CONSULTANT (DENGAN ANIMASI INTERFACE ENGINEER) -->
+      <div class="dev-card p-5 sm:p-6 space-y-4 shadow-2xl relative border-amber-500/60 backdrop-blur-xl">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-amber-500/40 pb-4">
+          <div class="flex items-center gap-3.5">
+            <!-- Avatar with pulse-gold animation -->
+            <div class="dev-avatar-lg pulse-gold flex">
+              <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div>
+              <div class="text-[10px] text-amber-300 font-bold tracking-wider flex items-center gap-1.5 uppercase font-mono">
+                <i class="fa-solid fa-id-badge text-amber-400"></i> DATA PROGRAMMER &amp; LEAD GEOTECHNICAL CONSULTANT
+              </div>
+              <h3 class="text-base sm:text-xl font-black font-tech text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-cyan-300 text-glow-gradient">
+                Ir. Mohamad Hartadi (Adi)
+              </h3>
+              <p class="text-[11px] text-amber-300 font-bold font-mono">Civil &amp; Geotechnical Dam Safety Engineer &bull; AI Developer</p>
+              <p class="text-[10px] text-emerald-400 font-mono flex items-center gap-1 mt-0.5">
+                <i class="fa-solid fa-certificate text-emerald-400"></i> SKA Ahli Utama Bendungan Besar &bull; HATHI / HATTI
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full bg-emerald-950 border border-emerald-500/60 text-emerald-300 text-[10px] font-bold font-mono flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> LEAD ENGINEER VERIFIED
+            </span>
+          </div>
+        </div>
+
+        <!-- Deskripsi Profil & Portofolio -->
+        <p class="text-slate-300 text-xs leading-relaxed font-mono">
+          Pengembang dan perancang sistem integrasi komputasi rekayasa geoteknik tambang, pemodelan numerik lereng bendungan tailing (TSF), dinamika hidraulik pantai, serta otomatisasi analisis keselamatan bendungan dan pengujian laboratorium mekanika tanah.
+        </p>
+
+        <!-- Social Media, Blog & WhatsApp Contact Links dengan Animasi & Hover Effects -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1 text-[11px] font-mono">
+          <!-- Facebook Link -->
+          <a href="https://facebook.com/m.hartadi" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl bg-[#0a1428] border border-blue-600/70 hover:border-blue-400 text-blue-300 flex justify-between items-center hover:bg-blue-900/40 transition group shadow">
+            <div class="flex items-center gap-2">
+              <i class="fa-brands fa-facebook text-blue-400 text-lg group-hover:scale-110 transition"></i>
+              <span><b>Facebook:</b> m.hartadi</span>
+            </div>
+            <span class="bg-blue-900/90 text-blue-200 px-2 py-0.5 rounded-lg text-[9px] font-bold border border-blue-500/50 flex items-center gap-1">
+              Buka Profil <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i>
+            </span>
+          </a>
+
+          <!-- Blog Link -->
+          <a href="https://newbieonline7.blogspot.com" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl bg-[#1a1206] border border-amber-600/70 hover:border-amber-400 text-amber-300 flex justify-between items-center hover:bg-amber-900/40 transition group shadow">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-blog text-amber-400 text-lg group-hover:scale-110 transition"></i>
+              <span><b>Blog Teknik:</b> newbieonline7.blogspot.com</span>
+            </div>
+            <span class="bg-amber-900/90 text-amber-200 px-2 py-0.5 rounded-lg text-[9px] font-bold border border-amber-500/50 flex items-center gap-1">
+              Kunjungi Blog <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i>
+            </span>
+          </a>
+
+          <!-- WhatsApp Link -->
+          <a href="https://wa.me/6282231036047" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl bg-[#04140c] border border-emerald-600/70 hover:border-emerald-400 text-emerald-300 flex justify-between items-center hover:bg-emerald-900/40 transition group shadow">
+            <div class="flex items-center gap-2">
+              <i class="fa-brands fa-whatsapp text-emerald-400 text-lg group-hover:scale-110 transition"></i>
+              <span><b>WhatsApp:</b> 0822-3103-6047</span>
+            </div>
+            <span class="bg-emerald-900/90 text-emerald-200 px-2.5 py-0.5 rounded-lg text-[9px] font-bold border border-emerald-500/50 flex items-center gap-1 animate-pulse">
+              <i class="fa-solid fa-comments text-[9px]"></i> Chat Langsung
+            </span>
+          </a>
+        </div>
+
+        <!-- Tombol Monitoring Gempa dan Tsunami (InaTEWS Pro) -->
+        <button type="button" onclick="window.open('https://adikds-byte.github.io/InaTEWS-Pro-v45/','_blank')" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-blue-950 via-cyan-950 to-indigo-950 border border-cyan-500/70 text-cyan-200 font-bold text-[10px] tracking-wide hover:from-blue-900 hover:via-cyan-900 hover:to-indigo-900 transition flex items-center justify-center gap-2 shadow-lg shadow-cyan-950/50 cursor-pointer">
+          <i class="fa-solid fa-house-tsunami text-cyan-400 text-sm"></i> MONITORING GEMPA DAN TSUNAMI (INATEWS PRO v45)
+        </button>
+      </div>
+
+      <!-- FITUR PENGIRIMAN DAFTAR ISTILAH KE WHATSAPP (INPUT NOMOR WA DINAMIS) -->
+      <div class="cmd-card p-4 sm:p-5 bg-gradient-to-br from-[#051c14] via-[#092b1f] to-[#04120d] border-2 border-emerald-500/70 shadow-2xl space-y-3.5">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-emerald-500/40 pb-2.5">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-emerald-600 text-slate-950 flex items-center justify-center font-black text-lg shadow-lg">
+              <i class="fa-brands fa-whatsapp text-xl text-white"></i>
+            </div>
+            <div>
+              <h3 class="text-xs sm:text-sm font-bold font-tech text-white flex items-center gap-2">
+                FITUR PENGIRIMAN DAFTAR ISTILAH PROYEK KE WHATSAPP
+              </h3>
+              <p class="text-[10px] text-emerald-300">Bagikan glosarium lengkap 68 istilah atau per kategori langsung ke nomor WhatsApp tujuan.</p>
+            </div>
+          </div>
+          <span class="px-2.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/60 font-bold text-[10px] flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> WA DISPATCH ACTIVE
+          </span>
+        </div>
+
+        <!-- Input Nomor WA & Tombol Aksi Kirim -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-end">
+          <div class="lg:col-span-4 space-y-1">
+            <label class="text-[10px] uppercase font-bold text-slate-300 block flex items-center justify-between">
+              <span><i class="fa-solid fa-phone text-emerald-400 mr-1"></i> Nomor WhatsApp Tujuan:</span>
+              <span class="text-emerald-400 text-[9px] font-normal">Format: 08xx / 628xx</span>
+            </label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-emerald-400">
+                <i class="fa-brands fa-whatsapp text-base"></i>
+              </div>
+              <input type="text" id="waRecipientNumber" value="082231036047" placeholder="Contoh: 082231036047 atau 6282231036047" class="w-full pl-9 pr-24 py-2.5 bg-slate-950 border border-emerald-500/70 rounded-xl text-emerald-300 font-mono font-bold text-xs outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400/30">
+              <button type="button" onclick="setMyWaAsRecipient()" class="absolute right-1.5 top-1.5 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[9px] font-bold border border-slate-700 transition" title="Isi dengan nomor programmer (0822-3103-6047)">
+                No. Engineer
+              </button>
+            </div>
+          </div>
+
+          <div class="lg:col-span-8 flex flex-wrap gap-2">
+            <button type="button" onclick="sendGlossaryToWA('all')" class="flex-1 min-w-[200px] py-2.5 px-3.5 rounded-xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 hover:brightness-110 text-slate-950 font-black text-xs transition shadow-lg flex items-center justify-center gap-2 cursor-pointer">
+              <i class="fa-brands fa-whatsapp text-base"></i> <span>Kirim Seluruh Istilah (68 Lengkap)</span>
+            </button>
+            <button type="button" onclick="sendGlossaryToWA('category')" class="py-2.5 px-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-emerald-500/60 text-emerald-300 font-bold text-xs transition shadow flex items-center gap-1.5 cursor-pointer">
+              <i class="fa-solid fa-layer-group text-sm"></i> <span>Kirim Kategori Aktif</span>
+            </button>
+            <button type="button" onclick="copyGlossaryToClipboard()" class="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white font-bold text-xs transition flex items-center gap-1.5 cursor-pointer" title="Salin Format WhatsApp ke Clipboard">
+              <i class="fa-solid fa-copy text-sm"></i> <span>Salin Teks WA</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="p-2.5 rounded-xl bg-slate-950/90 border border-slate-800 text-[10px] text-slate-400 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-circle-info text-cyan-400 text-xs"></i>
+            <span>Nomor <code>08xx</code> otomatis dikonversi ke kode negara <code>628xx</code>. Anda juga dapat menekan tombol <b>Kirim WA</b> pada tiap kartu/tabel di bawah untuk mengirimkan istilah spesifik tersebut.</span>
+          </div>
+          <span class="text-amber-300 font-bold whitespace-nowrap">Format: WhatsApp Markdown (*Bold*, _Italic_)</span>
+        </div>
+      </div>
+
+      <!-- 6 METRIK STATISTIK BIDANG OPERASIONAL -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 font-mono">
+        <div class="cmd-card p-3 border-l-4 border-l-yellow-500 bg-[#121406]/90 space-y-1 cursor-pointer hover:border-yellow-400 transition" onclick="filterGlossaryCategory('geology')">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">1. Penambangan &amp; Geologi</span>
+          <div class="text-xl font-tech font-bold text-yellow-400">13 <span class="text-xs font-sans text-slate-400">Istilah</span></div>
+          <span class="text-[8px] text-yellow-300/80 block">Pit, Oksida, Porfiri, Haul</span>
+        </div>
+        <div class="cmd-card p-3 border-l-4 border-l-amber-500 bg-[#171105]/90 space-y-1 cursor-pointer hover:border-amber-400 transition" onclick="filterGlossaryCategory('processing')">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">2. Metalurgi &amp; Ekstraksi</span>
+          <div class="text-xl font-tech font-bold text-amber-400">17 <span class="text-xs font-sans text-slate-400">Istilah</span></div>
+          <span class="text-[8px] text-amber-300/80 block">Heap Leach, ADR, PLS, Dore</span>
+        </div>
+        <div class="cmd-card p-3 border-l-4 border-l-cyan-500 bg-[#06151f]/90 space-y-1 cursor-pointer hover:border-cyan-400 transition" onclick="filterGlossaryCategory('dam')">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">3. Keamanan Bendungan TSF</span>
+          <div class="text-xl font-tech font-bold text-cyan-300">12 <span class="text-xs font-sans text-slate-400">Istilah</span></div>
+          <span class="text-[8px] text-cyan-300/80 block">HDPE, Piezometer, FOS, TARP</span>
+        </div>
+        <div class="cmd-card p-3 border-l-4 border-l-teal-500 bg-[#061814]/90 space-y-1 cursor-pointer hover:border-teal-400 transition" onclick="filterGlossaryCategory('env')">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">4. Lingkungan &amp; HSE</span>
+          <div class="text-xl font-tech font-bold text-teal-300">11 <span class="text-xs font-sans text-slate-400">Istilah</span></div>
+          <span class="text-[8px] text-teal-300/80 block">ZLD, ICMC, PAF/NAF, WTP</span>
+        </div>
+        <div class="cmd-card p-3 border-l-4 border-l-orange-500 bg-[#1c1106]/90 space-y-1 cursor-pointer hover:border-orange-400 transition" onclick="filterGlossaryCategory('fleet')">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">5. Manajemen Armada FMS</span>
+          <div class="text-xl font-tech font-bold text-orange-400">7 <span class="text-xs font-sans text-slate-400">Istilah</span></div>
+          <span class="text-[8px] text-orange-300/80 block">Match Factor, PA, MA, BCM</span>
+        </div>
+        <div class="cmd-card p-3 border-l-4 border-l-purple-500 bg-[#160620]/90 space-y-1 cursor-pointer hover:border-purple-400 transition" onclick="filterGlossaryCategory('economics')">
+          <span class="text-[9px] text-slate-400 font-bold uppercase block">6. Bisnis &amp; Regulasi</span>
+          <div class="text-xl font-tech font-bold text-purple-300">8 <span class="text-xs font-sans text-slate-400">Istilah</span></div>
+          <span class="text-[8px] text-purple-300/80 block">AISC, LBMA, KTT, RKAB, SMKP</span>
+        </div>
+      </div>
+
+      <!-- TOOLBAR FILTER KATEGORI, LIVE SEARCH & TOGGLE VIEW -->
+      <div class="cmd-card p-4 space-y-3 bg-slate-900/90 border border-slate-800">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+          <!-- Search Input -->
+          <div class="relative w-full md:w-80">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <input type="text" id="glossarySearchInput" oninput="handleGlossarySearch(this.value)" placeholder="Cari istilah, arti, atau penjelasan..." class="w-full pl-9 pr-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white font-mono text-xs outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/20">
+          </div>
+
+          <!-- View Mode Toggle & Status Counter -->
+          <div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+            <span class="text-xs text-amber-300 font-mono font-bold" id="glossaryCounterBadge">
+              Menampilkan 68 dari 68 Istilah
+            </span>
+            <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
+              <button type="button" id="btnGlossaryViewCards" onclick="setGlossaryViewMode('cards')" class="px-3 py-1 rounded-lg bg-amber-600 text-slate-950 font-bold transition flex items-center gap-1 shadow">
+                <i class="fa-solid fa-grip"></i> <span class="hidden sm:inline">Kartu</span>
+              </button>
+              <button type="button" id="btnGlossaryViewTable" onclick="setGlossaryViewMode('table')" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white font-bold transition flex items-center gap-1">
+                <i class="fa-solid fa-table-list"></i> <span class="hidden sm:inline">Tabel</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div class="flex flex-wrap gap-1.5 pt-1 text-[11px] border-t border-slate-800">
+          <button type="button" id="btnCat_all" onclick="filterGlossaryCategory('all')" class="px-3 py-1 rounded-lg bg-amber-600 text-slate-950 font-bold transition shadow">
+            Semua (68)
+          </button>
+          <button type="button" id="btnCat_geology" onclick="filterGlossaryCategory('geology')" class="px-3 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-yellow-300 border border-yellow-500/50 transition">
+            1. Geologi &amp; Pit (13)
+          </button>
+          <button type="button" id="btnCat_processing" onclick="filterGlossaryCategory('processing')" class="px-3 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-amber-300 border border-amber-500/50 transition">
+            2. Metalurgi &amp; ADR (17)
+          </button>
+          <button type="button" id="btnCat_dam" onclick="filterGlossaryCategory('dam')" class="px-3 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-cyan-300 border border-cyan-500/50 transition">
+            3. Keamanan TSF (12)
+          </button>
+          <button type="button" id="btnCat_env" onclick="filterGlossaryCategory('env')" class="px-3 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-teal-300 border border-teal-500/50 transition">
+            4. Lingkungan &amp; HSE (11)
+          </button>
+          <button type="button" id="btnCat_fleet" onclick="filterGlossaryCategory('fleet')" class="px-3 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-orange-300 border border-orange-500/50 transition">
+            5. Armada FMS (7)
+          </button>
+          <button type="button" id="btnCat_economics" onclick="filterGlossaryCategory('economics')" class="px-3 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-purple-300 border border-purple-500/50 transition">
+            6. Bisnis &amp; Regulasi (8)
+          </button>
+        </div>
+      </div>
+
+      <!-- WADAH TAMPILAN KARTU (GRID VIEW) -->
+      <div id="glossaryCardsContainer" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5">
+        <!-- Rendered dynamically by JavaScript renderGlossaryUI() -->
+      </div>
+
+      <!-- WADAH TAMPILAN TABEL (LIST VIEW) -->
+      <div id="glossaryTableContainer" class="hidden cmd-card p-4 space-y-3 bg-slate-900/90 border border-slate-800">
+        <div class="overflow-x-auto rounded-xl border border-slate-800">
+          <table class="w-full text-left text-xs border-collapse" id="tableGlossaryFull">
+            <thead class="bg-slate-950 text-slate-300 uppercase text-[9px] sticky top-0">
+              <tr>
+                <th class="p-2.5 text-center w-10">No</th>
+                <th class="p-2.5 text-amber-400 w-48">Istilah / Akronim</th>
+                <th class="p-2.5 text-emerald-400 w-48">Padanan / Arti Bahasa Indonesia</th>
+                <th class="p-2.5 text-cyan-300 w-44">Kategori Bidang</th>
+                <th class="p-2.5">Penjelasan &amp; Konteks di PT BSI Banyuwangi</th>
+                <th class="p-2.5 text-center w-28">Kirim WA / Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="glossaryTableBody" class="divide-y divide-slate-800 font-mono text-[10px] text-slate-300">
+              <!-- Rendered dynamically by JavaScript renderGlossaryUI() -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
     <section id="tabGoldMining" class="tab-pane hidden space-y-4 font-mono">
 
       <!-- HERO BANNER PROSES PENAMBANGAN EMAS -->
@@ -6924,7 +7229,7 @@
 
 
 
-      <!-- ==================== TAB 20: MODUL LEGALITAS & PERIZINAN TAMBANG ==================== -->
+      <!-- ==================== TAB 21: MODUL LEGALITAS & PERIZINAN TAMBANG ==================== -->
     <section id="tabPermits" class="tab-pane hidden space-y-4 font-mono">
       <!-- HERO BANNER LEGALITAS & PERIZINAN -->
       <div class="cmd-card p-5 sm:p-7 bg-gradient-to-br from-[#06181b] via-[#092329] to-[#040e13] border-2 border-emerald-500/70 shadow-2xl relative overflow-hidden">
@@ -7072,7 +7377,7 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 21: MODUL PENYUSUNAN RKAB MINERBA ==================== -->
+    <!-- ==================== TAB 22: MODUL PENYUSUNAN RKAB MINERBA ==================== -->
     <section id="tabRkab" class="tab-pane hidden space-y-4 font-mono">
       <!-- HERO BANNER RKAB -->
       <div class="cmd-card p-5 sm:p-7 bg-gradient-to-br from-[#061922] via-[#092838] to-[#040f16] border-2 border-cyan-500/70 shadow-2xl relative overflow-hidden">
@@ -7259,7 +7564,7 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 22: MODUL K3, HSE & KEPATUHAN SMKP ==================== -->
+    <!-- ==================== TAB 23: MODUL K3, HSE & KEPATUHAN SMKP ==================== -->
     <section id="tabSmkp" class="tab-pane hidden space-y-4 font-mono">
       <!-- HERO BANNER SMKP -->
       <div class="cmd-card p-5 sm:p-7 bg-gradient-to-br from-[#1c080e] via-[#2a0c16] to-[#0d0407] border-2 border-rose-500/70 shadow-2xl relative overflow-hidden">
@@ -7370,7 +7675,7 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 23: MODUL PRODUKTIFITAS & EFISIENSI ALAT BERAT ==================== -->
+    <!-- ==================== TAB 24: MODUL PRODUKTIFITAS & EFISIENSI ALAT BERAT ==================== -->
     <section id="tabFleet" class="tab-pane hidden space-y-4 font-mono">
       <!-- HERO BANNER FLEET -->
       <div class="cmd-card p-5 sm:p-7 bg-gradient-to-br from-[#1c1106] via-[#2c1b09] to-[#0e0803] border-2 border-orange-500/70 shadow-2xl relative overflow-hidden">
@@ -7515,7 +7820,7 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 24: MODUL PENGELOLAAN LINGKUNGAN TAMBANG ==================== -->
+    <!-- ==================== TAB 25: MODUL PENGELOLAAN LINGKUNGAN TAMBANG ==================== -->
     <section id="tabLingkungan" class="tab-pane hidden space-y-4 font-mono">
       <!-- HERO BANNER LINGKUNGAN -->
       <div class="cmd-card p-5 sm:p-7 bg-gradient-to-br from-[#061814] via-[#0a2822] to-[#04100c] border-2 border-teal-500/70 shadow-2xl relative overflow-hidden">
@@ -7640,7 +7945,7 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 25: MODUL LAPORAN OPERASIONAL & ANALISIS RESIKO ==================== -->
+    <!-- ==================== TAB 26: MODUL LAPORAN OPERASIONAL & ANALISIS RESIKO ==================== -->
     <section id="tabRiskReport" class="tab-pane hidden space-y-4 font-mono">
       <!-- HERO BANNER RISK REPORT -->
       <div class="cmd-card p-5 sm:p-7 bg-gradient-to-br from-[#160620] via-[#230933] to-[#0c0312] border-2 border-purple-500/70 shadow-2xl relative overflow-hidden">
@@ -7751,7 +8056,7 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 26: MODUL PEMASARAN & BISNIS TAMBANG ==================== -->
+    <!-- ==================== TAB 27: MODUL PEMASARAN & BISNIS TAMBANG ==================== -->
     <section id="tabBisnisTambang" class="tab-pane hidden space-y-4 font-mono">
       <!-- HERO BANNER BISNIS TAMBANG -->
       <div class="cmd-card p-5 sm:p-7 bg-gradient-to-br from-[#1c1806] via-[#2d260a] to-[#0e0c03] border-2 border-yellow-500/70 shadow-2xl relative overflow-hidden">
@@ -7863,7 +8168,7 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 27: ASISTEN HARIAN TIM SITE ==================== -->
+    <!-- ==================== TAB 28: ASISTEN HARIAN TIM SITE ==================== -->
     <section id="tabSiteAssistant" class="tab-pane hidden space-y-4 font-mono">
       <!-- HERO BANNER ASISTEN HARIAN -->
       <div class="cmd-card p-5 sm:p-7 bg-gradient-to-br from-[#0c0d24] via-[#15173b] to-[#070716] border-2 border-indigo-500/70 shadow-2xl relative overflow-hidden">
@@ -8173,7 +8478,7 @@
             <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Pembatasan Akses Modul (RBAC v8.0)
           </p>
           <p class="text-slate-300">
-            Akses Terbatas: Modul Tab 19 s/d 27 merupakan modul manajemen &amp; eksekutif Tingkat 2. Masukkan kredensial eksekutif untuk membuka otorisasi penuh.
+            Akses Terbatas: Modul Tab 20 s/d 28 merupakan modul manajemen &amp; eksekutif Tingkat 2. Masukkan kredensial eksekutif untuk membuka otorisasi penuh.
           </p>
         </div>
 
@@ -9440,15 +9745,16 @@
       tab16: '<i class="fa-solid fa-robot text-emerald-400"></i> 16. AI Dam Assistant',
       tab17: '<i class="fa-solid fa-mountain text-cyan-400"></i> 17. Stabilitas 3D &amp; Rembesan Dam 1',
       tab18: '<i class="fa-solid fa-layer-group text-amber-400"></i> 18. Daya Dukung Tanah &amp; USCS',
-      tab19: '<i class="fa-solid fa-gem text-yellow-400"></i> 19. Penambangan &amp; Pengolahan Emas BSI',
-      tab20: '<i class="fa-solid fa-stamp text-emerald-400"></i> 20. Legalitas &amp; Perizinan',
-      tab21: '<i class="fa-solid fa-file-invoice-dollar text-cyan-400"></i> 21. Penyusunan RKAB Minerba',
-      tab22: '<i class="fa-solid fa-shield-halved text-rose-400"></i> 22. K3, HSE &amp; Kepatuhan SMKP',
-      tab23: '<i class="fa-solid fa-truck-monster text-orange-400"></i> 23. Produktivitas Alat Berat',
-      tab24: '<i class="fa-solid fa-seedling text-teal-400"></i> 24. Pengelolaan Lingkungan Tambang',
-      tab25: '<i class="fa-solid fa-chart-line text-purple-400"></i> 25. Laporan Operasional &amp; Risiko',
-      tab26: '<i class="fa-solid fa-coins text-yellow-400"></i> 26. Pemasaran &amp; Bisnis Tambang',
-      tab27: '<i class="fa-solid fa-headset text-indigo-400"></i> 27. Asisten Harian Tim Site'
+      tab19: '<i class="fa-solid fa-book-bookmark text-amber-400"></i> 19. Daftar Istilah Proyek BSI',
+      tab20: '<i class="fa-solid fa-gem text-yellow-400"></i> 20. Penambangan &amp; Pengolahan Emas BSI',
+      tab21: '<i class="fa-solid fa-stamp text-emerald-400"></i> 21. Legalitas &amp; Perizinan',
+      tab22: '<i class="fa-solid fa-file-invoice-dollar text-cyan-400"></i> 22. Penyusunan RKAB Minerba',
+      tab23: '<i class="fa-solid fa-shield-halved text-rose-400"></i> 23. K3, HSE &amp; Kepatuhan SMKP',
+      tab24: '<i class="fa-solid fa-truck-monster text-orange-400"></i> 24. Produktivitas Alat Berat',
+      tab25: '<i class="fa-solid fa-seedling text-teal-400"></i> 25. Pengelolaan Lingkungan Tambang',
+      tab26: '<i class="fa-solid fa-chart-line text-purple-400"></i> 26. Laporan Operasional &amp; Risiko',
+      tab27: '<i class="fa-solid fa-coins text-yellow-400"></i> 27. Pemasaran &amp; Bisnis Tambang',
+      tab28: '<i class="fa-solid fa-headset text-indigo-400"></i> 28. Asisten Harian Tim Site'
     },
     en: {
       headerSubtitle: "O&M STANDARDS: PUPR REG 27/2015, ESDM DECREE 1827/2018, SNI 1726 & GISTM 2020",
@@ -9479,15 +9785,16 @@
       tab16: '<i class="fa-solid fa-robot text-emerald-400"></i> 16. AI Dam Assistant',
       tab17: '<i class="fa-solid fa-mountain text-cyan-400"></i> 17. 3D Stability &amp; Seepage Dam 1',
       tab18: '<i class="fa-solid fa-layer-group text-amber-400"></i> 18. Soil Bearing Capacity &amp; USCS',
-      tab19: '<i class="fa-solid fa-gem text-yellow-400"></i> 19. BSI Gold Mining &amp; Processing',
-      tab20: '<i class="fa-solid fa-stamp text-emerald-400"></i> 20. Legal &amp; Mining Permits',
-      tab21: '<i class="fa-solid fa-file-invoice-dollar text-cyan-400"></i> 21. RKAB Budget &amp; Planning',
-      tab22: '<i class="fa-solid fa-shield-halved text-rose-400"></i> 22. OHS, HSE &amp; SMKP Mining Safety',
-      tab23: '<i class="fa-solid fa-truck-monster text-orange-400"></i> 23. Heavy Fleet Productivity',
-      tab24: '<i class="fa-solid fa-seedling text-teal-400"></i> 24. Mine Environmental Management',
-      tab25: '<i class="fa-solid fa-chart-line text-purple-400"></i> 25. Operations &amp; Risk Reporting',
-      tab26: '<i class="fa-solid fa-coins text-yellow-400"></i> 26. Marketing &amp; Mining Business',
-      tab27: '<i class="fa-solid fa-headset text-indigo-400"></i> 27. Site Team Daily Assistant'
+      tab19: '<i class="fa-solid fa-book-bookmark text-amber-400"></i> 19. BSI Project Glossary',
+      tab20: '<i class="fa-solid fa-gem text-yellow-400"></i> 20. BSI Gold Mining &amp; Processing',
+      tab21: '<i class="fa-solid fa-stamp text-emerald-400"></i> 21. Legal &amp; Mining Permits',
+      tab22: '<i class="fa-solid fa-file-invoice-dollar text-cyan-400"></i> 22. RKAB Budget &amp; Planning',
+      tab23: '<i class="fa-solid fa-shield-halved text-rose-400"></i> 23. OHS, HSE &amp; SMKP Mining Safety',
+      tab24: '<i class="fa-solid fa-truck-monster text-orange-400"></i> 24. Heavy Fleet Productivity',
+      tab25: '<i class="fa-solid fa-seedling text-teal-400"></i> 25. Mine Environmental Management',
+      tab26: '<i class="fa-solid fa-chart-line text-purple-400"></i> 26. Operations &amp; Risk Reporting',
+      tab27: '<i class="fa-solid fa-coins text-yellow-400"></i> 27. Marketing &amp; Mining Business',
+      tab28: '<i class="fa-solid fa-headset text-indigo-400"></i> 28. Site Team Daily Assistant'
     }
   };
 
@@ -9519,15 +9826,16 @@
       btnTabMap: d.tab13, btnTabSpecialGis: d.tab14, btnTabReport: d.tab15, btnTabChatbot: d.tab16,
       btnTabDam1Stabilitas: d.tab17,
       btnTabSoilCap: d.tab18,
-      btnTabGoldMining: d.tab19,
-      btnTabPermits: d.tab20,
-      btnTabRkab: d.tab21,
-      btnTabSmkp: d.tab22,
-      btnTabFleet: d.tab23,
-      btnTabLingkungan: d.tab24,
-      btnTabRiskReport: d.tab25,
-      btnTabBisnisTambang: d.tab26,
-      btnTabSiteAssistant: d.tab27
+      btnTabGlossary: d.tab19,
+      btnTabGoldMining: d.tab20,
+      btnTabPermits: d.tab21,
+      btnTabRkab: d.tab22,
+      btnTabSmkp: d.tab23,
+      btnTabFleet: d.tab24,
+      btnTabLingkungan: d.tab25,
+      btnTabRiskReport: d.tab26,
+      btnTabBisnisTambang: d.tab27,
+      btnTabSiteAssistant: d.tab28
     };
 
     for (const [id, val] of Object.entries(tabMap)) {
@@ -10516,6 +10824,11 @@
           window.MathJax.typesetPromise();
         }
       }, 150);
+    }
+    if (tabId === 'tabGlossary') {
+      setTimeout(() => {
+        renderGlossaryUI();
+      }, 100);
     }
     if (tabId === 'tabSoilCap') {
       setTimeout(() => {
@@ -15374,7 +15687,504 @@ function exportSoilCapPDF() {
 
 
 
-// ==================== TAB 19: PROSES PENAMBANGAN EMAS BSI TUJUH BUKIT JAVASCRIPT ENGINE ====================
+
+  // ==================== TAB 19: DAFTAR ISTILAH DALAM PEKERJAAN PROYEK PT BSI ====================
+  const GLOSSARY_ITEMS_DATA = [{"category": "Metode Penambangan & Geologi (Mining & Geology)", "term": "Open Pit Mining", "meaning": "Tambang Terbuka", "desc": "Metode penambangan jenjang terbuka (bench) yang diterapkan di Pit Tumpang Pitu untuk mengekstraksi bijih oksida emas dekat permukaan."}, {"category": "Metode Penambangan & Geologi (Mining & Geology)", "term": "High-Sulfidation Epithermal", "meaning": "Epitermal Sulfidasi Tinggi", "desc": "Tipe endapan geologi bijih emas Tujuh Bukit yang terbentuk dari fluida hidrotermal magmatik bertemperatur sedang dengan kandungan asam dan belerang tinggi."}, {"category": "Metode Penambangan & Geologi (Mining & Geology)", "term": "Oxide Ore (Oxide Cap)", "meaning": "Bijih Oksida (Tudung Oksida)", "desc": "Zona bijih bagian atas yang telah mengalami pelapukan/oksidasi alami sehingga mineral emas terlepas bebas (free-milling) dan dapat diekstraksi melalui pelindian."}, {"category": "Metode Penambangan & Geologi (Mining & Geology)", "term": "Underground Porphyry Project", "meaning": "Proyek Porfiri Bawah Tanah", "desc": "Proyek masa depan BSI di bawah pit terbuka untuk menambang deposit raksasa tembaga-emas primer porfiri (~1,9 miliar ton)."}, {"category": "Metode Penambangan & Geologi (Mining & Geology)", "term": "Block Caving", "meaning": "Ambrukan Blok", "desc": "Metode penambangan bawah tanah skala masif berbiaya rendah dengan meruntuhkan blok batuan bawah tanah secara gravitasi terencana."}, {"category": "Metode Penambangan & Geologi (Mining & Geology)", "term": "Decline Tunnel", "meaning": "Terowongan Akses Penurunan", "desc": "Terowongan miring bawah tanah (telah menembus >1.900 meter di BSI) sebagai jalur eksplorasi lanjutan dan akses ke tubuh bijih porfiri."}, {"category": "Metode Penambangan & Geologi (Mining & Geology)", "term": "Drill & Blast", "meaning": "Pemboran dan Peledakan", "desc": "Siklus pembongkaran batuan penutup dan bijih menggunakan pola pemboran terencana dan bahan peledak terukur (ANFO/emulsi)."}, {"category": "Metode Penambangan & Geologi (Mining & Geology)", "term": "Load & Haul", "meaning": "Pemuatan dan Pengangkutan", "desc": "Operasi pemindahan material dari pit ke crusher atau waste dump menggunakan armada excavator dan truk angkut berkapasitas besar."}, {"category": "Metode Penambangan & Geologi (Mining & Geology)", "term": "ROM Pad (Run-of-Mine)", "meaning": "Area Penumpukan Bijih Mentah", "desc": "Tempat penampungan sementara bijih hasil tambang dari pit sebelum masuk ke unit peremukan (crushing plant)."}, {"category": "Metode Penambangan & Geologi (Mining & Geology)", "term": "Overland Conveyor", "meaning": "Sabuk Konveyor Lintas Darat", "desc": "Sistem ban berjalan sepanjang ~2,2 km melintasi kontur perbukitan untuk mentransfer bijih hasil peremukan menuju area pelindian."}, {"category": "Metode Penambangan & Geologi (Mining & Geology)", "term": "Grasshopper Conveyor & Radial Stacker", "meaning": "Konveyor Portabel & Penumpuk Radial", "desc": "Rangkaian konveyor fleksibel dan stacker berputar untuk menyusun tumpukan bijih secara merata di atas pad tanpa pemadatan berlebih."}, {"category": "Metode Penambangan & Geologi (Mining & Geology)", "term": "Strip Ratio (SR)", "meaning": "Nisbah Pengupasan", "desc": "Perbandingan volume batuan penutup (waste) yang harus dibuang terhadap berat bijih (ore) yang diperoleh (di BSI rata-rata 3:1)."}, {"category": "Metode Penambangan & Geologi (Mining & Geology)", "term": "Cut-off Grade (COG)", "meaning": "Kadar Batas Ekonomis", "desc": "Batas minimum kadar emas (misal ~0,3 g/t Au) untuk membedakan apakah batuan bernilai ekonomis untuk diproses atau dikirim ke waste dump."}, {"category": "Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)", "term": "Heap Leaching", "meaning": "Pelindian Tumpukan", "desc": "Teknologi utama pemrosesan bijih oksida di BSI; bijih ditumpuk di atas lapisan kedap air (pad) lalu disiram larutan sianida encer untuk melarutkan emas tanpa memerlukan pabrik flotasi/penggilingan basah konvensional."}, {"category": "Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)", "term": "Agglomeration Drum", "meaning": "Drum Aglomerasi", "desc": "Silinder berputar untuk mengikat partikel debu halus bijih dengan semen dan kapur menjadi pelet (agglomerate) agar tumpukan tetap poros dan larutan lindi dapat mengalir lancar."}, {"category": "Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)", "term": "Binder (Semen Portland)", "meaning": "Bahan Pengikat", "desc": "Semen yang ditambahkan ke bijih selama aglomerasi untuk memperkuat ikatan butiran dan mencegah pemadatan/penyumbatan tumpukan."}, {"category": "Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)", "term": "Quicklime (CaO)", "meaning": "Kapur Tohor", "desc": "Zat pengatur kebasaan (alkalinitas) yang dicampur pada bijih untuk mempertahankan pH 10,2–10,8 demi mencegah terbentuknya gas beracun HCN."}, {"category": "Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)", "term": "Drip Irrigation System", "meaning": "Sistem Irigasi Tetes", "desc": "Jaringan pipa tetes (drip lines) bertekanan rendah yang membentang di permukaan tumpukan untuk menyiramkan larutan sianida secara merata tanpa menimbulkan percikan atau aerosol."}, {"category": "Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)", "term": "Lift / Stacking Lift", "meaning": "Lapisan Tingkat Tumpukan", "desc": "Ketebalan satu tahap hamparan bijih di atas pad (umumnya 8–10 meter per lift, ditumpuk bertingkat hingga puluhan meter)."}, {"category": "Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)", "term": "PLS (Pregnant Leach Solution)", "meaning": "Larutan Kaya Emas", "desc": "Larutan sianida yang telah menetes keluar dari bawah tumpukan bijih dan membawa konsentrasi emas serta perak terlarut (auricyanide)."}, {"category": "Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)", "term": "ILS (Intermediate Leach Solution)", "meaning": "Larutan Antara / Setengah Kaya", "desc": "Larutan hasil pelindian dengan kadar emas sedang yang disirkulasikan kembali ke tumpukan baru sebelum dialirkan ke pabrik pengolahan."}, {"category": "Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)", "term": "Barren Solution", "meaning": "Larutan Miskin / Sisa", "desc": "Larutan sianida yang telah diambil kandungan emasnya di sirkuit karbon, kemudian ditambahkan reagen dan dipompa kembali ke tumpukan (closed loop)."}, {"category": "Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)", "term": "ADR Plant", "meaning": "Pabrik Adsorption, Desorption, and Recovery", "desc": "Kompleks fasilitas pemulihan emas yang terdiri dari kolom karbon (adsorpsi), bejana pelepasan (elusi), dan sel elektrokimia."}, {"category": "Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)", "term": "CIC (Carbon-in-Column)", "meaning": "Karbon dalam Kolom", "desc": "Rangkaian tangki kolom vertikal berisi karbon aktif tempat larutan PLS dialirkan dari bawah ke atas (up-flow) agar emas terserap ke pori-pori karbon."}, {"category": "Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)", "term": "Elution (Zadra / AARL Process)", "meaning": "Elusi / Pelepasan Emas", "desc": "Proses pelepasan ion emas dari karbon aktif jenuh menggunakan larutan kaustik-sianida bersuhu tinggi (~140°C) dan bertekanan tinggi."}, {"category": "Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)", "term": "Electrowinning (EW)", "meaning": "Pemenangan Elektro / Pengendapan Elektrolitik", "desc": "Proses reduksi elektrokimia larutan kaya elusi untuk mengendapkan logam emas murni pada katoda serat baja (steel wool)."}, {"category": "Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)", "term": "Gold Sludge / Cathode Cake", "meaning": "Lumpur Katoda Emas", "desc": "Endapan padat konsentrat emas yang dicuci dan dilepaskan dari katoda sel elektrowinning sebelum dikeringkan dan dilebur."}, {"category": "Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)", "term": "Induction Smelting Furnace", "meaning": "Tungku Peleburan Induksi", "desc": "Tungku bersuhu >1.100°C dengan medan induksi listrik untuk mencairkan endapan emas bersama fluks silika/boraks dan mencetaknya menjadi batangan."}, {"category": "Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)", "term": "Dore Bullion", "meaning": "Batangan Dore (Emas Mentah)", "desc": "Produk akhir tambang BSI berupa batangan paduan logam mulia belum murni (mengandung 78–85% Au dan sisanya perak) sebelum dikirim ke fasilitas pemurnian (refinery) seperti Antam."}, {"category": "Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)", "term": "Carbon Regeneration Kiln", "meaning": "Tungku Regenerasi Karbon", "desc": "Reaktor silinder putar bertemperatur tinggi (~650°C) untuk mengaktifkan kembali pori-pori karbon aktif dari kontaminan organik sebelum digunakan ulang."}, {"category": "Keamanan Bendungan, Geoteknik & TSF (Dam Safety & Geotechnics)", "term": "TSF (Tailings Storage Facility)", "meaning": "Fasilitas Penampungan Tailing", "desc": "Area penampungan residu pemrosesan tambang. Di BSI, fasilitas pelindian (Heap Leach Pad) berfungsi sebagai penampung material padat tersisa yang dikelola dengan standar integritas bendungan tinggi."}, {"category": "Keamanan Bendungan, Geoteknik & TSF (Dam Safety & Geotechnics)", "term": "Composite Double HDPE Liner", "meaning": "Lapisan Geomembran Ganda HDPE", "desc": "Lapisan geomembran polietilena berdensitas tinggi ganda setebal 2,0 mm yang dipasang di bawah dasar pad dan kolam untuk menjamin nol kebocoran ke tanah."}, {"category": "Keamanan Bendungan, Geoteknik & TSF (Dam Safety & Geotechnics)", "term": "LDRS (Leak Detection and Recovery System)", "meaning": "Sistem Deteksi & Pemulihan Kebocoran", "desc": "Lapisan berpori/geonet di antara membran ganda yang dilengkapi pipa pengumpul untuk mendeteksi secara dini rembesan larutan jika membran atas mengalami kerusakan."}, {"category": "Keamanan Bendungan, Geoteknik & TSF (Dam Safety & Geotechnics)", "term": "Vibrating Wire Piezometer (VWP)", "meaning": "Piezometer Kawat Getar", "desc": "Sensor geoteknik telemetri di dalam tubuh tanggul dan pondasi untuk mengukur tekanan air pori batuan secara kontinu 24/7."}, {"category": "Keamanan Bendungan, Geoteknik & TSF (Dam Safety & Geotechnics)", "term": "Inclinometer Casing", "meaning": "Pipa Casing Inklinometer", "desc": "Pipa beralur yang tertanam vertikal menembus lereng tanggul untuk mengukur deformasi geser lateral tanah menggunakan probe inklinometer."}, {"category": "Keamanan Bendungan, Geoteknik & TSF (Dam Safety & Geotechnics)", "term": "Continuous GNSS & RTS", "meaning": "GNSS Kontinu & Robotic Total Station", "desc": "Pemantauan deformasi pergerakan koordinat 3D permukaan tubuh bendungan secara otomatis dengan tingkat presisi sub-milimeter."}, {"category": "Keamanan Bendungan, Geoteknik & TSF (Dam Safety & Geotechnics)", "term": "V-Notch Weir & Turbidity Sensor", "meaning": "Ambang Ukur Takik-V & Sensor Kekeruhan", "desc": "Saluran pelimpah berbentuk V di kaki tanggul untuk memonitor debit rembesan air dan mendeteksi adanya erosi partikel tanah (piping)."}, {"category": "Keamanan Bendungan, Geoteknik & TSF (Dam Safety & Geotechnics)", "term": "Piping (Internal Erosion)", "meaning": "Erosi Buluh / Erosi Internal", "desc": "Bahaya geoteknik di mana air yang merembes membawa butiran halus material tanggul sehingga membentuk rongga/pipa yang dapat meruntuhkan bendungan."}, {"category": "Keamanan Bendungan, Geoteknik & TSF (Dam Safety & Geotechnics)", "term": "Phreatic Line (Garis Freatik)", "meaning": "Garis Muka Air Rembesan", "desc": "Batas atas daerah jenuh air di dalam struktur tanggul bendungan yang wajib dijaga tetap rendah melalui sistem drainase internal."}, {"category": "Keamanan Bendungan, Geoteknik & TSF (Dam Safety & Geotechnics)", "term": "Factor of Safety (FOS)", "meaning": "Faktor Keamanan Lereng", "desc": "Nilai kestabilan lereng (menggunakan analisis Bishop atau Morgenstern-Price); standar kestabilan statis tanggul di BSI dirancang >1,50."}, {"category": "Keamanan Bendungan, Geoteknik & TSF (Dam Safety & Geotechnics)", "term": "TARP (Trigger Action Response Plan)", "meaning": "Rencana Tanggap Berjenjang Pemicu", "desc": "Matriks rencana tindakan keselamatan operasional terstruktur (status Normal, Waspada, Siaga, Darurat) berdasarkan pembacaan ambang batas instrumen geoteknik."}, {"category": "Keamanan Bendungan, Geoteknik & TSF (Dam Safety & Geotechnics)", "term": "EOR (Engineer of Record)", "meaning": "Insinyur Penanggung Jawab Desain", "desc": "Pakar geoteknik/bendungan independen yang bertanggung jawab meninjau, menyetujui, dan mengaudit keselamatan desain struktur bendungan tailing secara berkala."}, {"category": "Lingkungan & Keselamatan Sianida (Environmental & HSE)", "term": "Zero Liquid Discharge (ZLD)", "meaning": "Nol Pelepasan Cairan ke Lingkungan", "desc": "Komitmen operasional BSI di mana 100% larutan proses hidrometalurgi disirkulasikan dalam sirkuit tertutup (closed-loop) tanpa ada pelepasan air proses ke aliran air umum."}, {"category": "Lingkungan & Keselamatan Sianida (Environmental & HSE)", "term": "ICMC (International Cyanide Management Code)", "meaning": "Kode Pengelolaan Sianida Internasional", "desc": "Sertifikasi internasional untuk praktik terbaik dalam pembuatan, transportasi, penyimpanan, pemanfaatan, dan penonaktifan sianida."}, {"category": "Lingkungan & Keselamatan Sianida (Environmental & HSE)", "term": "AAT / AMD (Acid Mine Drainage)", "meaning": "Air Asam Tambang", "desc": "Air limpasan ber-pH sangat rendah yang terbentuk ketika mineral sulfida (seperti pirit) terpapar udara dan air selama operasi penambangan."}, {"category": "Lingkungan & Keselamatan Sianida (Environmental & HSE)", "term": "PAF (Potentially Acid Forming)", "meaning": "Batuan Berpotensi Membentuk Asam", "desc": "Klasifikasi batuan penutup yang mengandung sulfida tinggi dan berpotensi memicu air asam jika tidak diisolasi."}, {"category": "Lingkungan & Keselamatan Sianida (Environmental & HSE)", "term": "NAF (Non-Acid Forming)", "meaning": "Batuan Tidak Membentuk Asam", "desc": "Batuan yang tidak mengandung sulfida atau memiliki kapasitas penetralan asam alami, digunakan sebagai pembungkus material PAF."}, {"category": "Lingkungan & Keselamatan Sianida (Environmental & HSE)", "term": "Encapsulation (Enkapsulasi)", "meaning": "Metode Pengurungan Batuan PAF", "desc": "Teknik penempatan batuan PAF di inti timbunan waste dump yang kemudian dilapisi/dibungkus material NAF dan tanah penutup kedap air untuk mencegah oksidasi."}, {"category": "Lingkungan & Keselamatan Sianida (Environmental & HSE)", "term": "Progressive Reclamation", "meaning": "Reklamasi Progresif", "desc": "Kegiatan rehabilitasi dan penanaman kembali vegetasi lahan bekas tambang yang dikerjakan secara langsung bertahap tanpa menunggu seluruh masa tambang selesai."}, {"category": "Lingkungan & Keselamatan Sianida (Environmental & HSE)", "term": "WAD Cyanide (Weak Acid Dissociable)", "meaning": "Sianida Terdisosiasi Asam Lemah", "desc": "Fraksi senyawa sianida yang dapat terurai pada kondisi asam lemah; merupakan parameter baku mutu pemantauan lingkungan wajib (baku mutu <0,5 mg/L)."}, {"category": "Lingkungan & Keselamatan Sianida (Environmental & HSE)", "term": "Storm Water Pond (SWP)", "meaning": "Kolam Pengendap Air Limpasan Hujan", "desc": "Kolam penampung air hujan berkapasitas besar yang dilengkapi sekat penahan lumpur (baffles) untuk menurunkan padatan tersuspensi (TSS) sebelum dialirkan ke unit WTP."}, {"category": "Lingkungan & Keselamatan Sianida (Environmental & HSE)", "term": "Water Treatment Plant (WTP)", "meaning": "Instalasi Pengolahan Air", "desc": "Fasilitas pengolahan air tambang dan limpasan sedimen berbasis koagulasi, flokulasi, dan netralisasi sebelum dialirkan ke lingkungan sesuai Kepmen LH No. 202/2004."}, {"category": "Lingkungan & Keselamatan Sianida (Environmental & HSE)", "term": "Cyanokit (Hydroxocobalamin)", "meaning": "Paket Antidot Sianida", "desc": "Obat penawar darurat medis resmi berstandar internasional yang disiagakan di pos medis lapangan untuk mengikat ion sianida menjadi vitamin B12a jika terjadi paparan manusia."}, {"category": "Manajemen Armada Tambang (Mining Fleet Management)", "term": "FMS (Fleet Management System)", "meaning": "Sistem Manajemen Armada", "desc": "Sistem telemetri dan GPS digital terintegrasi untuk mengoptimalkan penugasan, rute, dan keselamatan armada alat berat (excavator PC1250 dan dump truck CAT 777)."}, {"category": "Manajemen Armada Tambang (Mining Fleet Management)", "term": "Match Factor (MF)", "meaning": "Faktor Kesesuaian Alat Muat-Angkut", "desc": "Indeks sinkronisasi antara jumlah dan kapasitas truk dengan alat gali-muat; nilai target mendekati 1,0 untuk meminimalkan antrean truk maupun waktu tunggu excavator."}, {"category": "Manajemen Armada Tambang (Mining Fleet Management)", "term": "Physical Availability (PA)", "meaning": "Ketersediaan Fisik Alat", "desc": "Persentase kesiapan unit alat berat yang siap dioperasikan tanpa kendala kerusakan mekanikal (standar BSI ≥88%)."}, {"category": "Manajemen Armada Tambang (Mining Fleet Management)", "term": "Mechanical Availability (MA)", "meaning": "Ketersediaan Mekanikal", "desc": "Ukuran efisiensi bengkel perawatan dalam menangani perbaikan alat berat di luar jam terjadwal."}, {"category": "Manajemen Armada Tambang (Mining Fleet Management)", "term": "Effective Utilization (EU)", "meaning": "Pemanfaatan Efektif", "desc": "Rasio jam kerja produktif riil alat terhadap total jam kalender yang tersedia."}, {"category": "Manajemen Armada Tambang (Mining Fleet Management)", "term": "Fuel Ratio", "meaning": "Rasio Konsumsi Bahan Bakar", "desc": "Konsumsi liter bahan bakar solar per satuan volume batuan terbongkar (Liter/BCM atau Liter/Ton)."}, {"category": "Manajemen Armada Tambang (Mining Fleet Management)", "term": "BCM (Bank Cubic Meter)", "meaning": "Meter Kubik Insitu", "desc": "Satuan volume batuan padat alami di tempat asalnya sebelum diledakkan dan digali."}, {"category": "Ekonomi Tambang, Komersial & Regulasi (Mining Economics & Governance)", "term": "AISC (All-in Sustaining Costs)", "meaning": "Biaya Berkelanjutan Total per Ounce", "desc": "Metrik standar industri emas global yang menghitung seluruh biaya operasional pit, pengolahan, administrasi, eksplorasi berkelanjutan, dan royalti untuk memproduksi 1 troy ounce emas (BSI masuk dalam jajaran biaya terendah/kuartil pertama dunia)."}, {"category": "Ekonomi Tambang, Komersial & Regulasi (Mining Economics & Governance)", "term": "Troy Ounce (oz)", "meaning": "Troy Ouns", "desc": "Satuan berat baku perdagangan emas dunia (1 Troy Ounce = 31,1034768 gram)."}, {"category": "Ekonomi Tambang, Komersial & Regulasi (Mining Economics & Governance)", "term": "LBMA (London Bullion Market Association)", "meaning": "Asosiasi Pasar Batangan London", "desc": "Lembaga pasar logam mulia global di London yang menetapkan standar acuan harga emas dan perak spot internasional (LBMA Gold Price)."}, {"category": "Ekonomi Tambang, Komersial & Regulasi (Mining Economics & Governance)", "term": "Good Mining Practice", "meaning": "Kaidah Pertambangan yang Baik", "desc": "Standar teknis, konservasi, keselamatan, dan lingkungan yang diatur dalam Permen ESDM No. 26/2018 dan Kepmen ESDM No. 1827 K/30/MEM/2018."}, {"category": "Ekonomi Tambang, Komersial & Regulasi (Mining Economics & Governance)", "term": "KTT (Kepala Teknik Tambang)", "meaning": "Kepala Teknik Tambang", "desc": "Pejabat pimpinan teknis tertinggi di site yang memegang tanggung jawab hukum penuh atas keselamatan, kesehatan kerja, dan lingkungan pertambangan di hadapan inspektur tambang pemerintah."}, {"category": "Ekonomi Tambang, Komersial & Regulasi (Mining Economics & Governance)", "term": "SMKP Minerba", "meaning": "Sistem Manajemen Keselamatan Pertambangan", "desc": "Standar audit K3 dan keselamatan operasi pertambangan wajib yang mengikat seluruh kontraktor dan pekerja di site BSI."}, {"category": "Ekonomi Tambang, Komersial & Regulasi (Mining Economics & Governance)", "term": "RKAB", "meaning": "Rencana Kerja & Anggaran Biaya", "desc": "Dokumen persetujuan tahunan wajib dari Kementerian ESDM yang membatasi volume produksi, rencana pembukaan lahan, biaya eksplorasi, serta anggaran program lingkungan dan CSR."}, {"category": "Ekonomi Tambang, Komersial & Regulasi (Mining Economics & Governance)", "term": "LOM (Life of Mine)", "meaning": "Umur Tambang", "desc": "Estimasi sisa durasi ekonomis operasi tambang berdasarkan jumlah cadangan terbukti dan kapasitas penambangan tahunan."}];
+
+  let currentGlossaryCategory = 'all';
+  let currentGlossarySearch = '';
+  let currentGlossaryView = 'cards';
+
+  const GLOSSARY_CATEGORY_MAP = {
+    all: 'Semua Kategori',
+    geology: 'Metode Penambangan & Geologi (Mining & Geology)',
+    processing: 'Pengolahan & Metalurgi Ekstraksi (Processing & Hydrometallurgy)',
+    dam: 'Keamanan Bendungan, Geoteknik & TSF (Dam Safety & Geotechnics)',
+    env: 'Lingkungan & Keselamatan Sianida (Environmental & HSE)',
+    fleet: 'Manajemen Armada Tambang (Mining Fleet Management)',
+    economics: 'Ekonomi Tambang, Komersial & Regulasi (Mining Economics & Governance)'
+  };
+
+  function getSanitizedWaNumber() {
+    const input = document.getElementById('waRecipientNumber');
+    let raw = (input ? input.value : '').trim();
+    if (!raw) return '6282231036047';
+    let clean = raw.replace(/[^0-9]/g, '');
+    if (clean.startsWith('08')) {
+      clean = '628' + clean.slice(2);
+    } else if (clean.startsWith('8')) {
+      clean = '628' + clean.slice(1);
+    }
+    return clean || '6282231036047';
+  }
+
+  function setMyWaAsRecipient() {
+    const input = document.getElementById('waRecipientNumber');
+    if (input) input.value = '082231036047';
+    showToast('Nomor WhatsApp diatur ke programmer: 0822-3103-6047', 'info');
+  }
+
+  function filterGlossaryCategory(catId) {
+    currentGlossaryCategory = catId;
+    const catKeys = ['all', 'geology', 'processing', 'dam', 'env', 'fleet', 'economics'];
+    catKeys.forEach(k => {
+      const btn = document.getElementById('btnCat_' + k);
+      if (btn) {
+        if (k === catId) {
+          btn.className = "px-3 py-1 rounded-lg bg-amber-600 text-slate-950 font-bold transition shadow";
+        } else {
+          btn.className = "px-3 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-700 transition";
+        }
+      }
+    });
+    renderGlossaryUI();
+    const catName = GLOSSARY_CATEGORY_MAP[catId] || 'Semua';
+    showToast(`Filter Glosarium: ${catName}`, 'info');
+  }
+
+  function handleGlossarySearch(val) {
+    currentGlossarySearch = (val || '').trim().toLowerCase();
+    renderGlossaryUI();
+  }
+
+  function setGlossaryViewMode(mode) {
+    currentGlossaryView = mode;
+    const cardsCont = document.getElementById('glossaryCardsContainer');
+    const tableCont = document.getElementById('glossaryTableContainer');
+    const btnCards = document.getElementById('btnGlossaryViewCards');
+    const btnTable = document.getElementById('btnGlossaryViewTable');
+
+    if (mode === 'table') {
+      if (cardsCont) cardsCont.classList.add('hidden');
+      if (tableCont) tableCont.classList.remove('hidden');
+      if (btnTable) btnTable.className = "px-3 py-1 rounded-lg bg-amber-600 text-slate-950 font-bold transition flex items-center gap-1 shadow";
+      if (btnCards) btnCards.className = "px-3 py-1 rounded-lg text-slate-400 hover:text-white font-bold transition flex items-center gap-1";
+    } else {
+      if (tableCont) tableCont.classList.add('hidden');
+      if (cardsCont) cardsCont.classList.remove('hidden');
+      if (btnCards) btnCards.className = "px-3 py-1 rounded-lg bg-amber-600 text-slate-950 font-bold transition flex items-center gap-1 shadow";
+      if (btnTable) btnTable.className = "px-3 py-1 rounded-lg text-slate-400 hover:text-white font-bold transition flex items-center gap-1";
+    }
+  }
+
+  function getCategoryColorBadge(cat) {
+    if (cat.includes('Geologi') || cat.includes('Mining')) return 'bg-yellow-950 text-yellow-300 border border-yellow-500/60';
+    if (cat.includes('Metalurgi') || cat.includes('Processing')) return 'bg-amber-950 text-amber-300 border border-amber-500/60';
+    if (cat.includes('Bendungan') || cat.includes('Geotechnics')) return 'bg-cyan-950 text-cyan-300 border border-cyan-500/60';
+    if (cat.includes('Lingkungan') || cat.includes('HSE')) return 'bg-teal-950 text-teal-300 border border-teal-500/60';
+    if (cat.includes('Armada') || cat.includes('Fleet')) return 'bg-orange-950 text-orange-300 border border-orange-500/60';
+    return 'bg-purple-950 text-purple-300 border border-purple-500/60';
+  }
+
+  function renderGlossaryUI() {
+    let filtered = GLOSSARY_ITEMS_DATA;
+    if (currentGlossaryCategory !== 'all') {
+      const matchCat = GLOSSARY_CATEGORY_MAP[currentGlossaryCategory];
+      if (matchCat) {
+        filtered = filtered.filter(item => item.category === matchCat);
+      }
+    }
+    if (currentGlossarySearch) {
+      filtered = filtered.filter(item => 
+        item.term.toLowerCase().includes(currentGlossarySearch) ||
+        item.meaning.toLowerCase().includes(currentGlossarySearch) ||
+        item.desc.toLowerCase().includes(currentGlossarySearch) ||
+        item.category.toLowerCase().includes(currentGlossarySearch)
+      );
+    }
+
+    const badge = document.getElementById('glossaryCounterBadge');
+    if (badge) badge.innerText = `Menampilkan ${filtered.length} dari ${GLOSSARY_ITEMS_DATA.length} Istilah`;
+
+    // 1. Render Cards
+    const cardsCont = document.getElementById('glossaryCardsContainer');
+    if (cardsCont) {
+      let cardsHtml = '';
+      filtered.forEach((item) => {
+        const originalIndex = GLOSSARY_ITEMS_DATA.indexOf(item);
+        const catBadge = getCategoryColorBadge(item.category);
+        cardsHtml += `
+          <div class="cmd-card p-4 space-y-3 bg-slate-900/95 border border-slate-800 hover:border-amber-500/70 transition shadow-lg flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="flex items-start justify-between gap-2">
+                <span class="px-2 py-0.5 rounded text-[8px] font-bold font-mono ${catBadge} uppercase">
+                  ${item.category.split('(')[0].trim()}
+                </span>
+                <span class="text-[9px] text-slate-500 font-mono">#${originalIndex + 1}</span>
+              </div>
+              <div>
+                <h4 class="text-sm font-black font-tech text-amber-300 tracking-wide">${item.term}</h4>
+                <div class="text-[11px] font-bold text-emerald-400 font-mono mt-0.5 flex items-center gap-1">
+                  <i class="fa-solid fa-language text-xs"></i> <span>${item.meaning}</span>
+                </div>
+              </div>
+              <p class="text-[10.5px] text-slate-300 leading-relaxed font-mono bg-slate-950/70 p-2.5 rounded-xl border border-slate-800/80">
+                ${item.desc}
+              </p>
+            </div>
+
+            <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between gap-2">
+              <button type="button" onclick="sendSingleTermToWA(${originalIndex})" class="flex-1 py-1.5 px-2.5 rounded-lg bg-emerald-950 hover:bg-emerald-900 border border-emerald-500/70 text-emerald-300 text-[10px] font-bold transition flex items-center justify-center gap-1.5 shadow" title="Kirim istilah ini ke WhatsApp">
+                <i class="fa-brands fa-whatsapp text-xs text-emerald-400"></i> <span>Kirim WA</span>
+              </button>
+              <button type="button" onclick="copySingleTermToClipboard(${originalIndex})" class="py-1.5 px-2.5 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-700 text-slate-300 text-[10px] font-bold transition flex items-center gap-1" title="Salin istilah ini">
+                <i class="fa-solid fa-copy text-xs"></i> <span>Salin</span>
+              </button>
+            </div>
+          </div>
+        `;
+      });
+      cardsCont.innerHTML = cardsHtml || '<div class="col-span-3 p-6 text-center text-slate-400 font-mono text-xs">Tidak ada istilah yang cocok dengan kriteria pencarian.</div>';
+    }
+
+    // 2. Render Table
+    const tbody = document.getElementById('glossaryTableBody');
+    if (tbody) {
+      let tableHtml = '';
+      filtered.forEach((item) => {
+        const originalIndex = GLOSSARY_ITEMS_DATA.indexOf(item);
+        const catBadge = getCategoryColorBadge(item.category);
+        tableHtml += `
+          <tr class="hover:bg-slate-900/60 font-mono text-[10px]">
+            <td class="p-2.5 text-center text-slate-500 font-bold">${originalIndex + 1}</td>
+            <td class="p-2.5 font-bold text-amber-300 font-tech text-[11px]">${item.term}</td>
+            <td class="p-2.5 font-bold text-emerald-400">${item.meaning}</td>
+            <td class="p-2.5"><span class="px-1.5 py-0.5 rounded text-[8px] font-bold ${catBadge}">${item.category.split('(')[0].trim()}</span></td>
+            <td class="p-2.5 text-slate-300 leading-relaxed">${item.desc}</td>
+            <td class="p-2.5 text-center whitespace-nowrap">
+              <div class="flex items-center justify-center gap-1">
+                <button type="button" onclick="sendSingleTermToWA(${originalIndex})" class="p-1 px-2 rounded bg-emerald-950 hover:bg-emerald-900 border border-emerald-500/70 text-emerald-300 text-[9px] font-bold transition shadow" title="Kirim ke WA">
+                  <i class="fa-brands fa-whatsapp text-emerald-400"></i> WA
+                </button>
+                <button type="button" onclick="copySingleTermToClipboard(${originalIndex})" class="p-1 px-2 rounded bg-slate-950 hover:bg-slate-800 border border-slate-700 text-slate-300 text-[9px] font-bold transition" title="Salin">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+      tbody.innerHTML = tableHtml || '<tr><td colspan="6" class="p-4 text-center text-slate-400">Tidak ada istilah yang ditemukan.</td></tr>';
+    }
+  }
+
+  function formatSingleTermForWA(item) {
+    return `*ISTILAH PROYEK PT BUMI SUKSESINDO (BSI)*
+` +
+           `Proyek Emas Tujuh Bukit (Tumpang Pitu), Banyuwangi
+
+` +
+           `📌 *Istilah / Akronim:* *${item.term}*
+` +
+           `🇮🇩 *Padanan / Arti:* ${item.meaning}
+` +
+           `🏷️ *Bidang:* ${item.category}
+
+` +
+           `📝 *Penjelasan & Konteks di PT BSI:*
+${item.desc}
+
+` +
+           `----------------------------------------
+` +
+           `_Command Centre v8.0 PRO - PT Bumi Suksesindo_
+` +
+           `_Lead Geotechnical Consultant: Ir. Mohamad Hartadi_`;
+  }
+
+  function sendSingleTermToWA(index) {
+    const item = GLOSSARY_ITEMS_DATA[index];
+    if (!item) return;
+    const phone = getSanitizedWaNumber();
+    const text = formatSingleTermForWA(item);
+    const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+    window.open(waUrl, '_blank');
+    showToast(`Membuka WhatsApp untuk mengirim istilah: ${item.term}`, 'success');
+  }
+
+  function copySingleTermToClipboard(index) {
+    const item = GLOSSARY_ITEMS_DATA[index];
+    if (!item) return;
+    const text = formatSingleTermForWA(item);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`Istilah "${item.term}" disalin ke clipboard!`, 'success');
+      }).catch(() => {
+        fallbackCopyText(text);
+      });
+    } else {
+      fallbackCopyText(text);
+    }
+  }
+
+  function formatGlossaryCatalogForWA(scope = 'all') {
+    let list = GLOSSARY_ITEMS_DATA;
+    let headerTitle = 'DAFTAR ISTILAH DALAM PEKERJAAN PROYEK PT BSI (68 ISTILAH LENGKAP)';
+    
+    if (scope === 'category' && currentGlossaryCategory !== 'all') {
+      const matchCat = GLOSSARY_CATEGORY_MAP[currentGlossaryCategory];
+      if (matchCat) {
+        list = list.filter(item => item.category === matchCat);
+        headerTitle = `DAFTAR ISTILAH PROYEK BSI: ${matchCat.toUpperCase()}`;
+      }
+    }
+
+    let msg = `*${headerTitle}*
+` +
+              `_PT Bumi Suksesindo - Proyek Emas Tujuh Bukit Banyuwangi_
+` +
+              `_Lead Consultant: Ir. Mohamad Hartadi (0822-3103-6047)_
+
+`;
+
+    if (scope === 'all') {
+      // Group by category summary
+      const catGroups = {};
+      list.forEach(it => {
+        if (!catGroups[it.category]) catGroups[it.category] = [];
+        catGroups[it.category].push(it);
+      });
+
+      let catIdx = 1;
+      for (const [catName, arr] of Object.entries(catGroups)) {
+        msg += `*=== ${catIdx}. ${catName} (${arr.length} Istilah) ===*
+`;
+        arr.forEach((it, i) => {
+          msg += `${i + 1}. *${it.term}* (${it.meaning})
+`;
+        });
+        msg += `
+`;
+        catIdx++;
+      }
+      msg += `*Total: 68 Istilah Teknis Terstandarisasi*
+` +
+             `_Kunjungi Aplikasi Command Centre v8.0 PRO untuk penjelasan lengkap & interaktif._`;
+    } else {
+      // Detailed single category with definitions
+      list.forEach((it, i) => {
+        msg += `${i + 1}. *${it.term}* (${it.meaning})
+` +
+               `   ${it.desc}
+
+`;
+      });
+      msg += `----------------------------------------
+` +
+             `_Command Centre v8.0 PRO - PT Bumi Suksesindo_`;
+    }
+
+    return msg;
+  }
+
+  function sendGlossaryToWA(scope = 'all') {
+    const phone = getSanitizedWaNumber();
+    const msg = formatGlossaryCatalogForWA(scope);
+    const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+    window.open(waUrl, '_blank');
+    showToast(scope === 'all' ? 'Membuka WA untuk mengirim 68 istilah lengkap' : 'Membuka WA untuk mengirim istilah kategori aktif', 'success');
+  }
+
+  function copyGlossaryToClipboard() {
+    // Generate full text with all 68 terms and complete definitions
+    let fullText = `*DAFTAR ISTILAH DALAM PEKERJAAN PROYEK PT BUMI SUKSESINDO (BSI)*
+` +
+                   `_Proyek Emas Tujuh Bukit (Tumpang Pitu), Banyuwangi_
+` +
+                   `_Lead Engineer & Programmer: Ir. Mohamad Hartadi (0822-3103-6047)_
+
+`;
+
+    const catGroups = {};
+    GLOSSARY_ITEMS_DATA.forEach(it => {
+      if (!catGroups[it.category]) catGroups[it.category] = [];
+      catGroups[it.category].push(it);
+    });
+
+    let catNum = 1;
+    for (const [catName, arr] of Object.entries(catGroups)) {
+      fullText += `========================================
+`;
+      fullText += `*${catNum}. ${catName}*
+`;
+      fullText += `========================================
+
+`;
+      arr.forEach((it, idx) => {
+        fullText += `*${idx + 1}. ${it.term}* [${it.meaning}]
+` +
+                    `   ${it.desc}
+
+`;
+      });
+      catNum++;
+    }
+
+    fullText += `----------------------------------------
+` +
+                `_Command Centre v8.0 PRO - PT Bumi Suksesindo Tujuh Bukit_`;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(fullText).then(() => {
+        showToast('Seluruh 68 istilah & penjelasan lengkap disalin ke clipboard!', 'success');
+      }).catch(() => {
+        fallbackCopyText(fullText);
+      });
+    } else {
+      fallbackCopyText(fullText);
+    }
+  }
+
+  function exportGlossaryExcel() {
+    if (typeof XLSX === 'undefined') { showToast('Library Excel belum siap', 'error'); return; }
+    const wb = XLSX.utils.book_new();
+
+    const summaryRows = [
+      ["GLOSARIUM DAFTAR ISTILAH DALAM PEKERJAAN PROYEK PT BSI"],
+      ["Perusahaan", "PT Bumi Suksesindo (PT Merdeka Copper Gold Tbk)"],
+      ["Lokasi", "Proyek Emas Tujuh Bukit, Pesanggaran, Banyuwangi, Jawa Timur"],
+      ["Lead Consultant & Programmer", "Ir. Mohamad Hartadi (Lead Geotechnical Specialist)"],
+      ["Tanggal Ekspor", new Date().toLocaleDateString('id-ID')],
+      [],
+      ["No", "Istilah / Akronim Asing", "Padanan / Arti Bahasa Indonesia", "Bidang / Kategori Operasional", "Penjelasan & Konteks di PT BSI Banyuwangi"]
+    ];
+
+    GLOSSARY_ITEMS_DATA.forEach((it, idx) => {
+      summaryRows.push([idx + 1, it.term, it.meaning, it.category, it.desc]);
+    });
+
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(summaryRows), "Glosarium_Istilah_BSI");
+    XLSX.writeFile(wb, "Daftar_Istilah_Proyek_PT_BSI_Tujuh_Bukit.xlsx");
+    showToast("Seluruh 68 istilah berhasil diekspor ke Excel (.xlsx)", "success");
+  }
+
+  function exportGlossaryWord() {
+    let catGroups = {};
+    GLOSSARY_ITEMS_DATA.forEach(it => {
+      if (!catGroups[it.category]) catGroups[it.category] = [];
+      catGroups[it.category].push(it);
+    });
+
+    let tablesHtml = '';
+    let catNum = 1;
+    for (const [catName, arr] of Object.entries(catGroups)) {
+      tablesHtml += `
+        <h3 style="color: #b45309; margin-top: 20px;">${catNum}. ${catName} (${arr.length} Istilah)</h3>
+        <table>
+          <tr>
+            <th style="width: 25%;">Istilah / Akronim</th>
+            <th style="width: 25%;">Padanan / Arti Bahasa Indonesia</th>
+            <th style="width: 50%;">Penjelasan &amp; Konteks di PT BSI Banyuwangi</th>
+          </tr>
+      `;
+      arr.forEach(it => {
+        tablesHtml += `
+          <tr>
+            <td><b>${it.term}</b></td>
+            <td style="color: #047857;"><b>${it.meaning}</b></td>
+            <td>${it.desc}</td>
+          </tr>
+        `;
+      });
+      tablesHtml += `</table>`;
+      catNum++;
+    }
+
+    const htmlContent = `
+      <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+      <head><meta charset="utf-8"><title>Glosarium Daftar Istilah Proyek PT BSI</title>
+      <style>
+        body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; color: #1e293b; line-height: 1.4; padding: 25px; }
+        h2 { color: #b45309; text-align: center; margin-bottom: 2px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+        th, td { border: 1px solid #94a3b8; padding: 6px 8px; font-size: 9.5pt; text-align: left; }
+        th { background-color: #0f172a; color: #f8fafc; font-weight: bold; }
+      </style></head><body>
+        <h2>PT BUMI SUKSESINDO &bull; MERDEKA COPPER GOLD</h2>
+        <h3 style="text-align: center; color: #0284c7; margin-top: 0;">DAFTAR ISTILAH DALAM PEKERJAAN PROYEK BSI TUJUH BUKIT BANYUWANGI</h3>
+        <p style="text-align: center; font-size: 10pt;">Kompilasi Glosarium Resmi 68 Istilah Teknis &amp; Asing Operasi Tambang Emas Tumpang Pitu</p>
+        <hr/>
+        ${tablesHtml}
+        <br/><br/>
+        <table style="width: 100%; border: none;">
+          <tr style="border: none;">
+            <td style="width: 50%; border: none;"></td>
+            <td style="text-align: center; border: none;">
+              <div>Disahkan Oleh:</div><br/><br/>
+              <b><u>Ir. Mohamad Hartadi (Adi)</u></b><br/>
+              <span>Lead Geotechnical Consultant &bull; SKA Ahli Utama</span><br/>
+              <span>PT Bumi Suksesindo &bull; Merdeka Copper Gold</span>
+            </td>
+          </tr>
+        </table>
+      </body></html>
+    `;
+
+    const blob = new Blob(['\ufeff', htmlContent], { type: 'application/msword' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = "Daftar_Istilah_Proyek_PT_BSI.doc";
+    a.click();
+    showToast("Glosarium istilah diekspor ke Word (.doc)", "success");
+  }
+
+  function exportGlossaryPDF() {
+    if (!window.jspdf || !window.jspdf.jsPDF) { showToast('Library PDF belum siap', 'error'); return; }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+
+    doc.setFillColor(15, 23, 42);
+    doc.rect(0, 0, 210, 26, 'F');
+    doc.setTextColor(245, 158, 11);
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.text("PT BUMI SUKSESINDO - GLOSARIUM ISTILAH PROYEK BSI", 14, 10);
+    doc.setFontSize(8);
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'normal');
+    doc.text("Kompilasi 68 Istilah Teknis Operasional Tambang Emas Tujuh Bukit Banyuwangi", 14, 16);
+    doc.text("Lead Geotechnical Consultant: Ir. Mohamad Hartadi • Tanggal: " + new Date().toLocaleDateString('id-ID'), 14, 21);
+
+    const bodyData = GLOSSARY_ITEMS_DATA.map((it, idx) => [
+      idx + 1, it.term, it.meaning, it.category.split('(')[0].trim(), it.desc
+    ]);
+
+    doc.autoTable({
+      startY: 30,
+      head: [['No', 'Istilah / Akronim', 'Padanan Indonesia', 'Kategori Bidang', 'Penjelasan & Konteks di PT BSI']],
+      body: bodyData,
+      theme: 'striped',
+      headStyles: { fillColor: [180, 83, 9], textColor: [255, 255, 255] },
+      styles: { fontSize: 7, cellPadding: 1.5 },
+      columnStyles: {
+        0: { cellWidth: 8, halign: 'center' },
+        1: { cellWidth: 32, fontStyle: 'bold' },
+        2: { cellWidth: 32, textColor: [4, 120, 87], fontStyle: 'bold' },
+        3: { cellWidth: 28 },
+        4: { cellWidth: 'auto' }
+      }
+    });
+
+    doc.save("Daftar_Istilah_Proyek_PT_BSI.pdf");
+    showToast("Glosarium 68 istilah diunduh ke PDF", "success");
+  }
+
+  function speakGlossarySummary() {
+    if (!('speechSynthesis' in window)) {
+      showToast('Browser tidak mendukung Web Speech Audio', 'warning');
+      return;
+    }
+    const text = "Daftar istilah dalam pekerjaan proyek PT Bumi Suksesindo memuat enam puluh delapan istilah teknis operasional hulu-hilir, mencakup metode penambangan terbuka open-pit dan proyek porfiri bawah tanah, metalurgi pelindian heap leaching dan pabrik ADR, pemantauan geoteknik bendungan tailing dan instrumen piezometer, kepatuhan lingkungan hidup zero liquid discharge dan kode sianida ICMC, manajemen armada alat berat FMS, serta keekonomian tambang AISC. Tersedia fitur pengiriman langsung ke WhatsApp untuk kemudahan tim lapangan.";
+    window.speechSynthesis.cancel();
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.lang = 'id-ID';
+    window.speechSynthesis.speak(utt);
+    showToast('Memutar narasi pengenalan glosarium istilah proyek BSI...', 'info');
+  }
+
+
+// ==================== TAB 20: PROSES PENAMBANGAN EMAS BSI TUJUH BUKIT JAVASCRIPT ENGINE ====================
 let currentMiningStage = 1;
 let isMiningSimActive = false;
 let miningSimTimer = null;
@@ -16169,7 +16979,7 @@ function exportMiningPDF() {
 
       updateUserRoleUI();
       closeModal('modalExecutiveAuth');
-      showToast('Akses Eksekutif BSI berhasil dibuka! Seluruh Tab 19 s/d 27 kini aktif.', 'success');
+      showToast('Akses Eksekutif BSI berhasil dibuka! Seluruh Tab 20 s/d 28 kini aktif.', 'success');
 
       if (pendingRestrictedTab) {
         const dest = pendingRestrictedTab;
@@ -17042,6 +17852,7 @@ function exportMiningPDF() {
 
 
 window.addEventListener('DOMContentLoaded', () => {
+    try { renderGlossaryUI(); } catch(e) {}
     try { applySoilPreset('medium_sand'); } catch(e) {}
     try { initLoadingRealisticEarth(); } catch(e) {}
     try { initBackgroundRealisticEarth(); } catch(e) {}
